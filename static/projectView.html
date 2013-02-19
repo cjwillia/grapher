@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="clientApp.js"></script>
+		<script type="text/javascript" src="clientCanvas.js"></script>
+		<link rel="stylesheet" type="text/css" href="projectViewStyle.css">
+	</head>
+    <body>
+    	<h1>Grapher</h1>
+    	<div id="content">
+    		<span id="controlPanel">
+    			<div id="projectSelect" display="block">
+    				<form id="selectProjectId" action="javascript:selectId()">
+    					<input type="text" id="idSelect">
+    					<input type="submit" value="Go to Project">
+    				</form>
+    			</div>
+    			<div id="projectControls" display="none">
+    			</div>
+    		</span>
+    		<span id="canvasPanel">
+    			<canvas id="mainCanvas">
+    			</canvas>
+    		</span>
+    	</div>
+    </body>
+</html>
