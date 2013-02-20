@@ -14,6 +14,12 @@
 var currentProject;
 var numNodes;
 
+// Position object. Pretty simple.
+function Position(x, y){
+    this.x = x;
+    this.y = y;
+}
+
 //The function representing a Node object.
 function Node(name, position){
 	var index = numNodes;
@@ -21,7 +27,7 @@ function Node(name, position){
 	this.position = position;
 	this.desc = "";
 	this.connectors = [];
-	this.delete = function(){
+	this.delete = function() {
 		currentProject.nodes.splice(index, 1);
 	}
 }
@@ -108,7 +114,7 @@ function deleteProject(id){
 }
 
 function initPage(){
-	
+
 }
 
 $(document).ready(initPage);
