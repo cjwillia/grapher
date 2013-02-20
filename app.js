@@ -1,3 +1,5 @@
+// Really important thing
+
 //Main app.js
 
 var express = require("express"); // imports express
@@ -16,6 +18,7 @@ var size = 5;
 app.use(express.bodyParser());
 
 //randomly generates an ID for a project of size "length"
+// e.g. generateID(5) === "xUeA4n"
 function generateID(length){
 	var res = "";
 	var characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -32,9 +35,12 @@ function generateID(length){
 
 //The Object that represents a project
 function Project(name){
+    // "xyz" or some random string
 	this.id = generateID(size);
+    // title of the project, e.g. "237 Term Project"
 	this.name = name;
 	this.nodes = [];
+    // always add new objects to savedProjects
 	savedProjects[this.id] = this;
 }
 
@@ -80,7 +86,9 @@ app.get("/projects/:id", function(request, response){
 		});
 	}
 });
-
+app.get("/static/:staticFilename", function (request, response) {
+    response.sendfile("static/" + request.params.staticFilename);
+});
 //commit a project to the "database"
 app.put("/projects", function(request, response){
 	var name = request.body.name;
@@ -112,6 +120,8 @@ app.post("projects/:id", function(request, response){
 
 	toEdit.name = name;
 	toEdit.nodes = nodes;
+    // why do we only write the most recent changed project?
+    // Why not all projects?
 	writeFile("data.txt", savedProjects, function(){
 		response.send({
 			data : toEdit,
@@ -122,7 +132,6 @@ app.post("projects/:id", function(request, response){
 
 
 //initialize the server
-
 function initServer(){
 	var empty = "{}";
 	readFile("data.txt", empty, function(err, data){
