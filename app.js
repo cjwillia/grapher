@@ -76,12 +76,14 @@ function writeFile(filename, data, callbackFn) {
 app.get("/projects/:id", function(request, response){
 	var id = request.params.id;
 	if(savedProjects[id]){
+		console.log("send the project");
 		response.send({
 			"project" : savedProjects[id],
 			"success" : true
 		});
 	}
 	else{
+		console.log("no such project");
 		response.send({
 			"success" : false
 		});
@@ -100,6 +102,7 @@ app.put("/projects", function(request, response){
 
 	writeFile("data.txt", JSON.stringify(savedProjects), function(){ response.send({
 			id : newProj.id,
+			project:newProj,
 			success: true
 		});
 	});

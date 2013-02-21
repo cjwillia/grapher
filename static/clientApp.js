@@ -13,7 +13,10 @@
 
 var currentProject;
 var numNodes;
-
+function extend(child,parent){
+	child.prototype=new parent();
+	child.prototype.constructor=child;
+}
 // Position object. Pretty simple.
 function Position(x, y){
     this.x = x;
@@ -22,9 +25,15 @@ function Position(x, y){
 
 $(document).ready(function(){
 	$("#newProject").click(function(){
+		console.log("clicked");
 		newProject($("#textfield").val());
-	})
-})
+		$("#textfield").val("");
+	});
+	$("#selectProject").click(function(){
+		getProject($("#idSelect").val());
+		$("idSelect").val("");
+	});
+});
 
 //The function representing a Node object.
 function Node(name, position){
@@ -33,10 +42,20 @@ function Node(name, position){
 	this.position = position;
 	this.desc = "";
 	this.connectors = [];
+	this.setTime=function(start,end){
+		this.start=start;
+		this.end=end;
+	}
 	this.delete = function() {
 		currentProject.nodes.splice(index, 1);
 	}
 }
+function schedule(){};
+extend(schedule,Node);
+schedule.prototype.location="";
+function task(){};
+extend(task,Node);
+
 
 //Adds and returns a node
 function addNode(name, position){
@@ -78,6 +97,7 @@ function getProject(id){
 		url : "/projects/" + id,
 		success : function(data){
 			currentProject = data.project;
+			console.log(currentProject);
 		}
 	});
 }
@@ -89,8 +109,9 @@ function newProject(name){
 		data : {
 			"name" : name
 		},
-		success : function(){
-			console.log("Successfully created project.");
+		success : function(data){
+			currentProject=data.project;
+			console.log(data.project,data.id);
 		}
 	});
 }
