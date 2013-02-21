@@ -98,8 +98,7 @@ app.put("/projects", function(request, response){
 	var name = request.body.name;
 	var newProj = new Project(name);
 
-	writeFile("data.txt", savedProjects, function(){
-		response.send({
+	writeFile("data.txt", JSON.stringify(savedProjects), function(){ response.send({
 			id : newProj.id,
 			success: true
 		});
