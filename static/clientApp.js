@@ -14,6 +14,18 @@
 var currentProject;
 var numNodes;
 
+
+//The Object that represents a project
+function Project(name, id){
+    // "xyz" or some random string
+	this.id = id;
+    // title of the project, e.g. "237 Term Project"
+	this.name = name;
+	this.nodes = [];
+    // always add new objects to savedProjects
+}
+
+
 // Position object. Pretty simple.
 function Position(x, y){
     this.x = x;
@@ -41,7 +53,7 @@ function Node(name, position){
 //Adds and returns a node
 function addNode(name, position){
 	var node = new Node(name, position);
-	currentProject.push(node);
+	currentProject.nodes.push(node);
 	numNodes++;
 	return node;
 }
@@ -89,7 +101,8 @@ function newProject(name){
 		data : {
 			"name" : name
 		},
-		success : function(){
+		success : function(data){
+            currentProject = new Project(name, data.id);
 			console.log("Successfully created project.");
 		}
 	});
@@ -104,7 +117,7 @@ function updateProject(id, name, nodes){
 			"nodes" : nodes
 		},
 		success : function(){
-			console.log("Successfully updated project.");
+			console.log("TODO: implement");
 		}
 	});
 }
@@ -114,13 +127,16 @@ function deleteProject(id){
 		type : "delete",
 		url : "/projects/" + id,
 		success : function(){
-			console.log("Successfully deleted project.");
+			console.log("TODO: implement");
 		}
 	});
 }
 
-function initPage(){
 
+/* Main function called when the page loads. */
+function initPage(){
+    newProject("foo");
+    canvasMain();
 }
 
 $(document).ready(initPage);
