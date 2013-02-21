@@ -87,7 +87,12 @@ app.get("/projects/:id", function(request, response){
 		});
 	}
 });
+//send the static file
+app.get("/static/:file",function(request,response){
+	response.sendfile("static/"+request.params.file);
+	});
 
+	
 //commit a project to the "database"
 app.put("/projects", function(request, response){
 	var name = request.body.name;
