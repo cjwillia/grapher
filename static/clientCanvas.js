@@ -3,7 +3,7 @@
 */
 
 /*
- * 
+ *
  *
  *
  *
@@ -33,8 +33,11 @@ var hackyNamingNumber = 0;
 /* "main" function of the whole canvas. Sets everything up. */
 function canvasMain() {
 
+    // canvas = document.getElementById("mainCanvas");
+    // because JQUERY
+    canvas = $("#mainCanvas")[0];
+
     // select the canvas and ctx
-    canvas = document.getElementById("mainCanvas");
     ctx = canvas.getContext("2d");
 
     // set key listeners
@@ -42,6 +45,7 @@ function canvasMain() {
     canvas.addEventListener('keyup', onKeyUp, false);
     canvas.addEventListener('mousedown', onMouseDown, false);
     canvas.addEventListener('mouseup', onMouseUp, false);
+    canvas.addEventListener('mousemove', onMouseMove, false);
     canvas.setAttribute('tabindex','0');
     canvas.focus();
 
@@ -85,6 +89,13 @@ function onMouseUp(event) {
     // addNode("node" + hackyNamingNumber++, new Position(x, y));
 }
 
+function onMouseMove(event) {
+    console.log("move!");
+    var x = event.offsetX;
+    var y = event.offsetY;
+    console.log(x, y);
+}
+
 
 /* shamelessly copied from the course notes */
 function drawCircle(cx, cy, radius) {
@@ -105,15 +116,13 @@ function drawConnection(x0, y0, x1, y1) {
 }
 
 
-/* The function that does it all: draws every node you have */
+2/* The function that does it all: draws every node you have */
 function drawNodes() {
 
     // first, draw every connection
-    console.log(1);
+
     currentProject.nodes.forEach(function(node) {
-        console.log(2);
-        node.connections.forEach(function(neighbor) {
-            console.log(3);
+        node.connectors.forEach(function(neighbor) {
             drawConnection(node.position.x, node.position.y,
                            neighbor.position.x, neighbor.position.y);
         });
@@ -122,6 +131,6 @@ function drawNodes() {
     // second, draw every node
     ctx.fillStyle = NODE_STYLE;
     currentProject.nodes.forEach(function(node) {
-        drawCircle(node.x, node.y, NODE_RADIUS);
+        drawCircle(node.position.x, node.position.y, NODE_RADIUS);
     });
 }
