@@ -116,7 +116,7 @@ function drawConnection(x0, y0, x1, y1) {
 }
 
 
-2/* The function that does it all: draws every node you have */
+/* The function that does it all: draws every node you have */
 function drawNodes() {
 
     // first, draw every connection
