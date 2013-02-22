@@ -1,8 +1,13 @@
-/* 
+/*
 	TODO: some CSS type stuff.
 */
 
 body{
-	background-color: #222222
+	background-color: #222222;
 }
 
+
+/* make it visible */
+h1 {
+    color: white;
+}

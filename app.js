@@ -94,7 +94,7 @@ app.get("/static/:file",function(request,response){
 	response.sendfile("static/"+request.params.file);
 	});
 
-	
+
 //commit a project to the "database"
 app.put("/projects", function(request, response){
 	var name = request.body.name;
@@ -111,7 +111,7 @@ app.put("/projects", function(request, response){
 //delete a project from the "database"
 app.delete("/projects/:id", function(request, response){
 	savedProjects[request.params.id] = undefined;
-	writeFile("data.txt", savedProjects, function(){
+	writeFile("data.txt", JSON.stringify(savedProjects), function(){
 		response.send({
 			success : true
 		});
@@ -128,7 +128,7 @@ app.post("projects/:id", function(request, response){
 	toEdit.nodes = nodes;
     // why do we only write the most recent changed project?
     // Why not all projects?
-	writeFile("data.txt", savedProjects, function(){
+	writeFile("data.txt", JSON.stringify(savedProjects), function(){
 		response.send({
 			data : toEdit,
 			success : true
