@@ -21,17 +21,53 @@ function extend(child,parent){
 function Position(x, y){
     this.x = x;
     this.y = y;
-}
 
+}
+function switchPanel(A,B){
+	A.css("visibility","visible");
+	B.css("visibility","hidden");
+	
+}
+function onCreateNode(){
+	console.log("onCreateNode");
+}
+function onDelNode(){
+	console.log("onDelNode");
+}
+function onEditNode(){
+	console.log("onEditNode");
+}
+function onAddEdge(){
+	console.log("onAddEdge");
+}
 $(document).ready(function(){
 	$("#newProject").click(function(){
 		console.log("clicked");
-		newProject($("#textfield").val());
-		$("#textfield").val("");
+		if ($("#textfield").val()!==""){
+			newProject($("#textfield").val());
+			$("#textfield").val("");
+			switchPanel($("#projectControls"),$("#projectSelect"));
+		}
+		else{
+			console.log("please type a name");
+		}
 	});
 	$("#selectProject").click(function(){
 		getProject($("#idSelect").val());
-		$("idSelect").val("");
+		$("#idSelect").val("");
+	});
+	$("#addNode").click(function(){
+		onCreateNode();
+	});
+	$("#delNode").click(function(){
+		onDelNode();
+	});
+	$("#editNode").click(function(){
+		onEditNode();
+		$("#editDesc").css("visibility","visible");
+	});
+	$("#addEdge").click(function(){
+		onAddEdge();
 	});
 });
 
@@ -96,9 +132,16 @@ function getProject(id){
 		type : "get",
 		url : "/projects/" + id,
 		success : function(data){
-			currentProject = data.project;
+			if (data.project===undefined){
+				console.log("no such project");
+			}
+			else{
+				currentProject=data.project;
+				switchPanel($("#projectControls"),$("#projectSelect"));
+			}
 			console.log(currentProject);
 		}
+
 	});
 }
 
