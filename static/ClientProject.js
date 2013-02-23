@@ -6,19 +6,21 @@
  * interface
  ***************************************************/
 
-function ClientProject(id, name, nodes) {
+function ClientProject(obj) {
+
+    assert(typeof(obj) === "object");
 
     // string id, like "d0Bp9"
-    this.id = id;
+    this.id = obj.id;
 
     // name, like "project foo"
-    this.name = name;
+    this.name = obj.name;
 
     // maps ClientNode ids to ClientNode objects
-    this.nodes = {};
+    this.nodes = obj.nodes;
 
     // id of the next node to be created
-    this.idCount = 0;
+    this.idCount = obj.idCount;
 
 }
 
