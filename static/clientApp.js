@@ -30,29 +30,63 @@ function extend(child,parent){
 	child.prototype=new parent();
 	child.prototype.constructor=child;
 }
+
+
 // Position object. Pretty simple.
 function Position(x, y){
     this.x = x;
     this.y = y;
-
 }
+
+
+//The function representing a Node object.
+function Node(name, position){
+	var index = numNodes;
+	this.name = name;
+	this.position = position;
+	this.desc = "";
+	this.connectors = [];
+	this.setTime=function(start,end){
+		this.start=start;
+		this.end=end;
+	}
+	this.delete = function() {
+		currentProject.nodes.splice(index, 1);
+	}
+}
+
+
 function switchPanel(A,B){
 	A.css("visibility","visible");
 	B.css("visibility","hidden");
-	
 }
+
+/*******************************************************
+ * node update
+ *******************************************************/
+// these functions are called by the user clicking on the thing at the top
+
+
 function onCreateNode(){
 	console.log("onCreateNode");
 }
+
+
 function onDelNode(){
 	console.log("onDelNode");
 }
+
+
 function onEditNode(){
 	console.log("onEditNode");
 }
+
+
 function onAddEdge(){
 	console.log("onAddEdge");
 }
+
+
 $(document).ready(function(){
 	$("#newProject").click(function(){
 		console.log("clicked");
@@ -84,21 +118,6 @@ $(document).ready(function(){
 	});
 });
 
-//The function representing a Node object.
-function Node(name, position){
-	var index = numNodes;
-	this.name = name;
-	this.position = position;
-	this.desc = "";
-	this.connectors = [];
-	this.setTime=function(start,end){
-		this.start=start;
-		this.end=end;
-	}
-	this.delete = function() {
-		currentProject.nodes.splice(index, 1);
-	}
-}
 function schedule(){};
 extend(schedule,Node);
 schedule.prototype.location="";
@@ -108,16 +127,18 @@ extend(task,Node);
 
 //Adds and returns a node
 function addNode(name, position){
-	var node = new Node(name, position);
+    var node = new Node(name, position);
 	currentProject.nodes.push(node);
 	numNodes++;
-	return node;
+    return node;
 }
+
 
 //Adds a connector between two nodes
 function addConnector(startNode, endNode){
 	startNode.connectors.push(endNode);
 }
+
 
 //removes a connector between two nodes
 function removeConnector(startNode, endNode){
@@ -129,10 +150,12 @@ function removeConnector(startNode, endNode){
 	});
 };
 
+
 //edits a description, this shit is just obvious
 function editDescription(node, newDesc){
 	node.desc = newDesc;
 }
+
 
 //Moves a node to a new position
 function moveNode(node, newPos){
@@ -140,7 +163,9 @@ function moveNode(node, newPos){
 }
 
 
-function getProject(id){
+/* Fetch a project from the server. If callback is given, call it once you get
+ * the project. */
+function getProject(id, callback){
 	$.ajax({
 		type : "get",
 		url : "/projects/" + id,
@@ -152,9 +177,13 @@ function getProject(id){
 				currentProject=data.project;
 				switchPanel($("#projectControls"),$("#projectSelect"));
 			}
-			console.log(currentProject);
-		}
 
+            // console.log(currentProject);
+
+            if (callback !== undefined) {
+                callback();
+            }
+		}
 	});
 }
 
@@ -173,8 +202,11 @@ function newProject(name){
 }
 
 function updateProject(id, name, nodes){
-	$.ajax({
-		type : "post",
+    console.log(id);
+    console.log(name);
+    console.log(nodes);
+
+	$.post({
 		url : "/projects/" + id,
 		data : {
 			"name" : name,
@@ -182,8 +214,12 @@ function updateProject(id, name, nodes){
 		},
 		success : function(){
 			console.log("TODO: implement");
-		}
-	});
+            },
+        failure: function() {
+                console.log("fuck");
+            }
+        });
+
 }
 
 function deleteProject(id){
@@ -199,7 +235,6 @@ function deleteProject(id){
 
 /* Main function called when the page loads. */
 function initPage(){
-    newProject("foo");
     canvasMain();
 }
 

@@ -2,23 +2,6 @@
 	TODO: Implement all the canvas code here.
 */
 
-/*
- *
- *
- *
- *
- *
- * THIS FILE DOESN'T WORK SO DON'T EDIT OR TRY TO USE IT
- *
- *
- *
- *
- *
- *
- *
- *
- */
-
 var NODE_STYLE = "blue";
 var NODE_RADIUS = 25;
 var CONNECTION_STYLE = "green";
@@ -54,6 +37,21 @@ function canvasMain() {
     var off = 0;
     ctx.fillRect(off, off, canvas.width-2*off, canvas.height-2*off);
 
+    // always load in the same project
+    getProject("d0Bp9", function() {
+            currentProject.nodes = [];
+            // currentProject.nodes.push(new Project("c", new Position(10, 10)));
+            // console.log(currentProject);
+
+
+            var x = addNode("apple", new Position(50, 50));
+            var y = addNode("banana", new Position(200, 200));
+            addConnector(x, y);
+            console.log(currentProject);
+            updateProject(currentProject.id, currentProject.name,
+                          currentProject.nodes);
+
+        });
 }
 
 

@@ -1,6 +1,3 @@
-// Other really important thing
-// Really important thing
-
 //Main app.js
 
 var express = require("express"); // imports express
@@ -12,7 +9,8 @@ var fs = require("fs");
 //Data storage object for projects
 var savedProjects;
 
-var size = 5;
+// size of a project id.
+var ID_SIZE = 5;
 
 // the bodyParser middleware allows us to parse the
 // body of a request
@@ -34,16 +32,18 @@ function generateID(length){
 	}
 }
 
+
+// function ServerNode(name, position, desc, connectors) {
+// }
+
 //The Object that represents a project
-function Project(name){
+function ServerProject(name){
     // "xyz" or some random string
 	this.id = generateID(size);
-    // title of the project, e.g. "237 Term Project"
 	this.name = name;
 	this.nodes = [];
-    // always add new objects to savedProjects
-	savedProjects[this.id] = this;
 }
+
 
 // Asynchronously read file contents, then call callbackFn
 // -taken from eebae.js starter file
@@ -59,6 +59,7 @@ function readFile(filename, defaultData, callbackFn) {
   });
 }
 
+
 // Asynchronously write file contents, then call callbackFn
 // -taken from eebae.js starter file
 function writeFile(filename, data, callbackFn) {
@@ -71,6 +72,7 @@ function writeFile(filename, data, callbackFn) {
     if (callbackFn) callbackFn(err);
   });
 }
+
 
 //return the project for a given id
 app.get("/projects/:id", function(request, response){
@@ -89,6 +91,8 @@ app.get("/projects/:id", function(request, response){
 		});
 	}
 });
+
+
 //send the static file
 app.get("/static/:file",function(request,response){
 	response.sendfile("static/"+request.params.file);
@@ -123,6 +127,7 @@ app.post("projects/:id", function(request, response){
 	var name = request.body.name;
 	var nodes = request.body.nodes;
 	var toEdit = savedProjects[request.params.id];
+    console.log("got a post!");
 
 	toEdit.name = name;
 	toEdit.nodes = nodes;
