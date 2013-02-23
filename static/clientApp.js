@@ -14,17 +14,75 @@
 var currentProject;
 var numNodes;
 
+
+//The Object that represents a project
+function Project(name, id){
+    // "xyz" or some random string
+	this.id = id;
+    // title of the project, e.g. "237 Term Project"
+	this.name = name;
+	this.nodes = [];
+    // always add new objects to savedProjects
+}
+
+
+function extend(child,parent){
+	child.prototype=new parent();
+	child.prototype.constructor=child;
+}
 // Position object. Pretty simple.
 function Position(x, y){
     this.x = x;
     this.y = y;
-}
 
+}
+function switchPanel(A,B){
+	A.css("visibility","visible");
+	B.css("visibility","hidden");
+	
+}
+function onCreateNode(){
+	console.log("onCreateNode");
+}
+function onDelNode(){
+	console.log("onDelNode");
+}
+function onEditNode(){
+	console.log("onEditNode");
+}
+function onAddEdge(){
+	console.log("onAddEdge");
+}
 $(document).ready(function(){
 	$("#newProject").click(function(){
-		newProject($("#textfield").val());
-	})
-})
+		console.log("clicked");
+		if ($("#textfield").val()!==""){
+			newProject($("#textfield").val());
+			$("#textfield").val("");
+			switchPanel($("#projectControls"),$("#projectSelect"));
+		}
+		else{
+			console.log("please type a name");
+		}
+	});
+	$("#selectProject").click(function(){
+		getProject($("#idSelect").val());
+		$("#idSelect").val("");
+	});
+	$("#addNode").click(function(){
+		onCreateNode();
+	});
+	$("#delNode").click(function(){
+		onDelNode();
+	});
+	$("#editNode").click(function(){
+		onEditNode();
+		$("#editDesc").css("visibility","visible");
+	});
+	$("#addEdge").click(function(){
+		onAddEdge();
+	});
+});
 
 //The function representing a Node object.
 function Node(name, position){
@@ -33,15 +91,25 @@ function Node(name, position){
 	this.position = position;
 	this.desc = "";
 	this.connectors = [];
+	this.setTime=function(start,end){
+		this.start=start;
+		this.end=end;
+	}
 	this.delete = function() {
 		currentProject.nodes.splice(index, 1);
 	}
 }
+function schedule(){};
+extend(schedule,Node);
+schedule.prototype.location="";
+function task(){};
+extend(task,Node);
+
 
 //Adds and returns a node
 function addNode(name, position){
 	var node = new Node(name, position);
-	currentProject.push(node);
+	currentProject.nodes.push(node);
 	numNodes++;
 	return node;
 }
@@ -77,8 +145,16 @@ function getProject(id){
 		type : "get",
 		url : "/projects/" + id,
 		success : function(data){
-			currentProject = data.project;
+			if (data.project===undefined){
+				console.log("no such project");
+			}
+			else{
+				currentProject=data.project;
+				switchPanel($("#projectControls"),$("#projectSelect"));
+			}
+			console.log(currentProject);
 		}
+
 	});
 }
 
@@ -89,7 +165,8 @@ function newProject(name){
 		data : {
 			"name" : name
 		},
-		success : function(){
+		success : function(data){
+            currentProject = new Project(name, data.id);
 			console.log("Successfully created project.");
 		}
 	});
@@ -104,7 +181,7 @@ function updateProject(id, name, nodes){
 			"nodes" : nodes
 		},
 		success : function(){
-			console.log("Successfully updated project.");
+			console.log("TODO: implement");
 		}
 	});
 }
@@ -114,13 +191,16 @@ function deleteProject(id){
 		type : "delete",
 		url : "/projects/" + id,
 		success : function(){
-			console.log("Successfully deleted project.");
+			console.log("TODO: implement");
 		}
 	});
 }
 
-function initPage(){
 
+/* Main function called when the page loads. */
+function initPage(){
+    newProject("foo");
+    canvasMain();
 }
 
 $(document).ready(initPage);
