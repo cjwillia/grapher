@@ -2,12 +2,14 @@
  * as several function to edit the graph: addNode, addConnector, etc.
  */
 
+
 /***************************************************
  * interface
  ***************************************************/
 
 function ClientProject(obj) {
 
+    console.log(obj);
     assert(typeof(obj) === "object");
 
     // string id, like "d0Bp9"

@@ -3,18 +3,20 @@
 */
 
 var NODE_STYLE = "blue";
+var NEW_NODE_STYLE = "turquoise";
 var NODE_RADIUS = 25;
 var CONNECTION_STYLE = "green";
+var REDRAW_ALL_PERIOD = 30;
 
 var ctx;
 var canvas;
 
-// something I use to auto-generate names
-var hackyNamingNumber = 0;
-
+var canvasData;
+var lastCanvasData;
 
 /* "main" function of the whole canvas. Sets everything up. */
 function canvasMain() {
+
 
     // canvas = document.getElementById("mainCanvas");
     // because JQUERY
@@ -23,75 +25,33 @@ function canvasMain() {
     // select the canvas and ctx
     ctx = canvas.getContext("2d");
 
+    canvasData = new CanvasData();
+    lastCanvasData = canvasData.clone();
+
     // set key listeners
-    canvas.addEventListener('keydown', onKeyDown, false);
-    canvas.addEventListener('keyup', onKeyUp, false);
-    canvas.addEventListener('mousedown', onMouseDown, false);
-    canvas.addEventListener('mouseup', onMouseUp, false);
-    canvas.addEventListener('mousemove', onMouseMove, false);
+    canvas.addEventListener('keydown', function(event) {
+            canvasData.onKeyDown(event);
+        }, false);
+    canvas.addEventListener('keyup', function(event) {
+            canvasData.onKeyUp(event);
+        }, false);
+    canvas.addEventListener('mousedown', function(event) {
+            canvasData.onMouseDown(event);
+        }, false);
+    canvas.addEventListener('mouseup', function(event) {
+            canvasData.onMouseUp(event);
+            if (manager.mode === CREATE_MODE) {
+                manager.project.addNode("clicknode",
+                                        event.offsetX, event.offsetY);
+            }
+        }, false);
+    canvas.addEventListener('mousemove', function(event) {
+            canvasData.onMouseMove(event);
+        }, false);
     canvas.setAttribute('tabindex','0');
     canvas.focus();
 
-    // TODO: remove (just testing)
-    ctx.fillStyle = "red";
-    var off = 0;
-    ctx.fillRect(off, off, canvas.width-2*off, canvas.height-2*off);
-
-    // always load in the same project
-    getProject("d0Bp9", function() {
-            currentProject.nodes = [];
-            // currentProject.nodes.push(new Project("c", new Position(10, 10)));
-            // console.log(currentProject);
-
-
-            var x = addNode("apple", new Position(50, 50));
-            var y = addNode("banana", new Position(200, 200));
-            addConnector(x, y);
-            console.log(currentProject);
-            updateProject(currentProject.id, currentProject.name,
-                          currentProject.nodes);
-
-        });
-}
-
-
-/* Called when they press a key down. */
-function onKeyUp(event) {
-    console.log(event.keyCode + " up!");
-}
-
-/* Called when they lift a key up. */
-function onKeyDown(event) {
-    console.log(event.keyCode + " down!");
-    if (event.keyCode === 65) {
-        drawNodes();
-    }
-}
-
-
-/* Called when they click mouse down. */
-function onMouseDown(event) {
-    console.log("down!");
-    var x = event.offsetX;
-    var y = event.offsetY;
-    console.log(x, y);
-}
-
-
-/* Called when they release mouse. */
-function onMouseUp(event) {
-    console.log("up!");
-    var x = event.offsetX;
-    var y = event.offsetY;
-    console.log(x, y);
-    // addNode("node" + hackyNamingNumber++, new Position(x, y));
-}
-
-function onMouseMove(event) {
-    console.log("move!");
-    var x = event.offsetX;
-    var y = event.offsetY;
-    console.log(x, y);
+    setInterval(redrawAll, REDRAW_ALL_PERIOD);
 }
 
 
@@ -117,18 +77,56 @@ function drawConnection(x0, y0, x1, y1) {
 /* The function that does it all: draws every node you have */
 function drawNodes() {
 
-    // first, draw every connection
+    assert(manager.hasProject());
 
-    currentProject.nodes.forEach(function(node) {
-        node.connectors.forEach(function(neighbor) {
-            drawConnection(node.position.x, node.position.y,
-                           neighbor.position.x, neighbor.position.y);
-        });
-    });
+    // first, draw every connection
+    var nodeId;
+    for (nodeId in manager.project.nodes) {
+        var node = manager.project.nodes[nodeId];
+        node.connectors.forEach(function(neighborId) {
+                var neighbor = manager.project.nodes[neighborId];
+                drawConnection(node.x, node.y, neighbor.x, neighbor.y);
+            });
+    }
 
     // second, draw every node
     ctx.fillStyle = NODE_STYLE;
-    currentProject.nodes.forEach(function(node) {
-        drawCircle(node.position.x, node.position.y, NODE_RADIUS);
-    });
+    for (nodeId in manager.project.nodes) {
+        var node = manager.project.nodes[nodeId];
+        drawCircle(node.x, node.y, NODE_RADIUS);
+    }
+}
+
+/* A temporary function to change the state based on keyboard input. */
+function hackyStateChanger() {
+
+    if (canvasData.keyPressed(66) && !lastCanvasData.keyPressed(66)) {
+        if (manager.mode === NO_MODE) {
+            manager.mode = CREATE_MODE;
+        } else {
+            manager.mode = NO_MODE;
+        }
+    }
+}
+
+/* All drawings on the canvas should come from here. Nowhere else. */
+function redrawAll() {
+
+    if (manager.hasProject()) {
+        hackyStateChanger();
+
+        ctx.fillStyle = "red";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        drawNodes();
+
+        console.log(manager);
+        if (manager.mode === CREATE_MODE) {
+            ctx.fillStyle = NEW_NODE_STYLE;
+            drawCircle(canvasData.mouseX, canvasData.mouseY, NODE_RADIUS);
+        }
+    }
+
+    lastCanvasData = canvasData.clone();
+
 }

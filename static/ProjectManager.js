@@ -4,6 +4,9 @@
  * project, use ProjectManager.project.addNode(), etc.
  */
 
+var NO_MODE = "no mode";
+var CREATE_MODE = "create mode";
+
 /***************************************************
  * interface
  ***************************************************/
@@ -13,6 +16,8 @@ function ProjectManager() {
     // ClientProject object. null means no project.
     this.project = null;
 
+    // are you creating a mode? creating an edge? doing nothing?
+    this.mode = NO_MODE;
 }
 
 /* all functions are implemented further below. */
@@ -47,15 +52,20 @@ ProjectManager.prototype.getProject = function(projectId, callback) {
 
 	$.ajax({
 		type : "get",
-		url : "/projects/" + projectId,
+		url : "/projects",
+        data: {
+                "id": projectId
+            },
 		success : function(data) {
-                this.project = new ClientProject(data.project);
-                switchPanel($("#projectControls"),$("#projectSelect"));
-
-                if (callback) {
-                    callback();
+                if (data.success) {
+                    console.log("success! Found a project.");
+                    this.project = new ClientProject(data.project);
+                    switchPanel($("#projectControls"),$("#projectSelect"));
+                    if (callback) {
+                        callback();
+                    }
                 }
-            }
+            }.bind(this)
         });
 
 };

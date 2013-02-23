@@ -11,6 +11,63 @@ app.use(express.bodyParser());
 //Data storage object for projects.
 var savedProjects;
 
+
+/***************************************************
+ * ServerProject
+ ***************************************************/
+
+/* Stores all the information you need for a project, to be stored on the
+ * server. Note that because the server has to be JSON-able, it can't have any
+ * methods. */
+
+function ServerProject(id, name) {
+
+    // string id, like "d0Bp9"
+    this.id = id;
+
+    // name, like "project foo"
+    this.name = name;
+
+    // maps ServerNode ids to ServerNode objects
+    this.nodes = {};
+
+    // id of the next node to be created
+    this.idCount = 0;
+
+}
+
+
+/***************************************************
+ * ServerNode
+ ***************************************************/
+
+
+/* Node object, to be stored on the server. Since the client makes nodes, it
+ * gets passed in a client node, rather than its fields. */
+
+function ServerNode(obj) {
+
+    // number id, like 872
+    this.id = obj.id;
+
+    // name, like "write report"
+    this.name = obj.name;
+
+    // description, like "Write the report previously emailed. Double-spaced."
+    this.desc = obj.desc;
+
+    // x, y locaion location
+    this.x = obj.x;
+    this.y = obj.y;
+
+    // list of ids of nodes you're connected to
+    this.connectors = obj.connectors;
+
+}
+
+
+
+
 /***************************************************
  * main/initialization
  ***************************************************/
@@ -54,6 +111,24 @@ app.get("/projects/:id", function(request, response){
 	}
 });
 
+app.get("/projects", function(request, response) {
+
+        // Why yes, you heard right. It IS request.query, for some reason
+        var id = request.query.id;
+        var project = savedProjects[id];
+
+        if (project) {
+            response.send({
+                    "success" : true,
+                    "project" : project
+            });
+        } else {
+            response.send({
+                    "success" : false
+            });
+        }
+});
+
 
 /***************************************************
  * put
@@ -64,6 +139,8 @@ app.get("/projects/:id", function(request, response){
 app.put("/projects", function(request, response){
 	var name = request.body.name;
 	var newProj = new ServerProject(generateID(), name);
+
+    savedProjects[newProj.id] = newProj;
 
 	writeFile("data.txt", JSON.stringify(savedProjects));
 

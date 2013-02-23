@@ -1,8 +1,15 @@
 <html>
 	<head>
-		<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
-		<script type="text/javascript" src="clientApp.js"></script>
-		<script type="text/javascript" src="clientCanvas.js"></script>
+
+	  <script type="text/javascript" src="jquery-1.9.1.js"></script>
+      <script type="text/javascript" src="assert.js"></script>
+      <script type="text/javascript" src="ClientNode.js"></script>
+      <script type="text/javascript" src="ClientProject.js"></script>
+      <script type="text/javascript" src="ProjectManager.js"></script>
+      <script type="text/javascript" src="clientApp.js"></script>
+      <script type="text/javascript" src="clientCanvas.js"></script>
+      <script type="text/javascript" src="CanvasData.js"></script>
+
 		<link rel="stylesheet" type="text/css" href="projectViewStyle.css">
 	</head>
     <body>
@@ -10,7 +17,7 @@
     	<div id="content">
     		<span id="controlPanel">
     			<div id="projectSelect">
-    				<form> 
+    				<form>
     					<input id="idSelect" type="text">
     					<input id="selectProject" type="button" value="Go to Project">
     				</form>
@@ -35,11 +42,11 @@
 							</form>
 						</div>
 						<div id="showDesc"></div>
-						</span>	
+						</span>
     			</div>
     		</span>
     		<span id="canvasPanel">
-    			<canvas id="mainCanvas" width="800" height="400" style="border:5px solid #000000">
+    			<canvas id="mainCanvas" width="600" height="400" style="border:5px solid #000000">
     			</canvas>
     		</span>
     	</div>
