@@ -44,6 +44,9 @@ function canvasMain() {
                 manager.project.addNode("clicknode",
                                         event.offsetX, event.offsetY);
             }
+            else if(manager.mode === DELETE_MODE) {
+                manager.project.deleteNode(event.offsetX, event.offsetY);
+            }
         }, false);
     canvas.addEventListener('mousemove', function(event) {
             canvasData.onMouseMove(event);
@@ -85,30 +88,42 @@ function drawNodes() {
     assert(manager.hasProject());
 
     // first, draw every connection
-    var nodeId;
-    for (nodeId in manager.project.nodes) {
+    Object.keys(manager.project.nodes).forEach(function(nodeId) {
         var node = manager.project.nodes[nodeId];
-        node.connectors.forEach(function(neighborId) {
-                var neighbor = manager.project.nodes[neighborId];
-                drawConnection(node.x, node.y, neighbor.x, neighbor.y);
-            });
-    }
+        if(node){
+            node.connectors.forEach(function(neighborId) {
+                    var neighbor = manager.project.nodes[neighborId];
+                    drawConnection(node.x, node.y, neighbor.x, neighbor.y);
+                });
+        }
+    });
 
     // second, draw every node
     ctx.fillStyle = NODE_STYLE;
-    for (nodeId in manager.project.nodes) {
+    Object.keys(manager.project.nodes).forEach(function(nodeId){
         var node = manager.project.nodes[nodeId];
         drawCircle(node.x, node.y, NODE_RADIUS);
-    }
+    });
 }
 
 /* A temporary function to change the state based on keyboard input. */
 function hackyStateChanger() {
 
     if (canvasData.keyPressed(66) && !lastCanvasData.keyPressed(66)) {
-        if (manager.mode === NO_MODE) {
+        if (manager.mode !== CREATE_MODE) {
             manager.mode = CREATE_MODE;
-        } else {
+        }
+        
+        else {
+            manager.mode = NO_MODE;
+        }
+    }
+    else if(canvasData.keyPressed(68) && !lastCanvasData.keyPressed(68)) {
+        if(manager.mode !== DELETE_MODE){
+            manager.mode = DELETE_MODE;
+            console.log("I'M GONNA WRECK IT.");
+        }
+        else{
             manager.mode = NO_MODE;
         }
     }
@@ -118,16 +133,21 @@ function hackyStateChanger() {
 function redrawAll() {
 
     if (manager.hasProject()) {
-        hackyStateChanger();
+        if(!manager.deleting){
+            hackyStateChanger();
 
-        ctx.fillStyle = "red";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "red";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        drawNodes();
+            drawNodes();
 
-        if (manager.mode === CREATE_MODE) {
-            ctx.fillStyle = NEW_NODE_STYLE;
-            drawCircle(canvasData.mouseX, canvasData.mouseY, NODE_RADIUS);
+            if (manager.mode === CREATE_MODE) {
+                ctx.fillStyle = NEW_NODE_STYLE;
+                drawCircle(canvasData.mouseX, canvasData.mouseY, NODE_RADIUS);
+            }
+            else if (manager.mode === DELETE_MODE) {
+
+            }
         }
     }
 

@@ -10,8 +10,9 @@ body{
 }
 #controlBox{
 	width: 500px;
+	float: left;
 }
 #nodeDesc{
-	visibility:hidden;
 	width: 500px;
+	float: left;
 }

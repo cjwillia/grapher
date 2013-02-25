@@ -42,6 +42,12 @@ ClientProject.prototype.editDescription = function(nodeId, newDesc) {};
 // Move a node to a new location.
 ClientProject.prototype.moveNode = function(nodeId, newX, newY) {};
 
+//Find a node by its (x, y) position.
+ClientProject.prototype.findNodeByPosition = function(x, y) {};
+
+// Delete a node
+ClientProject.prototype.deleteNode = function(x, y) {};
+
 
 // Make a simple object version of this.
 ClientProject.prototype.safeClone = function() {};
@@ -85,6 +91,41 @@ ClientProject.prototype.editDescription = function(nodeId, newDesc) {
 ClientProject.prototype.moveNode = function(nodeId, newX, newY) {
     this.nodes[nodeId].x = newX;
     this.nodes[nodeId].y = newY;
+};
+
+
+ClientProject.prototype.findNodeByPosition = function(x, y) {
+    var nodes = this.nodes;
+    var nodeFound = false;
+    var nodeId;
+    Object.keys(nodes).forEach(function(key){
+        var node = nodes[key];
+        var minX = node.x - 25;
+        var maxX = node.x + 25;
+        var minY = node.y - 25;
+        var maxY = node.y + 25;
+
+        if(x >= minX && x <= maxX && y >= minY && y <= maxY){
+            nodeId = node.id;
+            nodeFound = true;
+        }
+    });
+    if(nodeFound){
+        return nodeId;
+    }
+    return false;
+};
+
+ClientProject.prototype.deleteNode = function(x, y) {
+    this.deleting = true;
+
+    var toDelete = this.findNodeByPosition(x, y);
+    console.log("toDelete", toDelete);
+    if(toDelete !== false){
+        console.log('deleted');
+        delete(this.nodes[toDelete]);
+    }
+    this.deleting = false;
 };
 
 ClientProject.prototype.safeClone = function() {
