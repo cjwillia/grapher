@@ -7,6 +7,7 @@ var NEW_NODE_STYLE = "turquoise";
 var NODE_RADIUS = 25;
 var CONNECTION_STYLE = "green";
 var REDRAW_ALL_PERIOD = 30;
+var UPDATE_SERVER_PERIOD = 10*1000;
 
 var ctx;
 var canvas;
@@ -16,7 +17,6 @@ var lastCanvasData;
 
 /* "main" function of the whole canvas. Sets everything up. */
 function canvasMain() {
-
 
     // canvas = document.getElementById("mainCanvas");
     // because JQUERY
@@ -52,6 +52,11 @@ function canvasMain() {
     canvas.focus();
 
     setInterval(redrawAll, REDRAW_ALL_PERIOD);
+
+    setInterval(function() {
+        manager.updateProject();
+    }, UPDATE_SERVER_PERIOD);
+
 }
 
 
@@ -120,7 +125,6 @@ function redrawAll() {
 
         drawNodes();
 
-        console.log(manager);
         if (manager.mode === CREATE_MODE) {
             ctx.fillStyle = NEW_NODE_STYLE;
             drawCircle(canvasData.mouseX, canvasData.mouseY, NODE_RADIUS);

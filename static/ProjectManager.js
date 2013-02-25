@@ -54,20 +54,21 @@ ProjectManager.prototype.getProject = function(projectId, callback) {
 		type : "get",
 		url : "/projects",
         data: {
-                "id": projectId
-            },
+            "id": projectId
+        },
 		success : function(data) {
-                if (data.success) {
-                    console.log("success! Found a project.");
-                    this.project = new ClientProject(data.project);
-                    switchPanel($("#projectControls"),$("#projectSelect"));
-                    if (callback) {
-                        callback();
-                    }
-                }
-            }.bind(this)
-        });
-
+            if (data.success) {
+                console.log("success! Found a project.");
+                this.project = new ClientProject(data.project);
+                switchPanel($("#projectControls"),$("#projectSelect"));
+            } else {
+                console.log("Dang, didn't find a project.");
+            }
+            if (callback) {
+                callback();
+            }
+        }.bind(this)
+    });
 };
 
 ProjectManager.prototype.newProject = function(projectName, callback) {
@@ -76,17 +77,17 @@ ProjectManager.prototype.newProject = function(projectName, callback) {
 		type : "put",
 		url : "/projects",
 		data : {
-                "name" : projectName
-            },
+            "name" : projectName
+        },
 		success : function(data) {
-                this.project = new ClientProject(data.project);
-                console.log("Successfully created project.");
+            this.project = new ClientProject(data.project);
+            console.log("Successfully created project.");
 
-                if (callback) {
-                    callback();
-                }
+            if (callback) {
+                callback();
             }
-        });
+        }.bind(this)
+    });
 
 };
 
@@ -94,17 +95,18 @@ ProjectManager.prototype.updateProject = function(callback) {
 
     assert(this.hasProject());
 
-    $.post({
-		url : "/projects/" + id,
+    $.ajax({
+		url : "/projects",
+        type: "post",
 		data : {
-                "project" : this.project
-            },
+            "project" : JSON.stringify(this.project.safeClone())
+        },
 		success : function() {
-                if (callback) {
-                    callback();
-                }
+            if (callback) {
+                callback();
             }
-        });
+        }
+    });
 
 };
 
@@ -116,13 +118,13 @@ ProjectManager.prototype.deleteProject = function(callback) {
 		type : "delete",
 		url : "/projects/" + this.project.id,
 		success : function(){
-                throw "server not implemented";
-                this.project = null;
-                if (callback) {
-                    callback();
-                }
+            throw "server not implemented";
+            this.project = null;
+            if (callback) {
+                callback();
             }
-        });
+        }
+    });
 
 
 

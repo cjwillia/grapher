@@ -9,7 +9,6 @@
 
 function ClientProject(obj) {
 
-    console.log(obj);
     assert(typeof(obj) === "object");
 
     // string id, like "d0Bp9"
@@ -44,12 +43,16 @@ ClientProject.prototype.editDescription = function(nodeId, newDesc) {};
 ClientProject.prototype.moveNode = function(nodeId, newX, newY) {};
 
 
+// Make a simple object version of this.
+ClientProject.prototype.safeClone = function() {};
+
 /***************************************************
  * implementation
  ***************************************************/
 
 
 ClientProject.prototype.addNode = function(name, x, y) {
+
     assert(x >= 0 && y >= 0);
 
     var id = this.idCount;
@@ -82,4 +85,17 @@ ClientProject.prototype.editDescription = function(nodeId, newDesc) {
 ClientProject.prototype.moveNode = function(nodeId, newX, newY) {
     this.nodes[nodeId].x = newX;
     this.nodes[nodeId].y = newY;
+};
+
+ClientProject.prototype.safeClone = function() {
+    var obj = {};
+    obj.id = this.id;
+    obj.name = this.name;
+    obj.nodes = {};
+    for (nodeId in this.nodes) {
+        obj.nodes[nodeId] = this.nodes[nodeId].safeClone();
+    }
+    assert(typeof obj.nodes === "object");
+    obj.idCount = this.idCount;
+    return obj;
 };

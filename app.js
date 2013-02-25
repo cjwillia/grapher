@@ -20,19 +20,19 @@ var savedProjects;
  * server. Note that because the server has to be JSON-able, it can't have any
  * methods. */
 
-function ServerProject(id, name) {
+function ServerProject(obj) {
 
     // string id, like "d0Bp9"
-    this.id = id;
+    this.id = obj.id;
 
     // name, like "project foo"
-    this.name = name;
+    this.name = obj.name;
 
     // maps ServerNode ids to ServerNode objects
-    this.nodes = {};
+    this.nodes = obj.nodes;
 
     // id of the next node to be created
-    this.idCount = 0;
+    this.idCount = obj.idCount;
 
 }
 
@@ -78,8 +78,8 @@ function initServer() {
     // While I wait for server response, there are no projects.
     savedProjects = {};
 	readFile("data.txt", JSON.stringify({}), function(err, data) {
-            savedProjects = JSON.parse(data);
-        });
+        savedProjects = JSON.parse(data);
+    });
 }
 
 
@@ -90,7 +90,7 @@ function initServer() {
 
 //send the static file
 app.get("/static/:file", function(request, response) {
-        response.sendfile("static/" + request.params.file);
+    response.sendfile("static/" + request.params.file);
 });
 
 //return the project for a given id
@@ -113,20 +113,24 @@ app.get("/projects/:id", function(request, response){
 
 app.get("/projects", function(request, response) {
 
-        // Why yes, you heard right. It IS request.query, for some reason
-        var id = request.query.id;
-        var project = savedProjects[id];
+    // Why yes, you heard right. It IS request.query, for some reason
+    var id = request.query.id;
+    var project = savedProjects[id];
 
-        if (project) {
-            response.send({
-                    "success" : true,
-                    "project" : project
-            });
-        } else {
-            response.send({
-                    "success" : false
-            });
-        }
+    console.log("found project:");
+    console.log(project);
+    console.log("");
+
+    if (project) {
+        response.send({
+            "success" : true,
+            "project" : project
+        });
+    } else {
+        response.send({
+            "success" : false
+        });
+    }
 });
 
 
@@ -138,7 +142,13 @@ app.get("/projects", function(request, response) {
 //commit a project to the database
 app.put("/projects", function(request, response){
 	var name = request.body.name;
-	var newProj = new ServerProject(generateID(), name);
+	var newProj = new ServerProject({
+        id: generateID(),
+        name: name,
+        nodes: {},
+        idCount: 0
+    });
+
 
     savedProjects[newProj.id] = newProj;
 
@@ -157,14 +167,15 @@ app.put("/projects", function(request, response){
 
 
 //edit a project in the database
-app.post("projects/:id", function(request, response){
+app.post("/projects", function(request, response){
 
-    savedProjects[request.params.id] = request.body.project;
+    var newProject = new ServerProject(JSON.parse(request.body.project));
+
+    savedProjects[newProject.id] = newProject;
 
 	writeFile("data.txt", JSON.stringify(savedProjects));
 
     response.send({
-        data : toEdit,
         success : true
     });
 
@@ -179,12 +190,12 @@ app.post("projects/:id", function(request, response){
 
 //delete a project from the "database"
 app.delete("/projects/:id", function(request, response){
-        delete savedProjects[request.params.id];
-        writeFile("data.txt", JSON.stringify(savedProjects));
-        response.send({
-            success : true
-        });
+    delete savedProjects[request.params.id];
+    writeFile("data.txt", JSON.stringify(savedProjects));
+    response.send({
+        success : true
     });
+});
 
 
 /***************************************************
@@ -232,14 +243,14 @@ function generateID(){
 // -taken from eebae.js starter file
 function readFile(filename, defaultData, callbackFn) {
     fs.readFile(filename, function(err, data) {
-            if (err) {
-                console.log("Error reading file: ", filename);
-                data = defaultData;
-            } else {
-                console.log("Success reading file: ", filename);
-            }
-            if (callbackFn) callbackFn(err, data);
-        });
+        if (err) {
+            console.log("Error reading file: ", filename);
+            data = defaultData;
+        } else {
+            console.log("Success reading file: ", filename);
+        }
+        if (callbackFn) callbackFn(err, data);
+    });
 }
 
 
@@ -247,11 +258,11 @@ function readFile(filename, defaultData, callbackFn) {
 // -taken from eebae.js starter file
 function writeFile(filename, data, callbackFn) {
     fs.writeFile(filename, data, function(err) {
-            if (err) {
-                console.log("Error writing file: ", filename);
-            } else {
-                console.log("Success writing file: ", filename);
-            }
-            if (callbackFn) callbackFn(err);
-        });
+        if (err) {
+            console.log("Error writing file: ", filename);
+        } else {
+            console.log("Success writing file: ", filename);
+        }
+        if (callbackFn) callbackFn(err);
+    });
 }

@@ -11,7 +11,6 @@ var manager;
 /* Main function called when the page loads. */
 function initPage(){
     manager = new ProjectManager();
-    canvasMain();
 }
 
 
@@ -49,7 +48,11 @@ $(document).ready(function(){
 	$("#newProject").click(function(){
 		console.log("clicked");
 		if ($("#textfield").val()!==""){
-			manager.newProject($("#textfield").val());
+			manager.newProject($("#textfield").val(), function() {
+                if (manager.hasProject()) {
+                    canvasMain();
+                }
+            });
 			$("#textfield").val("");
 			switchPanel($("#projectControls"),$("#projectSelect"));
 		}
@@ -58,7 +61,11 @@ $(document).ready(function(){
 		}
 	});
 	$("#selectProject").click(function(){
-		manager.getProject($("#idSelect").val());
+		manager.getProject($("#idSelect").val(), function() {
+            if (manager.hasProject()) {
+                canvasMain();
+            }
+        });
 		$("#idSelect").val("");
 	});
 	$("#addNode").click(function(){

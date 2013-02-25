@@ -26,3 +26,17 @@ function ClientNode(id, name, x, y) {
     this.connectors = [];
 
 }
+
+ClientNode.prototype.safeClone = function() {
+    var obj = {};
+    obj.id = this.id;
+    obj.name = this.name;
+    obj.desc = this.desc;
+    obj.x = this.x;
+    obj.y = this.y;
+    obj.connectors = [];
+    this.connectors.forEach(function(connector) {
+        obj.connectors.push(connector);
+    });
+    return obj;
+};
