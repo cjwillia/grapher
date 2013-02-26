@@ -7,6 +7,7 @@
 var NO_MODE = "no mode";
 var CREATE_MODE = "create mode";
 var DELETE_MODE = "delete mode";
+var CONNECTOR_MODE = "connector mode";
 
 /***************************************************
  * interface

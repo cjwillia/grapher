@@ -17,6 +17,8 @@ var lastCanvasData;
 var overNode;
 var hoveredNodeId;
 
+var connectorStartNode;
+
 /* "main" function of the whole canvas. Sets everything up. */
 function canvasMain() {
 
@@ -48,6 +50,18 @@ function canvasMain() {
             }
             else if(manager.mode === DELETE_MODE) {
                 manager.project.deleteNode(event.offsetX, event.offsetY);
+            }
+            else if(manager.mode === CONNECTOR_MODE) {
+                if(!connectorStartNode){
+                    connectorStartNode = manager.project.findNodeByPosition(event.offsetX, event.offsetY);
+                }
+                else{
+                    var possibleEndNode = manager.project.findNodeByPosition(event.offsetX, event.offsetY);
+                    if(possibleEndNode){
+                        manager.project.addConnector(connectorStartNode, possibleEndNode);
+                    }
+                    connectorStartNode = undefined;
+                }
             }
         }, false);
     canvas.addEventListener('mousemove', function(event) {
@@ -112,6 +126,15 @@ function drawNodes() {
                 if(manager.mode == DELETE_MODE){
                     ctx.fillStyle = "red";
                 }
+                else if(manager.mode == CONNECTOR_MODE){
+                    ctx.fillStyle = "yellow";
+                }
+            }
+            
+        }
+        if(connectorStartNode){
+            if(connectorStartNode.toString() == nodeId.toString()){
+                ctx.fillStyle = "green";
             }
         }
         drawCircle(node.x, node.y, NODE_RADIUS);
@@ -134,7 +157,14 @@ function hackyStateChanger() {
     else if(canvasData.keyPressed(68) && !lastCanvasData.keyPressed(68)) {
         if(manager.mode !== DELETE_MODE){
             manager.mode = DELETE_MODE;
-            console.log("I'M GONNA WRECK IT.");
+        }
+        else{
+            manager.mode = NO_MODE;
+        }
+    }
+    else if(canvasData.keyPressed(67) && !lastCanvasData.keyPressed(67)) {
+        if(manager.mode !== CONNECTOR_MODE){
+            manager.mode = CONNECTOR_MODE;
         }
         else{
             manager.mode = NO_MODE;
