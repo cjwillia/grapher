@@ -40,6 +40,7 @@ function canvasMain() {
             canvasData.onKeyUp(event);
         }, false);
     canvas.addEventListener('mousedown', function(event) {
+            console.log(manager.project);
             canvasData.onMouseDown(event);
         }, false);
     canvas.addEventListener('mouseup', function(event) {
@@ -67,7 +68,7 @@ function canvasMain() {
     canvas.addEventListener('mousemove', function(event) {
             canvasData.onMouseMove(event);
             hoveredNodeId = manager.project.findNodeByPosition(event.offsetX, event.offsetY)
-            if(hoveredNodeId){
+            if(hoveredNodeId !== undefined){
                 overNode = true;
             }
             else{
@@ -130,7 +131,7 @@ function drawNodes() {
                     ctx.fillStyle = "yellow";
                 }
             }
-            
+
         }
         if(connectorStartNode){
             if(connectorStartNode.toString() == nodeId.toString()){
@@ -149,7 +150,7 @@ function hackyStateChanger() {
         if (manager.mode !== CREATE_MODE) {
             manager.mode = CREATE_MODE;
         }
-        
+
         else {
             manager.mode = NO_MODE;
         }
@@ -190,7 +191,7 @@ function redrawAll() {
 
             ctx.fillStyle = "grey";
             if(checkSave()){
-                ctx.fillStyle = "white";    
+                ctx.fillStyle = "white";
             }
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
