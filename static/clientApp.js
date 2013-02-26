@@ -88,6 +88,6 @@ $(document).ready(function(){
 
 
 function switchPanel(A,B){
-	A.css("visibility","visible");
-	B.css("visibility","hidden");
+	A.css("display","block");
+	B.css("display","none");
 }

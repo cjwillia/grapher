@@ -5,14 +5,45 @@
 body{
 	background-color: #dddddd
 }
+h1{
+  background-color: #666666
+}
+#projectSelect{
+  text-align:center;
+  margin-top:20%
+}
+#idSelect,#selectProject,#textfield,#newProject{
+  font-size:200%
+}
 #projectControls{
-	visibility: hidden;
+	display: none;
 }
 #controlBox{
-	width: 500px;
+	width: 50%;
 	float: left;
 }
 #nodeDesc{
-	width: 500px;
+	width: 50%;
 	float: left;
+}
+#nodeTitle{
+  margin-bottom:30px;
+  display:block
+}
+#nodeTitle,#descText{
+  border:none
+}
+.button{
+  padding:5px;
+  background-color: #333333;
+  border: 1px solid #666;
+  color:#eeeeee;
+  cursor: pointer;
+  text-align: center;
+  border-radius: .5em;
+  text-decoration:none;
+}
+#mainCanvas{
+  display:none;
+  margin:0px auto 
 }
