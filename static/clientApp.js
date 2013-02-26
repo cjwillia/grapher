@@ -51,7 +51,7 @@ $(document).ready(function(){
 	$("#newProject").click(function(){
 		console.log("clicked");
 		if ($("#textfield").val()!==""){
-			manager.newProject($("#textfield").val(), function() {
+			manager.findProject($("#textfield").val(), function() {
                 if (manager.hasProject()) {
                     canvasMain();
                 }
@@ -102,7 +102,7 @@ function displayNode(curNode){
 	$("#curName").html(name);
 	$("#curHolder").html("by "+desc);
 	$("#curTime").html(start+" to "+end);
-	$("#curDesc").html(desc); 
+	$("#curDesc").html(desc);
 }
 function switchPanel(A,B){
 	A.css("display","block");

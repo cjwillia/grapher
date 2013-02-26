@@ -133,6 +133,33 @@ app.get("/projects", function(request, response) {
     }
 });
 
+// user tries to get a project by name and not id
+app.get("/find", function(request, response) {
+
+
+    var name = request.query.id;
+    console.log("trying to find project " + name);
+    for (var id in savedProjects) {
+        if (savedProjects[id].name === name) {
+            var project = savedProjects[id];
+        }
+    }
+
+    if (project) {
+        console.log("found project!");
+        response.send({
+            "success" : true,
+            "project" : project
+        });
+    } else {
+        console.log("didn't find project...");
+        response.send({
+            "success" : false
+        });
+    }
+
+});
+
 
 /***************************************************
  * put

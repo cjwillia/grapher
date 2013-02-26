@@ -41,6 +41,9 @@ ProjectManager.prototype.updateProject = function(callback) {};
 // Delete this project, and tell the server.
 ProjectManager.prototype.deleteProject = function(callback) {};
 
+// Try to find the project in the database by name. If no such project exists,
+// make a new one.
+ProjectManager.prototype.findProject = function(projectName, callback) {};
 
 /***************************************************
  * implementation
@@ -128,7 +131,32 @@ ProjectManager.prototype.deleteProject = function(callback) {
             }
         }
     });
+};
 
 
+ProjectManager.prototype.findProject = function(projectName, callback) {
+
+
+	$.ajax({
+		type : "get",
+		url : "/find",
+        data: {
+            "name": projectName
+        },
+		success : function(data) {
+            if (data.success) {
+                console.log("Found a project by the name of " + projectName);
+                this.project = new ClientProject(data.project);
+                switchPanel($("#projectControls"),$("#projectSelect"));
+                if (callback) {
+                    callback();
+                }
+            } else {
+                console.log("Didn't find a project by name of " + projectName);
+                console.log("So I'll make a new one.");
+                this.newProject(projectName, callback);
+            }
+        }.bind(this)
+    });
 
 };
