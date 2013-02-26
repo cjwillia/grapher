@@ -40,6 +40,9 @@ function onAddEdge(){
     manager.mode = CONNECTOR_MODE;
 }
 
+function onSelectNode(){
+	manager.mode = NO_MODE;
+}
 /***************************************************
  * jquery and button stuff
  ***************************************************/
@@ -88,6 +91,8 @@ $(document).ready(function(){
 	$("#addEdge").click(function(){
 		onAddEdge();
 	});
+
+	$("#selectNode").click(onSelectNode);
 
     // and last but not least, run the main function
     initPage();
