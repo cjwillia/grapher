@@ -7,6 +7,7 @@ var NEW_NODE_STYLE = "turquoise";
 var NODE_RADIUS = 25;
 var CONNECTION_STYLE = "green";
 var REDRAW_ALL_PERIOD = 30;
+var NODE_NAME_STYLE = "white";
 
 var ctx;
 var canvas;
@@ -126,6 +127,14 @@ function drawNodes() {
     ctx.fillStyle = NODE_STYLE;
     Object.keys(manager.project.nodes).forEach(function(nodeId){
         var node = manager.project.nodes[nodeId];
+
+        // draw the node's name
+        ctx.fillStyle = NODE_NAME_STYLE;
+        ctx.textAlign = "center";
+        ctx.textBase = "bottom";
+        ctx.fillText(node.name, node.x, node.y - NODE_RADIUS - 5);
+
+        ctx.fillStyle = NODE_STYLE;
         if(overNode){
             if(nodeId.toString() == hoveredNodeId.toString()){
                 if(manager.mode == DELETE_MODE){
