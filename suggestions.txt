@@ -1,0 +1,10 @@
+lydia
+visualization -circle shadow
+detect the data that expired
+settings:choose the color 
+cross teams
+
+kevon
+google calendar
+show the graph like a time flow,divided by time frame grids 
+
