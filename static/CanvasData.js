@@ -4,6 +4,7 @@ function CanvasData() {
     this.mousePressed = false;
     this.mouseX = 0;
     this.mouseY = 0;
+    // this.lastMouseX
     this.keys = {};
 }
 

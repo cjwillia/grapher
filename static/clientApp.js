@@ -71,15 +71,13 @@ $(document).ready(function(){
 
     // if they hit enter on findProject, continue
     // copied from http://stackoverflow.com/questions/4418819
-    $("#textfield").keydown(function() {
+    $("#textfield").keydown(function(event) {
         if (event.keyCode == 13) {
             submitFindProject();
             // why return false? no idea, but removing it breaks things
             return false;
          }
     }).focus(); // also, focus on textarea to begin with (a la google)
-
-
 
 	$("#selectProject").click(function(){
 		manager.getProject($("#idSelect").val(), function() {
@@ -109,6 +107,8 @@ $(document).ready(function(){
 
 	$("#selectNode").click(onSelectNode);
 
+    // when they click on the save button, save your changes!
+    // Then, the description-editting thing disappear.
     $("#saveDesc").click(function(){
 	    var name=$("#nodeTitle").val();
 	    var desc=$("#descText").val();

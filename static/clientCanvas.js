@@ -22,6 +22,7 @@ var connectorStartNode;
 
 var currentSelectedNode;
 
+// whether or not you're moving the currently selected node ir not
 var movingNode;
 var lastMouseX;
 var lastMouseY;
@@ -70,12 +71,15 @@ function canvasMain() {
             }
             else if(manager.mode === CONNECTOR_MODE) {
                 if(!connectorStartNode){
-                    connectorStartNode = manager.project.findNodeByPosition(event.offsetX, event.offsetY);
+                    connectorStartNode = manager.project.findNodeByPosition(
+                                          event.offsetX, event.offsetY);
                 }
                 else{
-                    var possibleEndNode = manager.project.findNodeByPosition(event.offsetX, event.offsetY);
+                    var possibleEndNode = manager.project.findNodeByPosition(
+                                           event.offsetX, event.offsetY);
                     if(possibleEndNode){
-                        manager.project.addConnector(connectorStartNode, possibleEndNode);
+                        manager.project.addConnector(
+                                        connectorStartNode, possibleEndNode);
                     }
                     connectorStartNode = undefined;
                 }
@@ -96,28 +100,47 @@ function canvasMain() {
             }
         }, false);
     canvas.addEventListener('mousemove', function(event) {
-            canvasData.onMouseMove(event);
-            hoveredNodeId = manager.project.findNodeByPosition(event.offsetX, event.offsetY)
 
-            if(hoveredNodeId){
-                overNode = true;
-            }
-            else{
-                overNode = false;
-            }
+        hoveredNodeId = manager.project.findNodeByPosition(
+            event.offsetX, event.offsetY);
 
-            function moveNodeWithMouse(node){
-                var dx = lastMouseX - event.offsetX;
-                var dy = lastMouseY - event.offsetY;
-                node.x = node.x - dx;
-                node.y = node.y - dy;
-                lastMouseX = event.offsetX;
-                lastMouseY = event.offsetY;
-            }
+        if(hoveredNodeId){
+            overNode = true;
+        }
+        else{
+            overNode = false;
+        }
+
+        // canvasData.mouseX and Y will be 0 if never used
+        if (canvasData.mouseX && canvasData.mouseY) {
+
             if(movingNode){
-                moveNodeWithMouse(currentSelectedNode)
+
+                // if you're dragging around a particular node, move it
+
+                var dx = canvasData.mouseX - event.offsetX;
+                var dy = canvasData.mouseY - event.offsetY;
+                currentSelectedNode.x -= dx;
+                currentSelectedNode.y -= dy;
+
+            } else if (canvasData.mousePressed && manager.mode === NO_MODE) {
+
+                // if no mode and dragging, move all nodes
+
+                var dx = canvasData.mouseX - event.offsetX;
+                var dy = canvasData.mouseY - event.offsetY;
+                for (var nodeId in manager.project.nodes) {
+                    manager.project.nodes[nodeId].x -= dx;
+                    manager.project.nodes[nodeId].y -= dy;
+                }
+
             }
-        }, false);
+        }
+
+        // regardless, log the current location of the mouse
+        canvasData.onMouseMove(event);
+
+    }, false);
     canvas.setAttribute('tabindex','0');
     canvas.focus();
 
@@ -196,7 +219,8 @@ function drawNodes() {
             }
         }
         if(currentSelectedNode){
-            if(manager.mode == NO_MODE && nodeId.toString() == currentSelectedNode.id.toString()){
+            if(manager.mode == NO_MODE &&
+               nodeId.toString() == currentSelectedNode.id.toString()){
                 ctx.fillStyle = "white";
             }
         }
@@ -255,6 +279,10 @@ function checkSave(){
 /* All drawings on the canvas should come from here. Nowhere else. */
 function redrawAll() {
 
+    var canvasPanel = $("#canvasPanel");
+    canvas.width = canvasPanel.width();
+    canvas.height = canvasPanel.height();
+
     if (manager.hasProject()) {
         if(!manager.deleting){
             hackyStateChanger();
@@ -270,8 +298,10 @@ function redrawAll() {
 
             if (manager.mode === CREATE_MODE) {
                 ctx.fillStyle = NEW_NODE_STYLE;
-                if(canvasData.mouseX < NODE_RADIUS || canvasData.mouseX > 600 - NODE_RADIUS ||
-                    canvasData.mouseY < NODE_RADIUS || canvasData.mouseY > 400 - NODE_RADIUS){
+                if(canvasData.mouseX < NODE_RADIUS ||
+                   canvasData.mouseX > canvas.width - NODE_RADIUS ||
+                    canvasData.mouseY < NODE_RADIUS ||
+                   canvasData.mouseY > canvas.height - NODE_RADIUS){
                     ctx.fillStyle = "pink";
                 }
                 drawCircle(canvasData.mouseX, canvasData.mouseY, NODE_RADIUS);
