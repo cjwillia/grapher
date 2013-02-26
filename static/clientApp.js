@@ -51,7 +51,7 @@ function enterEditMode(){
         $("#canvasPanel").css("display","block");
 }
 $(document).ready(function(){
-	$("#newProject").click(function(){
+    var submitFindProject = function() {
 		console.log("clicked");
 		if ($("#textfield").val()!==""){
 			manager.findProject($("#textfield").val(), function() {
@@ -65,7 +65,19 @@ $(document).ready(function(){
 		else{
 			console.log("please type a name");
 		}
-	});
+	};
+	$("#findProject").click(submitFindProject);
+
+    // if they hit enter on findProject, continue
+    // copied from http://stackoverflow.com/questions/4418819
+    $("#textfield").keydown(function() {
+        if (event.keyCode == 13) {
+            submitFindProject();
+            return false;
+         }
+    });
+
+
 	$("#selectProject").click(function(){
 		manager.getProject($("#idSelect").val(), function() {
             if (manager.hasProject()) {
@@ -95,33 +107,40 @@ $(document).ready(function(){
 	$("#selectNode").click(onSelectNode);
 
     $("#saveDesc").click(function(){
-	var name=$("#nodeTitle").val();
-	var desc=$("#descText").val();
-	var startY=$("#startYear").val();
+	    var name=$("#nodeTitle").val();
+	    var desc=$("#descText").val();
+	    var startY=$("#startYear").val();
         var startM=$("#startMonth").val();
-	var startD=$("#startdate").val();
-	var startH=$("#startHour").val();
-	var endY=$("#endYear").val();
-	var endM=$("#endMonth").val();
-	var endD=$("#endDate").val();
-	var endH=$("#endHour").val();
-	var holder=$("#ownership").val();
-	console.log("holder = " + holder);
-	
-	if (name){currentSelectedNode.name=name;}
-	if(desc){currentSelectedNode.desc=desc;}
-	if (holder){console.log("changed a node");currentSelectedNode.holders=holder;}
-	console.log(startY,startM,startH,startD)
-	if(startY!=="" && startM!=="" && startH!=="" && startD!=""){
-		currentSelectedNode.startPoint=
-		startY+"\\"+startM+'\\'+startD+", "+startH;
-	}
-	if(endY && endM && endH && endD){
-		currentSelectedNode.endPoint=
-		endY+"\\"+endM+'\\'+endD+", "+endH;
-	}
+	    var startD=$("#startdate").val();
+	    var startH=$("#startHour").val();
+	    var endY=$("#endYear").val();
+	    var endM=$("#endMonth").val();
+	    var endD=$("#endDate").val();
+	    var endH=$("#endHour").val();
+	    var holder=$("#ownership").val();
+	    console.log("holder = " + holder);
+
+	    if (name){
+            currentSelectedNode.name=name;
+        }
+	    if(desc){
+            currentSelectedNode.desc=desc;
+        }
+	    if (holder){
+            console.log("changed a node");
+            currentSelectedNode.holders=holder;
+        }
+	    console.log(startY,startM,startH,startD)
+	    if(startY!=="" && startM!=="" && startH!=="" && startD!=""){
+		    currentSelectedNode.startPoint=
+		        startY+"\\"+startM+'\\'+startD+", "+startH;
+	    }
+	    if(endY && endM && endH && endD){
+		    currentSelectedNode.endPoint=
+		        endY+"\\"+endM+'\\'+endD+", "+endH;
+	    }
         $(".clear").val("");
-	console.log(holder,$("#ownership").val());
+	    console.log(holder,$("#ownership").val());
     });
     // and last but not least, run the main function
     initPage();

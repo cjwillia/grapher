@@ -98,7 +98,7 @@ function canvasMain() {
     canvas.addEventListener('mousemove', function(event) {
             canvasData.onMouseMove(event);
             hoveredNodeId = manager.project.findNodeByPosition(event.offsetX, event.offsetY)
-            
+
             if(hoveredNodeId){
                 overNode = true;
             }
@@ -112,7 +112,7 @@ function canvasMain() {
                 node.x = node.x - dx;
                 node.y = node.y - dy;
                 lastMouseX = event.offsetX;
-                lastMouseY = event.offsetY; 
+                lastMouseY = event.offsetY;
             }
             if(movingNode){
                 moveNodeWithMouse(currentSelectedNode)
@@ -244,8 +244,9 @@ function hackyStateChanger() {
 }
 
 function checkSave(){
+    // save if they hit S
     if(canvasData.keyPressed(83) && !lastCanvasData.keyPressed(83)){
-        manager.updateProject;
+        manager.updateProject();
         return true;
     }
     return false;

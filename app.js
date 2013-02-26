@@ -137,7 +137,7 @@ app.get("/projects", function(request, response) {
 app.get("/find", function(request, response) {
 
 
-    var name = request.query.id;
+    var name = request.query.name;
     console.log("trying to find project " + name);
     for (var id in savedProjects) {
         if (savedProjects[id].name === name) {

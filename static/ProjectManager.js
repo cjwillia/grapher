@@ -105,7 +105,7 @@ ProjectManager.prototype.updateProject = function(callback) {
 		url : "/projects",
         type: "post",
 		data : {
-            "project" : JSON.stringify(this.project.safeClone())
+            "project" : JSON.stringify(this.project)
         },
 		success : function() {
             if (callback) {
@@ -135,7 +135,6 @@ ProjectManager.prototype.deleteProject = function(callback) {
 
 
 ProjectManager.prototype.findProject = function(projectName, callback) {
-
 
 	$.ajax({
 		type : "get",

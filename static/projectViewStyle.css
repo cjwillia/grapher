@@ -1,4 +1,4 @@
-/* 
+/*
 	TODO: some CSS type stuff.
 */
 
@@ -15,7 +15,7 @@ h1{
 .line{
   margin-bottom:15px
 }
-#idSelect,#selectProject,#textfield,#newProject{
+#idSelect,#selectProject,#textfield,#findProject{
   font-size:200%
 }
 #projectControls{
@@ -67,7 +67,7 @@ h1{
 #canvasPanel{
   display:none;
   margin:0px auto;
-  text-align:center 
+  text-align:center
 }
 
 #mainCanvas{
