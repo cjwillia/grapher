@@ -66,3 +66,7 @@ h1{
   margin:0px auto;
   text-align:center 
 }
+
+#mainCanvas{
+  display: inherit;
+  clear: both;
