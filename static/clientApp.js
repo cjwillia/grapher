@@ -51,8 +51,9 @@ function enterEditMode(){
         $("#canvasPanel").css("display","block");
 }
 $(document).ready(function(){
+    // submits a search like "project foo" and loads the result
     var submitFindProject = function() {
-		console.log("clicked");
+		console.log("clicked")
 		if ($("#textfield").val()!==""){
 			manager.findProject($("#textfield").val(), function() {
                 if (manager.hasProject()) {
@@ -73,9 +74,11 @@ $(document).ready(function(){
     $("#textfield").keydown(function() {
         if (event.keyCode == 13) {
             submitFindProject();
+            // why return false? no idea, but removing it breaks things
             return false;
          }
-    });
+    }).focus(); // also, focus on textarea to begin with (a la google)
+
 
 
 	$("#selectProject").click(function(){
