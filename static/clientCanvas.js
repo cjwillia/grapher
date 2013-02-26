@@ -7,13 +7,15 @@ var NEW_NODE_STYLE = "turquoise";
 var NODE_RADIUS = 25;
 var CONNECTION_STYLE = "green";
 var REDRAW_ALL_PERIOD = 30;
-var UPDATE_SERVER_PERIOD = 10*1000;
 
 var ctx;
 var canvas;
 
 var canvasData;
 var lastCanvasData;
+
+var overNode;
+var hoveredNodeId;
 
 /* "main" function of the whole canvas. Sets everything up. */
 function canvasMain() {
@@ -50,15 +52,18 @@ function canvasMain() {
         }, false);
     canvas.addEventListener('mousemove', function(event) {
             canvasData.onMouseMove(event);
+            hoveredNodeId = manager.project.findNodeByPosition(event.offsetX, event.offsetY)
+            if(hoveredNodeId){
+                overNode = true;
+            }
+            else{
+                overNode = false;
+            }
         }, false);
     canvas.setAttribute('tabindex','0');
     canvas.focus();
 
     setInterval(redrawAll, REDRAW_ALL_PERIOD);
-
-    setInterval(function() {
-        manager.updateProject();
-    }, UPDATE_SERVER_PERIOD);
 
 }
 
@@ -102,7 +107,15 @@ function drawNodes() {
     ctx.fillStyle = NODE_STYLE;
     Object.keys(manager.project.nodes).forEach(function(nodeId){
         var node = manager.project.nodes[nodeId];
+        if(overNode){
+            if(nodeId.toString() == hoveredNodeId.toString()){
+                if(manager.mode == DELETE_MODE){
+                    ctx.fillStyle = "red";
+                }
+            }
+        }
         drawCircle(node.x, node.y, NODE_RADIUS);
+        ctx.fillStyle = NODE_STYLE;
     });
 }
 
@@ -129,6 +142,14 @@ function hackyStateChanger() {
     }
 }
 
+function checkSave(){
+    if(canvasData.keyPressed(83) && !lastCanvasData.keyPressed(83)){
+        manager.updateProject;
+        return true;
+    }
+    return false;
+}
+
 /* All drawings on the canvas should come from here. Nowhere else. */
 function redrawAll() {
 
@@ -136,7 +157,11 @@ function redrawAll() {
         if(!manager.deleting){
             hackyStateChanger();
 
-            ctx.fillStyle = "red";
+
+            ctx.fillStyle = "grey";
+            if(checkSave()){
+                ctx.fillStyle = "white";    
+            }
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             drawNodes();
