@@ -43,7 +43,10 @@ function onAddEdge(){
 /***************************************************
  * jquery and button stuff
  ***************************************************/
-
+function enterEditMode(){
+	switchPanel($("#projectControls"),$("#projectSelect"));
+        $("#mainCanvas").css("display","block");
+}
 $(document).ready(function(){
 	$("#newProject").click(function(){
 		console.log("clicked");
@@ -54,7 +57,7 @@ $(document).ready(function(){
                 }
             });
 			$("#textfield").val("");
-			switchPanel($("#projectControls"),$("#projectSelect"));
+			enterEditMode();
 		}
 		else{
 			console.log("please type a name");
@@ -64,6 +67,8 @@ $(document).ready(function(){
 		manager.getProject($("#idSelect").val(), function() {
             if (manager.hasProject()) {
                 canvasMain();
+		enterEditMode();
+                
             }
         });
 		$("#idSelect").val("");
