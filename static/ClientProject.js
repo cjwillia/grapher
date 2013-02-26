@@ -45,7 +45,7 @@ ClientProject.prototype.moveNode = function(nodeId, newX, newY) {};
 //Find a node by its (x, y) position.
 ClientProject.prototype.findNodeByPosition = function(x, y) {};
 
-// Delete a node
+// Delete a node, including any connections to or from it.
 ClientProject.prototype.deleteNode = function(x, y) {};
 
 
@@ -61,10 +61,18 @@ ClientProject.prototype.addNode = function(name, x, y) {
 
     assert(x >= 0 && y >= 0);
 
-    var id = this.idCount;
-    this.idCount++;
-    var node = new ClientNode(id, name, x, y);
-    this.nodes[id] = node;
+    var isWithinReasonableBounds = function (){
+        if(x < NODE_RADIUS || x > 600 - NODE_RADIUS || y < NODE_RADIUS || y > 400 - NODE_RADIUS){
+            return false;
+        }
+        return true;
+    }
+    if(isWithinReasonableBounds()){
+        var id = this.idCount;
+        this.idCount++;
+        var node = new ClientNode(id, name, x, y);
+        this.nodes[id] = node;
+    }
 
 };
 
@@ -72,7 +80,23 @@ ClientProject.prototype.addConnector = function(startNodeId, endNodeId) {
     assert(this.nodes[startNodeId] !== undefined);
     assert(this.nodes[endNodeId] !== undefined);
 
-    this.nodes[startNodeId].connectors.push(endNodeId);
+    var connectorList = this.nodes[startNodeId].connectors;
+
+    var isEqualToEndNodeId = function(a){
+        if(a.toString() == endNodeId.toString()){
+            return true;
+        }
+        return false;
+    }
+
+    if(!connectorList.some(isEqualToEndNodeId)){
+        this.nodes[startNodeId].connectors.push(endNodeId);
+        return true;
+    }
+    else{
+        return false;
+    }
+
 };
 
 ClientProject.prototype.removeConnector = function(startNodeId, endNodeId) {
@@ -116,14 +140,28 @@ ClientProject.prototype.findNodeByPosition = function(x, y) {
     return false;
 };
 
+function deleteAllInList(a, x) {
+    1
+}
+
+
 ClientProject.prototype.deleteNode = function(x, y) {
     this.deleting = true;
 
     var toDelete = this.findNodeByPosition(x, y);
     console.log("toDelete", toDelete);
     if(toDelete !== false){
-        console.log('deleted');
+        for (var neighborId in this.nodes) {
+            // now remove all instances of toDelete from neighbors
+            var i = this.nodes[neighborId].connectors.indexOf(toDelete);
+            console.log(this.nodes[neighborId].connectors);
+            while (i >= 0) {
+                this.nodes[neighborId].connectors.splice(i, 1);
+                i = this.nodes[neighborId].connectors.indexOf(toDelete);
+            }
+        }
         delete(this.nodes[toDelete]);
+        console.log('deleted');
     }
     this.deleting = false;
 };
