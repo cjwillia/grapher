@@ -88,6 +88,7 @@ function canvasMain() {
             else if(manager.mode === NO_MODE) {
                 if(hoveredNodeId){
                     currentSelectedNode = manager.project.nodes[hoveredNodeId];
+                    displayNode(currentSelectedNode);
                 }
                 else{
                     currentSelectedNode = undefined;
