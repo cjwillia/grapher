@@ -154,7 +154,6 @@ ClientProject.prototype.deleteNode = function(x, y) {
         for (var neighborId in this.nodes) {
             // now remove all instances of toDelete from neighbors
             var i = this.nodes[neighborId].connectors.indexOf(toDelete);
-            console.log(this.nodes[neighborId].connectors);
             while (i >= 0) {
                 this.nodes[neighborId].connectors.splice(i, 1);
                 i = this.nodes[neighborId].connectors.indexOf(toDelete);
