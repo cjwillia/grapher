@@ -19,6 +19,12 @@ var hoveredNodeId;
 
 var connectorStartNode;
 
+var currentSelectedNode;
+
+var movingNode;
+var lastMouseX;
+var lastMouseY;
+
 /* "main" function of the whole canvas. Sets everything up. */
 function canvasMain() {
 
@@ -41,9 +47,19 @@ function canvasMain() {
         }, false);
     canvas.addEventListener('mousedown', function(event) {
             canvasData.onMouseDown(event);
+            if(currentSelectedNode){
+                if(hoveredNodeId.toString() == currentSelectedNode.id.toString()){
+                    movingNode = true;
+                    lastMouseX = event.offsetX;
+                    lastMouseY = event.offsetY;
+                }
+            }
         }, false);
     canvas.addEventListener('mouseup', function(event) {
             canvasData.onMouseUp(event);
+            if(movingNode){
+                movingNode = false;
+            }
             if (manager.mode === CREATE_MODE) {
                 manager.project.addNode("clicknode",
                                         event.offsetX, event.offsetY);
@@ -68,6 +84,14 @@ function canvasMain() {
                     manager.project.removeAllConnectors(hoveredNodeId);
                 }
             }
+            else if(manager.mode === NO_MODE) {
+                if(hoveredNodeId){
+                    currentSelectedNode = manager.project.nodes[hoveredNodeId];
+                }
+                else{
+                    currentSelectedNode = undefined;
+                }
+            }
         }, false);
     canvas.addEventListener('mousemove', function(event) {
             canvasData.onMouseMove(event);
@@ -77,6 +101,14 @@ function canvasMain() {
             }
             else{
                 overNode = false;
+            }
+            if(movingNode){
+                var dx = lastMouseX - event.offsetX;
+                var dy = lastMouseY - event.offsetY;
+                currentSelectedNode.x = currentSelectedNode.x - dx;
+                currentSelectedNode.y = currentSelectedNode.y - dy;
+                lastMouseX = event.offsetX;
+                lastMouseY = event.offsetY;
             }
         }, false);
     canvas.setAttribute('tabindex','0');
@@ -137,12 +169,20 @@ function drawNodes() {
                 else if(manager.mode == CONNECTOR_CLEAR_MODE){
                     ctx.fillStyle = "orange";
                 }
+                else if(manager.mode == NO_MODE){
+                    ctx.fillStyle = "555555"
+                }
             }
 
         }
         if(connectorStartNode){
             if(connectorStartNode.toString() == nodeId.toString()){
                 ctx.fillStyle = "green";
+            }
+        }
+        if(currentSelectedNode){
+            if(manager.mode == NO_MODE && nodeId.toString() == currentSelectedNode.id.toString()){
+                ctx.fillStyle = "white";
             }
         }
         drawCircle(node.x, node.y, NODE_RADIUS);
