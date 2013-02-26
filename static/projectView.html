@@ -27,18 +27,22 @@
     			</div>
     			<div id="projectControls">
 					  <div id="controlBox">
+							<div class="line">
 							<span class="button" id="addNode">add a node</span>
 							<span class="button" id="delNode">delete a node</span>
 							<span class="button" id="addEdge">add an edge</span>
 							<span class="button" id="editNode">edit a node</span>
+							</div>
+							<div class="line">
 							<span class="button" id="selectNode">select a node</span>
+							</div>
 						</div>
 						<div id="nodeDesc">
   						<div id="editDesc">
 								<div id="titleAndDesc">
   							<form >
-  								<input  id="nodeTitle" type="text" placeholder="Add a title here">
-  								<textarea id="descText" placeholder="put your information here" row="3"></textarea>
+  								<input  id="nodeTitle" class="clear" type="text" placeholder="Add a title here">
+  								<textarea id="descText" class="clear"placeholder="put your information here" row="3"></textarea>
   								<input id="saveDesc" type="button" value="save">
   							</form>
 								</div>
@@ -46,33 +50,33 @@
 								<table >
 									<tr>
 										<td>From:</td>
-										<td><input type="text" size="10" id="startYear" placeholder="YYYY"></td>
-										<td><input type="text" size="10" id="startMonth" placeholder="MM"></td>
-										<td><input type="text" size="10" id="startDate" placeholder="DD"></td>
-										<td><input type="text" size="10" id="startHour" placeholder="XXpm/am"></td>
+										<td><input type="text" size="10" id="startYear" class="clear" placeholder="YYYY"></td>
+										<td><input type="text" size="10" id="startMonth" class="clear" placeholder="MM"></td>
+										<td><input type="text" size="12" id="startDate" class="clear"  placeholder="DD"></td>
+										<td><input type="text" size="10" id="startHour" class="clear" placeholder="XXpm/am"></td>
 									</tr>
 									<tr>
 										<td>To:</td>
-										<td><input type="text" size="10" id="endYear" placeholder="YYYY"></td>
-										<td><input type="text" size="10" id="endMonth" placeholder="MM"></td>
-										<td><input type="text" size="10" id="endDate" placeholder="DD"></td>
-										<td><input type="text" size="10" id="endHour" placeholder="XXpm/am"></td>
+										<td><input type="text" size="10" id="endYear" class="clear"  placeholder="YYYY"></td>
+										<td><input type="text" size="10" id="endMonth" class="clear" placeholder="MM"></td>
+										<td><input type="text" size="10" id="endDate" class="clear" placeholder="DD"></td>
+										<td><input type="text" size="10" id="endHour" class="clear" placeholder="XXpm/am"></td>
 									</tr>
 								</table>
 								<table>
 									<tr>
 										<td>Ownership:</td>
-										<td><input type="text" size="40" id="ownership" placeholder="seperate names with comma"></td>
+										<td><input type="text" size="40" id="ownership" class="clear" placeholder="seperate names with comma"></td>
 									</tr>
 								</table>							
   						  </div>
 							</div>
   						<div id="showDesc">
 								<div>
-								<span id="curName"></span>
-								<span id="curHolder"></span>
-								<span id="curTime"></span>
-								<div id="curDesc"></div>
+								<span id="curName" class="clear2"></span>
+								<span id="curHolder" class="clear2"></span>
+								<span id="curTime" class="clear2"></span>
+								<div id="curDesc" class="clear2"></div>
 							</div>
   					</div>
       		</div>

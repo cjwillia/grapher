@@ -12,6 +12,9 @@ h1{
   text-align:center;
   margin-top:20%
 }
+.line{
+  margin-bottom:15px
+}
 #idSelect,#selectProject,#textfield,#newProject{
   font-size:200%
 }
