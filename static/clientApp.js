@@ -94,11 +94,43 @@ $(document).ready(function(){
 
 	$("#selectNode").click(onSelectNode);
 
+    $("#saveDesc").click(function(){
+	var name=$("#nodeTitle").val();
+	var desc=$("#descText").val();
+	var startY=$("#startYear").val();
+        var startM=$("#startMonth").val();
+	var startD=$("#startdate").val();
+	var startH=$("#startHour").val();
+	var endY=$("#endYear").val();
+	var endM=$("#endMonth").val();
+	var endD=$("#endDate").val();
+	var endH=$("#endHour").val();
+	var holder=$("#ownership").val();
+	console.log("holder = " + holder);
+	
+	if (name){currentSelectedNode.name=name;}
+	if(desc){currentSelectedNode.desc=desc;}
+	if (holder){console.log("changed a node");currentSelectedNode.holders=holder;}
+	console.log(startY,startM,startH,startD)
+	if(startY!=="" && startM!=="" && startH!=="" && startD!=""){
+		currentSelectedNode.startPoint=
+		startY+"\\"+startM+'\\'+startD+", "+startH;
+	}
+	if(endY && endM && endH && endD){
+		currentSelectedNode.endPoint=
+		endY+"\\"+endM+'\\'+endD+", "+endH;
+	}
+        $(".clear").val("");
+	console.log(holder,$("#ownership").val());
+    });
     // and last but not least, run the main function
     initPage();
 });
 
 function displayNode(curNode){
+	$("#showDesc").css("display","block");
+	$("#editDesc").css("display","none");
+	$(".clear2").html("");
 	var name=curNode.name;
 	var desc=curNode.desc;
 	var start=curNode.startPoint;
