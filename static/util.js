@@ -25,3 +25,19 @@ function getEndDate(node) {
         return "";
     }
 }
+
+/* hides the interface that lets you fill in a description of a node away, and
+ * saves it (if necessary). It can be called multiple times, even if the
+ * interface is already put away. */
+function putDescAway() {
+
+    // save it
+    if (currentSelectedNode) {
+        saveDesc();
+    }
+    // hide it
+	$("#showDesc").css("display","block");
+	$("#editDesc").css("display","none");
+    currentSelectedNode = undefined;
+
+}

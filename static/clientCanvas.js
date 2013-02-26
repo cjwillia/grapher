@@ -95,19 +95,8 @@ function canvasMain() {
                     onEditNode();
                 }
                 else{
-                    // if there already is a currently selected node, save
-                    // their before hiding the interface
-                    if (currentSelectedNode) {
-                        saveDesc();
-                    }
-
-                    // still hide it though
-	                $("#showDesc").css("display","block");
-	                $("#editDesc").css("display","none");
-
-                    currentSelectedNode = undefined;
+                    putDescAway();
                 }
-                // onCurrentSelectedNodeChanged();
             }
         }, false);
     canvas.addEventListener('mousemove', function(event) {

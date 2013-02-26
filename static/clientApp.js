@@ -20,23 +20,27 @@ function initPage(){
 // these functions are called by the user clicking on the thing at the top.
 
 
-/* Well, what do you think it does? I'll use this to clear all the buttons
- * before giving the sleected class */
-function removeSelectedClassFromButtons() {
-}
 
 
 function onCreateNode(){
     manager.mode = CREATE_MODE;
-
+    // and now make sure that the createNode button is selected
+    $(".selected").removeClass("selected");
+    $("#addNode").addClass("selected");
+    putDescAway();
 }
 
 
 function onDelNode(){
     manager.mode = DELETE_MODE;
+    $(".selected").removeClass("selected");
+    $("#delNode").addClass("selected");
+    putDescAway();
 }
 
 
+/* so we no longer have an edit button, but this is still a useful function for
+ * when you select a node */
 function onEditNode(){
 	$("#editDesc").css("display","block");
     $("#showDesc").css("display","none");
@@ -66,10 +70,16 @@ function onEditNode(){
 
 function onAddEdge(){
     manager.mode = CONNECTOR_MODE;
+    $(".selected").removeClass("selected");
+    $("#addEdge").addClass("selected");
+    putDescAway();
 }
 
 function onSelectNode(){
 	manager.mode = NO_MODE;
+    $(".selected").removeClass("selected");
+    $("#selectNode").addClass("selected");
+    putDescAway();
 }
 
 /***************************************************
@@ -158,7 +168,6 @@ $(document).ready(function(){
             if (manager.hasProject()) {
                 canvasMain();
 		        enterEditMode();
-
             }
         });
 		$("#idSelect").val("");
