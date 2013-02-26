@@ -19,12 +19,30 @@ h1{
 	display: none;
 }
 #controlBox{
-	width: 50%;
+	width: 35%;
+        margin-bottom:20px;
 	float: left;
 }
-#nodeDesc{
-	width: 50%;
+#editDesc{
+        width:65%;
+	display: none;
 	float: left;
+}
+#showDesc{
+	width:65%;
+	float:left;
+	height:10px;
+	display:block
+}
+#titleAndDesc{
+	display:inline-block;
+	width:40%;
+	float:left;
+}
+#dataAndHolder{
+	display:inline-block;
+	width:60%;
+	float:left
 }
 #nodeTitle{
   margin-bottom:30px;
@@ -43,7 +61,8 @@ h1{
   border-radius: .5em;
   text-decoration:none;
 }
-#mainCanvas{
+#canvasPanel{
   display:none;
-  margin:0px auto 
+  margin:0px auto;
+  text-align:center 
 }

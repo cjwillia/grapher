@@ -45,7 +45,7 @@ function onAddEdge(){
  ***************************************************/
 function enterEditMode(){
 	switchPanel($("#projectControls"),$("#projectSelect"));
-        $("#mainCanvas").css("display","block");
+        $("#canvasPanel").css("display","block");
 }
 $(document).ready(function(){
 	$("#newProject").click(function(){
@@ -81,7 +81,8 @@ $(document).ready(function(){
 	});
 	$("#editNode").click(function(){
 		onEditNode();
-		$("#editDesc").css("visibility","visible");
+		$("#editDesc").css("display","block");
+    $("#showDesc").css("display","none");
 	});
 	$("#addEdge").click(function(){
 		onAddEdge();
