@@ -1,7 +1,6 @@
 //contains all server communication functions for committing data to the server from the client as well as providing APIs for
 //use in implementation of final model
 
-
 var manager;
 
 /***************************************************
@@ -130,10 +129,8 @@ $(document).ready(function(){
             currentSelectedNode.desc=desc;
         }
 	    if (holder){
-            console.log("changed a node");
             currentSelectedNode.holders=holder;
         }
-	    console.log(startY,startM,startH,startD)
 	    if(startY!=="" && startM!=="" && startH!=="" && startD!=""){
 		    currentSelectedNode.startPoint=
 		        startY+"\\"+startM+'\\'+startD+", "+startH;
@@ -143,7 +140,7 @@ $(document).ready(function(){
 		        endY+"\\"+endM+'\\'+endD+", "+endH;
 	    }
         $(".clear").val("");
-	    console.log(holder,$("#ownership").val());
+
     });
     // and last but not least, run the main function
     initPage();
