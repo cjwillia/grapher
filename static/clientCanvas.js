@@ -198,6 +198,10 @@ function redrawAll() {
 
             if (manager.mode === CREATE_MODE) {
                 ctx.fillStyle = NEW_NODE_STYLE;
+                if(canvasData.mouseX < NODE_RADIUS || canvasData.mouseX > 600 - NODE_RADIUS ||
+                    canvasData.mouseY < NODE_RADIUS || canvasData.mouseY > 400 - NODE_RADIUS){
+                    ctx.fillStyle = "pink";
+                }
                 drawCircle(canvasData.mouseX, canvasData.mouseY, NODE_RADIUS);
             }
             else if (manager.mode === DELETE_MODE) {

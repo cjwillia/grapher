@@ -61,10 +61,18 @@ ClientProject.prototype.addNode = function(name, x, y) {
 
     assert(x >= 0 && y >= 0);
 
-    var id = this.idCount;
-    this.idCount++;
-    var node = new ClientNode(id, name, x, y);
-    this.nodes[id] = node;
+    var isWithinReasonableBounds = function (){
+        if(x < NODE_RADIUS || x > 600 - NODE_RADIUS || y < NODE_RADIUS || y > 400 - NODE_RADIUS){
+            return false;
+        }
+        return true;
+    }  
+    if(isWithinReasonableBounds()){
+        var id = this.idCount;
+        this.idCount++;
+        var node = new ClientNode(id, name, x, y);
+        this.nodes[id] = node;
+    }
 
 };
 
@@ -72,7 +80,23 @@ ClientProject.prototype.addConnector = function(startNodeId, endNodeId) {
     assert(this.nodes[startNodeId] !== undefined);
     assert(this.nodes[endNodeId] !== undefined);
 
-    this.nodes[startNodeId].connectors.push(endNodeId);
+    var connectorList = this.nodes[startNodeId].connectors;
+
+    var isEqualToEndNodeId = function(a){
+        if(a.toString() == endNodeId.toString()){
+            return true;
+        }
+        return false;
+    }
+
+    if(!connectorList.some(isEqualToEndNodeId)){
+        this.nodes[startNodeId].connectors.push(endNodeId);
+        return true;
+    }
+    else{
+        return false;
+    }
+    
 };
 
 ClientProject.prototype.removeConnector = function(startNodeId, endNodeId) {
