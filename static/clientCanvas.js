@@ -72,7 +72,7 @@ function canvasMain() {
     canvas.addEventListener('mousemove', function(event) {
             canvasData.onMouseMove(event);
             hoveredNodeId = manager.project.findNodeByPosition(event.offsetX, event.offsetY)
-            if(hoveredNodeId !== undefined){
+            if(hoveredNodeId){
                 overNode = true;
             }
             else{

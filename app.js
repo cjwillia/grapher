@@ -146,7 +146,7 @@ app.put("/projects", function(request, response){
         id: generateID(),
         name: name,
         nodes: {},
-        idCount: 0
+        idCount: 1
     });
 
 

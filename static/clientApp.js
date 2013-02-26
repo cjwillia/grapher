@@ -22,12 +22,12 @@ function initPage(){
 // In the future, they'll actually do something.
 
 function onCreateNode(){
-	console.log("onCreateNode");
+    manager.mode = CREATE_MODE;
 }
 
 
 function onDelNode(){
-	console.log("onDelNode");
+    manager.mode = DELETE_MODE;
 }
 
 
@@ -37,7 +37,7 @@ function onEditNode(){
 
 
 function onAddEdge(){
-	console.log("onAddEdge");
+    manager.mode = CONNECTOR_MODE;
 }
 
 /***************************************************
@@ -68,7 +68,7 @@ $(document).ready(function(){
             if (manager.hasProject()) {
                 canvasMain();
 		enterEditMode();
-                
+
             }
         });
 		$("#idSelect").val("");
