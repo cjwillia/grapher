@@ -10,6 +10,7 @@ var manager;
 /* Main function called when the page loads. */
 function initPage(){
     manager = new ProjectManager();
+
 }
 
 
@@ -142,6 +143,8 @@ $(document).ready(function(){
         $(".clear").val("");
 
     });
+
+    $("#canvasPanel").css("display", "none");
     // and last but not least, run the main function
     initPage();
 });
