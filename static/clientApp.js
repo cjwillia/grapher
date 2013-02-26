@@ -46,8 +46,8 @@ function onSelectNode(){
  * jquery and button stuff
  ***************************************************/
 function enterEditMode(){
-	switchPanel($("#projectControls"),$("#projectSelect"));
-        $("#canvasPanel").css("display","block");
+    $("ProjectControls").css("display", "none");
+    $("#canvasPanel").css("display","block");
 }
 $(document).ready(function(){
     // submits a search like "project foo" and loads the result
@@ -157,16 +157,15 @@ function displayNode(curNode){
 	var holders=curNode.holders;
 	$("#curName").html(name);
 	if(holders){
-	$("#curHolder").html("by "+holders+".");}
+	    $("#curHolder").html("by "+holders+".");
+    }
 	if(start && end){
-	$("#curTime").html("From "+start+" to "+end+".");}
-
+	    $("#curTime").html("From "+start+" to "+end+".");
+    }
 	if (desc){
-	$("#curDesc").html(desc);}
+	    $("#curDesc").html(desc);
+    }
 	else{
-	$("#curDesc").html("No description yet");}
-}
-function switchPanel(A,B){
-	A.css("display","block");
-	B.css("display","none");
+	    $("#curDesc").html("No description yet");
+    }
 }

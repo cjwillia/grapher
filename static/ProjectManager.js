@@ -66,7 +66,8 @@ ProjectManager.prototype.getProject = function(projectId, callback) {
             if (data.success) {
                 console.log("success! Found a project.");
                 this.project = new ClientProject(data.project);
-                switchPanel($("#projectControls"),$("#projectSelect"));
+                $("#projectControls").css("display", "block");
+                $("#projectSelect").css("display", "none");
             } else {
                 console.log("Dang, didn't find a project.");
             }
@@ -146,7 +147,8 @@ ProjectManager.prototype.findProject = function(projectName, callback) {
             if (data.success) {
                 console.log("Found a project by the name of " + projectName);
                 this.project = new ClientProject(data.project);
-                switchPanel($("#projectControls"),$("#projectSelect"));
+                $("#projectControls").css("display", "block");
+                $("#projectSelect").css("display", "none");
                 if (callback) {
                     callback();
                 }

@@ -1,14 +1,14 @@
 /* copied from http://www.red-team-design.com/
    how-to-create-slick-effects-with-css3-box-shadow */
 body:before {
-    content: "";
-    position: fixed;
-    top: -10px;
-    left: 0;
-    width: 100%;
-    height: 10px;
-    z-index: 100;
-    box-shadow: 0px 0px 20px rgba(0,0,0,.8);
+    /* content: ""; */
+    /* position: fixed; */
+    /* top: -10px; */
+    /* left: 0; */
+    /* width: 100%; */
+    /* height: 10px; */
+    /* z-index: 100; */
+    /* box-shadow: 0px 0px 20px rgba(0,0,0,.8); */
 }
 
 /* body:after { */
@@ -31,14 +31,12 @@ body {
 /* for some reason, specify the font in body doesn't always get to children
  * (e.g. buttons, etc.). Therefore, add them to the font class and they'll
  * get the right font. */
-.font {
+input,textarea {
     font-family: Impact, Charcoal, sans-serif;
 }
 
-/* to resize the canvas, resize this */
-#canvasPanel {
-    padding: 50px;
-    height: 300px;
+#content {
+    margin: 30px;
 }
 
 h1 {
@@ -61,7 +59,7 @@ h1 {
     margin-bottom:15px;
 }
 
-input {
+#textfield,#findProject {
     font-size:200%;
 }
 
@@ -74,15 +72,18 @@ input {
 }
 
 #controlBox {
-	width: 35%;
-    margin-bottom:20px;
+	width: 20%;
+    /* margin-bottom:20px; */
+    /* margin-left:15px; */
+    /* margin-right:15px; */
 	float: left;
+
 }
 
 #editDesc {
-    width:65%;
 	display: none;
 	float: left;
+    padding: 10px;
 }
 
 #showDesc {
@@ -98,19 +99,17 @@ input {
 	float:left;
 }
 
-#dataAndHolder {
+#dateAndHolder {
 	display:inline-block;
 	width:60%;
-	float:left
 }
 
 #nodeTitle {
-    margin-bottom:30px;
-    display:block
+    display:block;
 }
 
 #nodeTitle,#descText {
-    border:none
+    border:none;
 }
 
 .button {
@@ -125,10 +124,11 @@ input {
     text-decoration:none;
 }
 
+/* to resize the canvas, resize this */
 #canvasPanel {
-    display:none;
-    margin:0px auto;
-    text-align:center
+    display:block;
+    text-align:center;
+    height: 300px;
 }
 
 #mainCanvas {
