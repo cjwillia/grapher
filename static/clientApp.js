@@ -80,9 +80,10 @@ $(document).ready(function(){
 		onDelNode();
 	});
 	$("#editNode").click(function(){
+		if (currentSelectedNode!==undefined){
 		onEditNode();
 		$("#editDesc").css("display","block");
-    $("#showDesc").css("display","none");
+    $("#showDesc").css("display","none");};
 	});
 	$("#addEdge").click(function(){
 		onAddEdge();
@@ -92,7 +93,17 @@ $(document).ready(function(){
     initPage();
 });
 
-
+function displayNode(curNode){
+	var name=curNode.name;
+	var desc=curNode.desc;
+	var start=curNode.startPoint;
+	var end=curNode.endPoint;
+	var holders=curNode.holders;
+	$("#curName").html(name);
+	$("#curHolder").html("by "+desc);
+	$("#curTime").html(start+" to "+end);
+	$("#curDesc").html(desc); 
+}
 function switchPanel(A,B){
 	A.css("display","block");
 	B.css("display","none");
