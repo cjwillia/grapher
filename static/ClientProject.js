@@ -65,7 +65,8 @@ ClientProject.prototype.addNode = function(name, x, y) {
     assert(x >= 0 && y >= 0);
 
     var isWithinReasonableBounds = function (){
-        if(x < NODE_RADIUS || x > 600 - NODE_RADIUS || y < NODE_RADIUS || y > 400 - NODE_RADIUS){
+        if(x < NODE_RADIUS || x > canvas.width - NODE_RADIUS ||
+           y < NODE_RADIUS || y > canvas.height - NODE_RADIUS){
             return false;
         }
         return true;

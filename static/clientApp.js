@@ -19,9 +19,6 @@ function initPage(){
  ***************************************************/
 // these functions are called by the user clicking on the thing at the top.
 
-
-
-
 function onCreateNode(){
     manager.mode = CREATE_MODE;
     // and now make sure that the createNode button is selected
@@ -50,6 +47,8 @@ function onEditNode(){
     function fillIfTrue(jQueryObj, value) {
         if (value) {
             jQueryObj.val(value);
+        } else {
+            jQueryObj.val("");
         }
     }
 	fillIfTrue($("#nodeTitle"), currentSelectedNode.name);
@@ -137,18 +136,14 @@ function saveDesc() {
 $(document).ready(function(){
     // submits a search like "project foo" and loads the result
     var submitFindProject = function() {
-		console.log("clicked")
 		if ($("#textfield").val()!==""){
 			manager.findProject($("#textfield").val(), function() {
                 if (manager.hasProject()) {
                     canvasMain();
                 }
+                // TODO: fix when not found
+			    enterEditMode();
             });
-			$("#textfield").val("");
-			enterEditMode();
-		}
-		else{
-			console.log("please type a name");
 		}
 	};
 	$("#findProject").click(submitFindProject);

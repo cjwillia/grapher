@@ -1,5 +1,5 @@
 /*
-	TODO: Implement all the canvas code here.
+  TODO: Implement all the canvas code here.
 */
 
 var NODE_STYLE = "blue";
@@ -42,63 +42,68 @@ function canvasMain() {
 
     // set key listeners
     canvas.addEventListener('keydown', function(event) {
-            canvasData.onKeyDown(event);
-        }, false);
+        canvasData.onKeyDown(event);
+    }, false);
     canvas.addEventListener('keyup', function(event) {
-            canvasData.onKeyUp(event);
-        }, false);
+        canvasData.onKeyUp(event);
+    }, false);
     canvas.addEventListener('mousedown', function(event) {
-            canvasData.onMouseDown(event);
-            if(currentSelectedNode){
-                if(hoveredNodeId.toString() == currentSelectedNode.id.toString()){
-                    movingNode = true;
-                    lastMouseX = event.offsetX;
-                    lastMouseY = event.offsetY;
-                }
+        canvasData.onMouseDown(event);
+        if(currentSelectedNode){
+            if(hoveredNodeId.toString() == currentSelectedNode.id.toString()){
+                movingNode = true;
+                lastMouseX = event.offsetX;
+                lastMouseY = event.offsetY;
             }
-        }, false);
+        }
+    }, false);
     canvas.addEventListener('mouseup', function(event) {
-            canvasData.onMouseUp(event);
-            if(movingNode){
-                movingNode = false;
+        canvasData.onMouseUp(event);
+
+        // save the description, just in case it actually matters.
+        // you can never save too much!
+        saveDesc();
+
+        if(movingNode){
+            movingNode = false;
+        }
+        if (manager.mode === CREATE_MODE) {
+            manager.project.addNode("",
+                                    event.offsetX, event.offsetY);
+        }
+        else if(manager.mode === DELETE_MODE) {
+            manager.project.deleteNode(event.offsetX, event.offsetY);
+        }
+        else if(manager.mode === CONNECTOR_MODE) {
+            if(!connectorStartNode){
+                connectorStartNode = manager.project.findNodeByPosition(
+                    event.offsetX, event.offsetY);
             }
-            if (manager.mode === CREATE_MODE) {
-                manager.project.addNode("",
-                                        event.offsetX, event.offsetY);
-            }
-            else if(manager.mode === DELETE_MODE) {
-                manager.project.deleteNode(event.offsetX, event.offsetY);
-            }
-            else if(manager.mode === CONNECTOR_MODE) {
-                if(!connectorStartNode){
-                    connectorStartNode = manager.project.findNodeByPosition(
-                                          event.offsetX, event.offsetY);
+            else{
+                var possibleEndNode = manager.project.findNodeByPosition(
+                    event.offsetX, event.offsetY);
+                if(possibleEndNode){
+                    manager.project.addConnector(
+                        connectorStartNode, possibleEndNode);
                 }
-                else{
-                    var possibleEndNode = manager.project.findNodeByPosition(
-                                           event.offsetX, event.offsetY);
-                    if(possibleEndNode){
-                        manager.project.addConnector(
-                                        connectorStartNode, possibleEndNode);
-                    }
-                    connectorStartNode = undefined;
-                }
+                connectorStartNode = undefined;
             }
-            else if(manager.mode === CONNECTOR_CLEAR_MODE) {
-                if(hoveredNodeId){
-                    manager.project.removeAllConnectors(hoveredNodeId);
-                }
+        }
+        else if(manager.mode === CONNECTOR_CLEAR_MODE) {
+            if(hoveredNodeId){
+                manager.project.removeAllConnectors(hoveredNodeId);
             }
-            else if(manager.mode === NO_MODE) {
-                if(hoveredNodeId){
-                    currentSelectedNode = manager.project.nodes[hoveredNodeId];
-                    onEditNode();
-                }
-                else{
-                    putDescAway();
-                }
+        }
+        else if(manager.mode === NO_MODE) {
+            if(hoveredNodeId){
+                currentSelectedNode = manager.project.nodes[hoveredNodeId];
+                onEditNode();
             }
-        }, false);
+            else{
+                putDescAway();
+            }
+        }
+    }, false);
     canvas.addEventListener('mousemove', function(event) {
 
         hoveredNodeId = manager.project.findNodeByPosition(
@@ -178,9 +183,9 @@ function drawNodes() {
         var node = manager.project.nodes[nodeId];
         if(node){
             node.connectors.forEach(function(neighborId) {
-                    var neighbor = manager.project.nodes[neighborId];
-                    drawConnection(node.x, node.y, neighbor.x, neighbor.y);
-                });
+                var neighbor = manager.project.nodes[neighborId];
+                drawConnection(node.x, node.y, neighbor.x, neighbor.y);
+            });
         }
     });
 
@@ -300,7 +305,7 @@ function redrawAll() {
                 ctx.fillStyle = NEW_NODE_STYLE;
                 if(canvasData.mouseX < NODE_RADIUS ||
                    canvasData.mouseX > canvas.width - NODE_RADIUS ||
-                    canvasData.mouseY < NODE_RADIUS ||
+                   canvasData.mouseY < NODE_RADIUS ||
                    canvasData.mouseY > canvas.height - NODE_RADIUS){
                     ctx.fillStyle = "pink";
                 }
