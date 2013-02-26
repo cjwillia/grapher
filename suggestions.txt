@@ -8,3 +8,15 @@ kevon
 google calendar
 show the graph like a time flow,divided by time frame grids 
 
+- show name of current project
+- call them tasks, not nodes. Call them connectors, not edges.
+- right after you make a node, select the node you just added
+- (bug) enter on desc page reloads page. Should do nothing
+- every time you type a letter in desc, save desc
+- edges should be directed
+- be able to delete edges
+- have desc info show up on mouseover
+- when you're not displaying desc, display in its place a blub like
+  "grapher is an application to organize group project. Click add task
+   to create a new ..."
+- make it obvious how you can move nodes
