@@ -63,7 +63,7 @@ function canvasMain() {
                 movingNode = false;
             }
             if (manager.mode === CREATE_MODE) {
-                manager.project.addNode("clicknode",
+                manager.project.addNode("",
                                         event.offsetX, event.offsetY);
             }
             else if(manager.mode === DELETE_MODE) {
@@ -92,11 +92,22 @@ function canvasMain() {
             else if(manager.mode === NO_MODE) {
                 if(hoveredNodeId){
                     currentSelectedNode = manager.project.nodes[hoveredNodeId];
-                    displayNode(currentSelectedNode);
+                    onEditNode();
                 }
                 else{
+                    // if there already is a currently selected node, save
+                    // their before hiding the interface
+                    if (currentSelectedNode) {
+                        saveDesc();
+                    }
+
+                    // still hide it though
+	                $("#showDesc").css("display","block");
+	                $("#editDesc").css("display","none");
+
                     currentSelectedNode = undefined;
                 }
+                // onCurrentSelectedNodeChanged();
             }
         }, false);
     canvas.addEventListener('mousemove', function(event) {

@@ -19,10 +19,16 @@ function initPage(){
  ***************************************************/
 // these functions are called by the user clicking on the thing at the top.
 
-// In the future, they'll actually do something.
+
+/* Well, what do you think it does? I'll use this to clear all the buttons
+ * before giving the sleected class */
+function removeSelectedClassFromButtons() {
+}
+
 
 function onCreateNode(){
     manager.mode = CREATE_MODE;
+
 }
 
 
@@ -32,6 +38,28 @@ function onDelNode(){
 
 
 function onEditNode(){
+	$("#editDesc").css("display","block");
+    $("#showDesc").css("display","none");
+
+    // fill the form with the currentSelectedNode's data
+    // closures!
+    function fillIfTrue(jQueryObj, value) {
+        if (value) {
+            jQueryObj.val(value);
+        }
+    }
+	fillIfTrue($("#nodeTitle"), currentSelectedNode.name);
+	fillIfTrue($("#descText"), currentSelectedNode.desc);
+	fillIfTrue($("#startYear"), currentSelectedNode.startY);
+    fillIfTrue($("#startMonth"), currentSelectedNode.startM);
+	fillIfTrue($("#startdate"), currentSelectedNode.startD);
+	fillIfTrue($("#startHour"), currentSelectedNode.startH);
+	fillIfTrue($("#endYear"), currentSelectedNode.endY);
+	fillIfTrue($("#endMonth"), currentSelectedNode.endM);
+	fillIfTrue($("#endDate"), currentSelectedNode.endD);
+	fillIfTrue($("#endHour"), currentSelectedNode.endH);
+	fillIfTrue($("#ownership"), currentSelectedNode.holder);
+
 	console.log("onEditNode");
 }
 
@@ -43,6 +71,7 @@ function onAddEdge(){
 function onSelectNode(){
 	manager.mode = NO_MODE;
 }
+
 /***************************************************
  * jquery and button stuff
  ***************************************************/
@@ -50,6 +79,51 @@ function enterEditMode(){
     $("ProjectControls").css("display", "none");
     $("#canvasPanel").css("display","block");
 }
+
+// save the description of the current node, assuming it's
+// stored in the form thingie on the right.
+function saveDesc() {
+	var name=$("#nodeTitle").val();
+	var desc=$("#descText").val();
+	var startY=$("#startYear").val();
+    var startM=$("#startMonth").val();
+	var startD=$("#startDate").val();
+	var startH=$("#startHour").val();
+	var endY=$("#endYear").val();
+	var endM=$("#endMonth").val();
+	var endD=$("#endDate").val();
+	var endH=$("#endHour").val();
+	var holder=$("#ownership").val();
+	console.log("holder = " + holder);
+
+	if (name){
+        currentSelectedNode.name=name;
+    } if(desc){
+        currentSelectedNode.desc=desc;
+    } if (holder){
+        currentSelectedNode.holder=holder;
+    } if (startY) {
+        console.log("startY is true!");
+        currentSelectedNode.startY = startY;
+    } if (startM) {
+        currentSelectedNode.startM = startM;
+    } if (startD) {
+        currentSelectedNode.startD = startD;
+    } if (startH) {
+        currentSelectedNode.startH = startH;
+    } if (endY) {
+        currentSelectedNode.endY = endY;
+    } if (endM) {
+        currentSelectedNode.endM = endM;
+    } if (endD) {
+        currentSelectedNode.endD = endD;
+    } if (endH) {
+        currentSelectedNode.endH = endH;
+    }
+
+    $(".clear").val("");
+}
+
 $(document).ready(function(){
     // submits a search like "project foo" and loads the result
     var submitFindProject = function() {
@@ -76,14 +150,14 @@ $(document).ready(function(){
             submitFindProject();
             // why return false? no idea, but removing it breaks things
             return false;
-         }
+        }
     }).focus(); // also, focus on textarea to begin with (a la google)
 
 	$("#selectProject").click(function(){
 		manager.getProject($("#idSelect").val(), function() {
             if (manager.hasProject()) {
                 canvasMain();
-		enterEditMode();
+		        enterEditMode();
 
             }
         });
@@ -97,52 +171,14 @@ $(document).ready(function(){
 	});
 	$("#editNode").click(function(){
 		if (currentSelectedNode!==undefined){
-		onEditNode();
-		$("#editDesc").css("display","block");
-    $("#showDesc").css("display","none");};
+		    onEditNode();
+        };
 	});
 	$("#addEdge").click(function(){
 		onAddEdge();
 	});
 
 	$("#selectNode").click(onSelectNode);
-
-    // when they click on the save button, save your changes!
-    // Then, the description-editting thing disappear.
-    $("#saveDesc").click(function(){
-	    var name=$("#nodeTitle").val();
-	    var desc=$("#descText").val();
-	    var startY=$("#startYear").val();
-        var startM=$("#startMonth").val();
-	    var startD=$("#startdate").val();
-	    var startH=$("#startHour").val();
-	    var endY=$("#endYear").val();
-	    var endM=$("#endMonth").val();
-	    var endD=$("#endDate").val();
-	    var endH=$("#endHour").val();
-	    var holder=$("#ownership").val();
-	    console.log("holder = " + holder);
-
-	    if (name){
-            currentSelectedNode.name=name;
-        }
-	    if(desc){
-            currentSelectedNode.desc=desc;
-        }
-	    if (holder){
-            currentSelectedNode.holders=holder;
-        }
-	    if(startY!=="" && startM!=="" && startH!=="" && startD!=""){
-		    currentSelectedNode.startPoint=
-		        startY+"\\"+startM+'\\'+startD+", "+startH;
-	    }
-	    if(endY && endM && endH && endD){
-		    currentSelectedNode.endPoint=
-		        endY+"\\"+endM+'\\'+endD+", "+endH;
-	    }
-        $(".clear").val("");
-
-    });
 
     $("#canvasPanel").css("display", "none");
     // and last but not least, run the main function
@@ -155,12 +191,12 @@ function displayNode(curNode){
 	$(".clear2").html("");
 	var name=curNode.name;
 	var desc=curNode.desc;
-	var start=curNode.startPoint;
-	var end=curNode.endPoint;
-	var holders=curNode.holders;
+	var start=getStartDate(curNode);
+	var end=getEndDate(curNode);
+	var holder=curNode.holder;
 	$("#curName").html(name);
-	if(holders){
-	    $("#curHolder").html("by "+holders+".");
+	if(holder){
+	    $("#curHolder").html("by "+holder+".");
     }
 	if(start && end){
 	    $("#curTime").html("From "+start+" to "+end+".");
