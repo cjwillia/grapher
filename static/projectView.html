@@ -14,7 +14,7 @@
     <body>
     	<h1>Grapher</h1>
     	<div id="content">
-    		<span id="controlPanel">
+   		<div id="controlPanel">
     			<div id="projectSelect">
     				<form>
     					<input id="idSelect" type="text">
@@ -34,20 +34,46 @@
 						</div>
 						<div id="nodeDesc">
   						<div id="editDesc">
-  							<form>
+								<div id="titleAndDesc">
+  							<form >
   								<input  id="nodeTitle" type="text" placeholder="Add a title here">
   								<textarea id="descText" placeholder="put your information here" row="3"></textarea>
   								<input id="saveDesc" type="button" value="save">
   							</form>
-  						</div>
+								</div>
+								<div id="dateAndHolder">
+								<table >
+									<tr>
+										<td>From:</td>
+										<td><input type="text" size="10" id="startYear" placeholder="YYYY"></td>
+										<td><input type="text" size="10" id="startMonth" placeholder="MM"></td>
+										<td><input type="text" size="10" id="startDate" placeholder="DD"></td>
+										<td><input type="text" size="10" id="startHour" placeholder="XXpm/am"></td>
+									</tr>
+									<tr>
+										<td>To:</td>
+										<td><input type="text" size="10" id="endYear" placeholder="YYYY"></td>
+										<td><input type="text" size="10" id="endMonth" placeholder="MM"></td>
+										<td><input type="text" size="10" id="endDate" placeholder="DD"></td>
+										<td><input type="text" size="10" id="endHour" placeholder="XXpm/am"></td>
+									</tr>
+								</table>
+								<table>
+									<tr>
+										<td>Ownership:</td>
+										<td><input type="text" size="40" id="ownership" placeholder="seperate names with comma"></td>
+									</tr>
+								</table>							
+  						  </div>
+							</div>
   						<div id="showDesc"></div>
   					</div>
       		</div>
-					</span>
-					<span id="canvasPanel">
+					</div>
+					<div id="canvasPanel">
     			<canvas id="mainCanvas" width="600" height="400" style="border:5px solid #000000">
     			</canvas>
-    		</span>
+    		</div>
     	</div>
     </body>
 </html>
