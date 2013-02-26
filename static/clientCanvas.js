@@ -98,19 +98,24 @@ function canvasMain() {
     canvas.addEventListener('mousemove', function(event) {
             canvasData.onMouseMove(event);
             hoveredNodeId = manager.project.findNodeByPosition(event.offsetX, event.offsetY)
+            
             if(hoveredNodeId){
                 overNode = true;
             }
             else{
                 overNode = false;
             }
-            if(movingNode){
+
+            function moveNodeWithMouse(node){
                 var dx = lastMouseX - event.offsetX;
                 var dy = lastMouseY - event.offsetY;
-                currentSelectedNode.x = currentSelectedNode.x - dx;
-                currentSelectedNode.y = currentSelectedNode.y - dy;
+                node.x = node.x - dx;
+                node.y = node.y - dy;
                 lastMouseX = event.offsetX;
-                lastMouseY = event.offsetY;
+                lastMouseY = event.offsetY; 
+            }
+            if(movingNode){
+                moveNodeWithMouse(currentSelectedNode)
             }
         }, false);
     canvas.setAttribute('tabindex','0');
