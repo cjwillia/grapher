@@ -8,6 +8,7 @@ var NO_MODE = "no mode";
 var CREATE_MODE = "create mode";
 var DELETE_MODE = "delete mode";
 var CONNECTOR_MODE = "connector mode";
+var CONNECTOR_CLEAR_MODE = "connector clear mode";
 
 /***************************************************
  * interface
@@ -18,7 +19,7 @@ function ProjectManager() {
     // ClientProject object. null means no project.
     this.project = null;
 
-    // are you creating a mode? creating an edge? doing nothing? ...or maybe deleting something?
+    // are you creating a mode? creating an edge? doing nothing? ...or maybe deleting something? ....OR LOTS OF OTHER STUFF MAYBE
     this.mode = NO_MODE;
 }
 

@@ -40,7 +40,6 @@ function canvasMain() {
             canvasData.onKeyUp(event);
         }, false);
     canvas.addEventListener('mousedown', function(event) {
-            console.log(manager.project);
             canvasData.onMouseDown(event);
         }, false);
     canvas.addEventListener('mouseup', function(event) {
@@ -62,6 +61,11 @@ function canvasMain() {
                         manager.project.addConnector(connectorStartNode, possibleEndNode);
                     }
                     connectorStartNode = undefined;
+                }
+            }
+            else if(manager.mode === CONNECTOR_CLEAR_MODE) {
+                if(hoveredNodeId){
+                    manager.project.removeAllConnectors(hoveredNodeId);
                 }
             }
         }, false);
@@ -130,6 +134,9 @@ function drawNodes() {
                 else if(manager.mode == CONNECTOR_MODE){
                     ctx.fillStyle = "yellow";
                 }
+                else if(manager.mode == CONNECTOR_CLEAR_MODE){
+                    ctx.fillStyle = "orange";
+                }
             }
 
         }
@@ -166,6 +173,14 @@ function hackyStateChanger() {
     else if(canvasData.keyPressed(67) && !lastCanvasData.keyPressed(67)) {
         if(manager.mode !== CONNECTOR_MODE){
             manager.mode = CONNECTOR_MODE;
+        }
+        else{
+            manager.mode = NO_MODE;
+        }
+    }
+    else if(canvasData.keyPressed(70) && !lastCanvasData.keyPressed(70)) {
+        if(manager.mode !== CONNECTOR_CLEAR_MODE){
+            manager.mode = CONNECTOR_CLEAR_MODE;
         }
         else{
             manager.mode = NO_MODE;

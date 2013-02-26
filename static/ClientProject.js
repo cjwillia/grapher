@@ -36,6 +36,9 @@ ClientProject.prototype.addConnector = function(startNodeId, endNodeId) {};
 // Remove the connection between any two nodes.
 ClientProject.prototype.removeConnector = function(startNodeId, endNodeId) {};
 
+// Remove all connections starting on a node
+ClientProject.prototype.removeAllConnectors = function(nodeId) {};
+
 // Change that node to have a new description.
 ClientProject.prototype.editDescription = function(nodeId, newDesc) {};
 
@@ -93,6 +96,9 @@ ClientProject.prototype.addConnector = function(startNodeId, endNodeId) {
         this.nodes[startNodeId].connectors.push(endNodeId);
         return true;
     }
+    else if(startNodeId.toString() == endNodeId.toString()){
+        return false;
+    }
     else{
         return false;
     }
@@ -107,6 +113,10 @@ ClientProject.prototype.removeConnector = function(startNodeId, endNodeId) {
     assert(i != -1);
     this.nodes[startNodeIndex].splice(i, 1);
 };
+
+ClientProject.prototype.removeAllConnectors = function(nodeId) {
+    this.nodes[nodeId].connectors = [];
+}
 
 ClientProject.prototype.editDescription = function(nodeId, newDesc) {
     this.nodes[nodeId].desc = newDesc;
@@ -149,7 +159,6 @@ ClientProject.prototype.deleteNode = function(x, y) {
     this.deleting = true;
 
     var toDelete = this.findNodeByPosition(x, y);
-    console.log("toDelete", toDelete);
     if(toDelete !== false){
         for (var neighborId in this.nodes) {
             // now remove all instances of toDelete from neighbors
@@ -160,7 +169,6 @@ ClientProject.prototype.deleteNode = function(x, y) {
             }
         }
         delete(this.nodes[toDelete]);
-        console.log('deleted');
     }
     this.deleting = false;
 };
