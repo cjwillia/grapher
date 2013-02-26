@@ -6,7 +6,14 @@ var manager;
 /***************************************************
  * main
  ***************************************************/
-
+//css configuration
+function verticalCenter(parentDiv,childDiv){
+	var height1=parentDiv.height();
+	var height2=childDiv.height();
+	var height=(height1-height2)/2;
+	console.log(height);
+	childDiv.css("top",height);
+}
 /* Main function called when the page loads. */
 function initPage(){
     manager = new ProjectManager();
@@ -131,10 +138,11 @@ function saveDesc() {
 
     $(".clear").val("");
 }
-
 $(document).ready(function(){
+	verticalCenter($("#findForm"),$("#findProject"));
     // submits a search like "project foo" and loads the result
     var submitFindProject = function() {
+		console.log("clicked");
 		if ($("#textfield").val()!==""){
 			manager.findProject($("#textfield").val(), function() {
                 if (manager.hasProject()) {
@@ -144,6 +152,7 @@ $(document).ready(function(){
 			    enterEditMode();
             });
 		}
+	return false;
 	};
 	$("#findProject").click(submitFindProject);
 

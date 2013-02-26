@@ -46,15 +46,22 @@ h1 {
 .line {
     margin-bottom:15px;
 }
-
-#textfield,#findProject {
+#findForm{
+	position:relative;
+}
+#textfield{
     font-size:200%;
 }
-
-#findProject {
-    cursor: pointer;
+#findProject{
+	position:absolute;
+	cursor:pointer;
+	width:32px;
+	height:32px;
+	padding:0px;
+	margin-left:10px;
+	border:none;
+	background-image:url("./search.png")
 }
-
 #projectControls {
 	display: none;
 }
