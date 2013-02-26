@@ -100,9 +100,15 @@ function displayNode(curNode){
 	var end=curNode.endPoint;
 	var holders=curNode.holders;
 	$("#curName").html(name);
-	$("#curHolder").html("by "+desc);
-	$("#curTime").html(start+" to "+end);
-	$("#curDesc").html(desc); 
+	if(holders){
+	$("#curHolder").html("by "+holders+".");}
+	if(start && end){
+	$("#curTime").html("From "+start+" to "+end+".");}
+	
+	if (desc){
+	$("#curDesc").html(desc);}
+	else{
+	$("#curDesc").html("No description yet");} 
 }
 function switchPanel(A,B){
 	A.css("display","block");
