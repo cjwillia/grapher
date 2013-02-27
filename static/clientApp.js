@@ -216,6 +216,7 @@ $(document).ready(function(){
 function displayNode(curNode){
 	$("#showDesc").css("display","inline-block");
 	$("#editDesc").css("display","none");
+	$("#helpText").css("display", "none");
 	$(".clear2").html("");
 	var name=curNode.name;
 	var desc=curNode.desc;
