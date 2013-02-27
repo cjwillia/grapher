@@ -1,17 +1,31 @@
 var currentDate=new Date();
 var currentDateX=0;
+function fillDeadLine(){
+	var time=currentSelectedNode.x*convertTime(manager.project.timeScale)/20;
+	var date=new Date(time+manager.project.startDate);
+	$("#endYear").val(date.getFullYear());
+	$("#endMonth").val(date.getMonth());
+	$("#endDate").val(date.getDate());
+	$("#endHour").val(date.getHours());
+	}
+	
 function drawCurrentTime(){
 	currentDate=new Date();
 	if (currentDate.getTime()<manager.project.startDate){return}
 	else{
 		var timeGap=(currentDate.getTime()-manager.project.startDate);
 		var pxGap=(timeGap/(convertTime(manager.project.timeScale)))*20;
-		console.log(timeGap/1000/60)
 		currentDateX=pxGap;
 		ctx.beginPath();
+		ctx.strokeStyle="#015C65";
 		ctx.moveTo(pxGap,0);
+		ctx.fillStyle = "#012932";
 		ctx.lineTo(pxGap,canvas.width);
+		ctx.lineWidth=3;
 		ctx.stroke();
+		ctx.font = "10px Arial";
+		ctx.textAlign = "left";
+		ctx.fillText("Current Time",pxGap+5,15);	
 	}
 }
 function display(a){
@@ -49,6 +63,7 @@ function saveScaleData(){
 			manager.project.timeScale=timeFormat(year,month,day,hour,minute);
 			$(".clear3").val("");
 			hide($("#chooseScale"));
+			console.log(manager.project.timeScale);
 		};})
 	}
 	
@@ -60,6 +75,7 @@ function drawTimeScale(){
 	ctx.lineTo(x0,y0+5);
 	ctx.lineTo(x0+20,y0+5);
 	ctx.lineTo(x0+20,y0);
+	ctx.lineWidth=2;
 	ctx.stroke();
 	var time=manager.project.timeScale;
 	var index=0;
@@ -74,6 +90,7 @@ function drawTimeScale(){
 	ctx.font = "10px Arial";
 	ctx.textAlign = "left";
 	ctx.fillStyle = "black";
+	ctx.fillStyle = "#012932";
 	ctx.fillText(text,x0-10,y0+25);	
 }
 function convertTime(time){	

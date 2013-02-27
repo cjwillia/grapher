@@ -62,13 +62,10 @@ function onEditNode(){
 	fillIfTrue($("#nodeTitle"), currentSelectedNode.name);
 	fillIfTrue($("#descText"), currentSelectedNode.desc);
 	fillIfTrue($("#startYear"), currentSelectedNode.startY);
-    fillIfTrue($("#startMonth"), currentSelectedNode.startM);
+        fillIfTrue($("#startMonth"), currentSelectedNode.startM);
 	fillIfTrue($("#startdate"), currentSelectedNode.startD);
 	fillIfTrue($("#startHour"), currentSelectedNode.startH);
-	fillIfTrue($("#endYear"), currentSelectedNode.endY);
-	fillIfTrue($("#endMonth"), currentSelectedNode.endM);
-	fillIfTrue($("#endDate"), currentSelectedNode.endD);
-	fillIfTrue($("#endHour"), currentSelectedNode.endH);
+	fillDeadLine()
 	fillIfTrue($("#ownership"), currentSelectedNode.holder);
 
 	console.log("onEditNode");

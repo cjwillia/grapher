@@ -144,7 +144,8 @@ function canvasMain() {
             if(movingNode){
 
                 // if you're dragging around a particular node, move it
-
+		//change the deadline desc instantly
+		fillDeadLine();
                 var dx = canvasData.mouseX - event.offsetX;
                 var dy = canvasData.mouseY - event.offsetY;
                 currentSelectedNode.x -= dx;
@@ -229,7 +230,6 @@ function drawNodes() {
 
         ctx.fillStyle = NODE_STYLE;
 	if(passDeadline(node)){
-		console.log("change");
 		ctx.fillStyle="#ddd";
 	}
         else if (overNode){
