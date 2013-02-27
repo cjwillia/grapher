@@ -1,12 +1,12 @@
 lydia
 visualization -circle shadow
 detect the data that expired
-settings:choose the color 
+settings:choose the color
 cross teams
 
 kevon
 google calendar
-show the graph like a time flow,divided by time frame grids 
+show the graph like a time flow,divided by time frame grids
 
 - show name of current project
 - call them tasks, not nodes. Call them connectors, not edges.
@@ -19,4 +19,4 @@ show the graph like a time flow,divided by time frame grids
 - when you're not displaying desc, display in its place a blub like
   "grapher is an application to organize group project. Click add task
    to create a new ..."
-- make it obvious how you can move nodes
+- save project button

@@ -89,6 +89,8 @@ ProjectManager.prototype.newProject = function(projectName, callback) {
 		success : function(data) {
             this.project = new ClientProject(data.project);
             console.log("Successfully created project.");
+            $("#projectControls").css("display", "block");
+            $("#projectSelect").css("display", "none");
 
             if (callback) {
                 callback();

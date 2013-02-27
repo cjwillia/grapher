@@ -15,9 +15,11 @@ Corey:
 - save project button
 
 Brian:
-- (bug) can't make new projects
 - right after you make a node, select the node you just added
 - typing letters on editDesc will save them continuously
 - enter on editDesc should do nothing
 - (css) make canvas size reasonable
 - edges should be directed
+
+done:
+- (bug) can't make new projects
