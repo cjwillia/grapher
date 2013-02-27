@@ -3,6 +3,8 @@
 var buttonSave;
 var manager;
 
+var buttonSave;
+
 /***************************************************
  * main
  ***************************************************/
@@ -45,7 +47,8 @@ function onDelNode(){
 /* so we no longer have an edit button, but this is still a useful function for
  * when you select a node */
 function onEditNode(){
-	$("#editDesc").css("display","block");
+	$("#editDesc").css("display","inline-block");
+	$("#helpText").css("display", "none");
     $("#showDesc").css("display","none");
 
     // fill the form with the currentSelectedNode's data
@@ -93,11 +96,16 @@ function onSelectNode(){
 function enterEditMode(){
     $("ProjectControls").css("display", "none");
     $("#canvasPanel").css("display","block");
+    $("#nodeDesc").css("display", "inline-block");
 }
 
 // save the description of the current node, assuming it's
 // stored in the form thingie on the right.
 function saveDesc() {
+    if (!currentSelectedNode || $("#editDesc").css("display") === "none") {
+        return;
+    }
+
 	var name=$("#nodeTitle").val();
 	var desc=$("#descText").val();
 	var startY=$("#startYear").val();
@@ -135,9 +143,8 @@ function saveDesc() {
     } if (endH) {
         currentSelectedNode.endH = endH;
     }
-
-    $(".clear").val("");
 }
+
 $(document).ready(function(){
 	verticalCenter($("#findForm"),$("#findProject"));
     // submits a search like "project foo" and loads the result
@@ -147,9 +154,10 @@ $(document).ready(function(){
 		if ($("#textfield").val()!==""){
 			manager.findProject($("#textfield").val(), function() {
                 if (manager.hasProject()) {
+                    $(".selected").removeClass("selected");
+                    $("#selectNode").addClass("selected");
                     canvasMain();
                 }
-                // TODO: fix when not found
 			    enterEditMode();
             });
 		}
@@ -193,14 +201,26 @@ $(document).ready(function(){
 
 	$("#selectNode").click(onSelectNode);
 
+	$("#saveProj").click(function(){
+		manager.updateProject();
+		buttonSave = true;
+	});
+
+	$("#showHelp").click(function(){
+		$("#helpText").css("display", "inline-block");
+		$("#editDesc").css("display", "none");
+		$("#showDesc").css("display", "none");
+	});
+
     $("#canvasPanel").css("display", "none");
     // and last but not least, run the main function
     initPage();
 });
 
 function displayNode(curNode){
-	$("#showDesc").css("display","block");
+	$("#showDesc").css("display","inline-block");
 	$("#editDesc").css("display","none");
+	$("#helpText").css("display", "none");
 	$(".clear2").html("");
 	var name=curNode.name;
 	var desc=curNode.desc;

@@ -71,20 +71,35 @@ h1 {
 #controlBox {
 	width: 20%;
 	float: left;
-	margin:0px 20px
+}
+
+#helpText {
+  padding: 10px;
+  font-family: Helvetica;
+  display: inline-block;
+}
+
+p {
+  display: block;
+}
+
+b {
+  font-weight: bold;
+}
+
+#nodeDesc {
+  display: none;
+  width: 80%;
 }
 
 #editDesc {
-	display: none;
-	float: left;
-    padding: 10px;
+  padding: 10px;
+  display: none;
 }
 
 #showDesc {
-	width:65%;
 	float:left;
-	height:10px;
-	display:block
+	display:none;
 }
 
 #titleAndDesc {
@@ -96,7 +111,7 @@ h1 {
 #dateAndHolder {
 	display:inline-block;
 	width:55%;
-	margin-left:25px
+  padding: 10px;
 }
 
 #nodeTitle {
@@ -129,6 +144,10 @@ h1 {
     text-decoration:none;
     box-shadow: 0px 3px 2px -2px #000;
     text-shadow: 0px 2px 2px -1px #fff;
+}
+
+#saveProj {
+  background-color: #DDDD00;
 }
 
 /* to resize the canvas, resize this */

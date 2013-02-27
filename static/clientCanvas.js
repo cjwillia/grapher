@@ -57,6 +57,20 @@ function canvasMain() {
                 lastMouseX = event.offsetX;
                 lastMouseY = event.offsetY;
             }
+            else if(hoveredNodeId && manager.mode == NO_MODE){
+                currentSelectedNode = manager.project.nodes[hoveredNodeId];
+                onEditNode();
+                movingNode = true;
+                lastMouseX = event.offsetX;
+                lastMouseY = event.offsetY;
+            }
+        }
+        else if(manager.mode === NO_MODE && hoveredNodeId){
+            currentSelectedNode = manager.project.nodes[hoveredNodeId];
+            onEditNode();
+            movingNode = true;
+            lastMouseX = event.offsetX;
+            lastMouseY = event.offsetY;
         }
     }, false);
     canvas.addEventListener('mouseup', function(event) {
@@ -70,8 +84,16 @@ function canvasMain() {
             movingNode = false;
         }
         if (manager.mode === CREATE_MODE) {
-            manager.project.addNode("",
-                                    event.offsetX, event.offsetY);
+            var addedNode = manager.project.addNode("", event.offsetX, event.offsetY)
+            if(addedNode){
+                manager.mode = NO_MODE;
+                currentSelectedNode = addedNode;
+                onEditNode();
+                $(".selected").removeClass("selected");
+                $("#selectNode").addClass("selected");
+
+            }
+
         }
         else if(manager.mode === DELETE_MODE) {
             manager.project.deleteNode(event.offsetX, event.offsetY);
@@ -98,8 +120,6 @@ function canvasMain() {
         }
         else if(manager.mode === NO_MODE) {
             if(hoveredNodeId){
-                currentSelectedNode = manager.project.nodes[hoveredNodeId];
-                onEditNode();
             }
             else{
                 putDescAway();
@@ -141,6 +161,9 @@ function canvasMain() {
                     manager.project.nodes[nodeId].y -= dy;
                 }
 
+            }
+            else if (overNode && manager.mode === NO_MODE && !currentSelectedNode){
+                displayNode(manager.project.nodes[hoveredNodeId]);
             }
         }
 
