@@ -71,19 +71,20 @@ h1 {
 #controlBox {
 	width: 20%;
 	float: left;
-	margin:0px 20px
+}
+
+#nodeDesc {
+  display: inline-block;
+  width: 80%;
 }
 
 #editDesc {
-	display: none;
-	float: left;
-    padding: 10px;
+	display: inline-block;
+  padding: 10px;
 }
 
 #showDesc {
-	width:65%;
 	float:left;
-	height:10px;
 	display:block
 }
 
@@ -96,7 +97,7 @@ h1 {
 #dateAndHolder {
 	display:inline-block;
 	width:55%;
-	margin-left:25px
+  padding: 10px;
 }
 
 #nodeTitle {

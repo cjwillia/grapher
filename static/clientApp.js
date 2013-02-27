@@ -45,7 +45,7 @@ function onDelNode(){
 /* so we no longer have an edit button, but this is still a useful function for
  * when you select a node */
 function onEditNode(){
-	$("#editDesc").css("display","block");
+	$("#editDesc").css("display","inline-block");
     $("#showDesc").css("display","none");
 
     // fill the form with the currentSelectedNode's data
@@ -198,7 +198,7 @@ $(document).ready(function(){
 });
 
 function displayNode(curNode){
-	$("#showDesc").css("display","block");
+	$("#showDesc").css("display","inline-block");
 	$("#editDesc").css("display","none");
 	$(".clear2").html("");
 	var name=curNode.name;
