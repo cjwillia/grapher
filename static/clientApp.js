@@ -144,12 +144,12 @@ $(document).ready(function(){
     // submits a search like "project foo" and loads the result
     saveScaleData();
     var submitFindProject = function() {
-		console.log("clicked");
 		if ($("#textfield").val()!==""){
 			manager.findProject($("#textfield").val(), function() {
                 if (manager.hasProject()) {
                     $(".selected").removeClass("selected");
                     $("#selectNode").addClass("selected");
+		    $("#projectTitle").html($("#textfield").val());
                     canvasMain();
                 }
 			    enterEditMode();

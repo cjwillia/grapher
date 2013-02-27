@@ -1,4 +1,4 @@
-var NODE_STYLE = "blue";
+var NODE_STYLE = "#235D79";
 var NEW_NODE_STYLE = "turquoise";
 var NODE_RADIUS = 25;
 var CONNECTION_STYLE = "green";
