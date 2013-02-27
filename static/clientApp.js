@@ -13,7 +13,6 @@ function verticalCenter(parentDiv,childDiv){
 	var height1=parentDiv.height();
 	var height2=childDiv.height();
 	var height=(height1-height2)/2;
-	console.log(height);
 	childDiv.css("top",height);
 }
 /* Main function called when the page loads. */
@@ -117,30 +116,28 @@ function saveDesc() {
 	var endD=$("#endDate").val();
 	var endH=$("#endHour").val();
 	var holder=$("#ownership").val();
-	console.log("holder = " + holder);
 
-	if (name){
+	if (name !== undefined) {
         currentSelectedNode.name=name;
-    } if(desc){
+    } if(desc !== undefined) {
         currentSelectedNode.desc=desc;
-    } if (holder){
+    } if (holder !== undefined) {
         currentSelectedNode.holder=holder;
-    } if (startY) {
-        console.log("startY is true!");
+    } if (startY !== undefined) {
         currentSelectedNode.startY = startY;
-    } if (startM) {
+    } if (startM !== undefined) {
         currentSelectedNode.startM = startM;
-    } if (startD) {
+    } if (startD !== undefined) {
         currentSelectedNode.startD = startD;
-    } if (startH) {
+    } if (startH !== undefined) {
         currentSelectedNode.startH = startH;
-    } if (endY) {
+    } if (endY !== undefined) {
         currentSelectedNode.endY = endY;
-    } if (endM) {
+    } if (endM !== undefined) {
         currentSelectedNode.endM = endM;
-    } if (endD) {
+    } if (endD !== undefined) {
         currentSelectedNode.endD = endD;
-    } if (endH) {
+    } if (endH !== undefined) {
         currentSelectedNode.endH = endH;
     }
 }
@@ -169,10 +166,13 @@ $(document).ready(function(){
     $("#textfield").keydown(function(event) {
         if (event.keyCode == 13) {
             submitFindProject();
-            // why return false? no idea, but removing it breaks things
+            // return false means don't register the key as being pressed
             return false;
         }
     }).focus(); // also, focus on textarea to begin with (a la google)
+
+    $("#editDesc").keyup(saveDesc);
+    $("#editDesc").keydown(saveDesc);
 
 	$("#selectProject").click(function(){
 		manager.getProject($("#idSelect").val(), function() {
@@ -237,6 +237,7 @@ function displayNode(curNode){
 	    $("#curDesc").html(desc);
     }
 	else{
-	    $("#curDesc").html("No description yet");
+	    // $("#curDesc").html("No description yet");
+	    $("#curDesc").html("");
     }
 }
