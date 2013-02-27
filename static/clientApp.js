@@ -48,6 +48,7 @@ function onDelNode(){
  * when you select a node */
 function onEditNode(){
 	$("#editDesc").css("display","inline-block");
+	$("#helpText").css("display", "none");
     $("#showDesc").css("display","none");
 
     // fill the form with the currentSelectedNode's data
@@ -95,6 +96,7 @@ function onSelectNode(){
 function enterEditMode(){
     $("ProjectControls").css("display", "none");
     $("#canvasPanel").css("display","block");
+    $("#nodeDesc").css("display", "inline-block");
 }
 
 // save the description of the current node, assuming it's
@@ -198,7 +200,13 @@ $(document).ready(function(){
 	$("#saveProj").click(function(){
 		manager.updateProject();
 		buttonSave = true;
-	})
+	});
+
+	$("#showHelp").click(function(){
+		$("#helpText").css("display", "inline-block");
+		$("#editDesc").css("display", "none");
+		$("#showDesc").css("display", "none");
+	});
 
     $("#canvasPanel").css("display", "none");
     // and last but not least, run the main function

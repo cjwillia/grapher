@@ -73,19 +73,33 @@ h1 {
 	float: left;
 }
 
-#nodeDesc {
+#helpText {
+  padding: 10px;
+  font-family: Helvetica;
   display: inline-block;
+}
+
+p {
+  display: block;
+}
+
+b {
+  font-weight: bold;
+}
+
+#nodeDesc {
+  display: none;
   width: 80%;
 }
 
 #editDesc {
-	display: inline-block;
   padding: 10px;
+  display: none;
 }
 
 #showDesc {
 	float:left;
-	display:block
+	display:none;
 }
 
 #titleAndDesc {

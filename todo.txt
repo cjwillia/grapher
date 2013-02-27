@@ -8,9 +8,7 @@ Cory:
 - have desc info show up on mouseover (automatically select node when you hover
   over a node in select mode)
 - drag node immediately by clicking on it (fulfulled by last task)
-- when you're not displaying desc, display in its place a blub like
-  "grapher is an application to organize group project. Click add task
-   to create a new ..."
+
 
 Brian:
 - right after you make a node, select the node you just added
@@ -23,3 +21,6 @@ done:
 - (bug) can't make new projects [Brian]
 - (css) make editDesc reasonable [Cory]
 - save project button [Cory]
+- - when you're not displaying desc, display in its place a blub like
+  "grapher is an application to organize group project. Click add task
+   to create a new ..." [Cory]
