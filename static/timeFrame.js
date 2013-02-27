@@ -4,11 +4,12 @@ function fillDeadLine(){
 	var time=currentSelectedNode.x*convertTime(manager.project.timeScale)/20;
 	var date=new Date(time+manager.project.startDate);
 	$("#endYear").val(date.getFullYear());
-	$("#endMonth").val(date.getMonth());
+	$("#endMonth").val(date.getMonth()+1);
 	$("#endDate").val(date.getDate());
 	$("#endHour").val(date.getHours());
 	}
 function saveDeadLineFromDesc(endY,endM,endD,endH){
+	endM=endM*1-1;
 	var time=currentSelectedNode.x*convertTime(manager.project.timeScale)/20;
 	var date=new Date(time+manager.project.startDate);
 	console.log(endY,date.getFullYear(),endM,date.getMonth(),endD,date.getDate(),endH,date.getHours());
