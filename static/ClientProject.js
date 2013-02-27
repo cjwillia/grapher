@@ -75,6 +75,7 @@ ClientProject.prototype.addNode = function(name, x, y) {
         var id = this.idCount;
         this.idCount++;
         var node = new ClientNode(id, name, x, y);
+	addDeadlineToNode(node,x);
         this.nodes[id] = node;
     }
 
@@ -125,6 +126,9 @@ ClientProject.prototype.editDescription = function(nodeId, newDesc) {
 
 ClientProject.prototype.moveNode = function(nodeId, newX, newY) {
     this.nodes[nodeId].x = newX;
+    var node=this.nodes[nodeId];
+    console.log("move node?");
+    addDeadLineToNode(node,newX);
     this.nodes[nodeId].y = newY;
 };
 

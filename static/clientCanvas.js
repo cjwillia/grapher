@@ -48,6 +48,11 @@ function canvasMain() {
         canvasData.onKeyUp(event);
     }, false);
     canvas.addEventListener('mousedown', function(event) {
+	if((0<=event.offsetX && event.offsetX<=70)&&
+	   (event.offsetY>=canvas.height-40)){
+	  display($("#chooseScale"));
+	  return;
+	}
         canvasData.onMouseDown(event);
         if(currentSelectedNode){
             if(hoveredNodeId.toString() == currentSelectedNode.id.toString()){
@@ -176,8 +181,9 @@ function drawConnection(x0, y0, x1, y1) {
 /* The function that does it all: draws every node you have */
 function drawNodes() {
 
+    drawCurrentTime();
     assert(manager.hasProject());
-
+    drawTimeScale();
     // first, draw every connection
     Object.keys(manager.project.nodes).forEach(function(nodeId) {
         var node = manager.project.nodes[nodeId];
@@ -287,7 +293,6 @@ function redrawAll() {
     var canvasPanel = $("#canvasPanel");
     canvas.width = canvasPanel.width();
     canvas.height = canvasPanel.height();
-
     if (manager.hasProject()) {
         if(!manager.deleting){
             hackyStateChanger();

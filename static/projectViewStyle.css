@@ -133,9 +133,11 @@ h1 {
 
 /* to resize the canvas, resize this */
 #canvasPanel {
+		position:relative;
     display:block;
     text-align:center;
     height: 300px;
+		clear:both;
 }
 
 #mainCanvas {
@@ -146,4 +148,11 @@ h1 {
 
 .selected {
     background-color: #666;
+}
+#chooseScale{
+	display:none;
+	position:absolute;
+	top:50%;
+  left:35%;
+	margin:0 auto
 }

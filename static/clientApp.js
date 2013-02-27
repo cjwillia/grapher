@@ -141,6 +141,7 @@ function saveDesc() {
 $(document).ready(function(){
 	verticalCenter($("#findForm"),$("#findProject"));
     // submits a search like "project foo" and loads the result
+    saveScaleData();
     var submitFindProject = function() {
 		console.log("clicked");
 		if ($("#textfield").val()!==""){

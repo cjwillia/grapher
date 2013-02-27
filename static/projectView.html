@@ -8,6 +8,7 @@
     <script type="text/javascript" src="ClientProject.js"></script>
     <script type="text/javascript" src="ProjectManager.js"></script>
     <script type="text/javascript" src="clientApp.js"></script>
+    <script type="text/javascript" src="timeFrame.js"></script>
     <script type="text/javascript" src="clientCanvas.js"></script>
     <script type="text/javascript" src="CanvasData.js"></script>
 	<link rel="stylesheet" type="text/css" href="reset.css">
@@ -78,6 +79,16 @@
       	  </div>
 		</div>
 		<div id="canvasPanel">
+				<div id="chooseScale">
+				<form>
+				<input type="text" size="5" id="scaleYear" class="clear3" placeholder="years">
+				<input type="text" size="5" id="scaleMonth" class="clear3" placeholder="months">
+				<input type="text" size="5" id="scaleDay" class="clear3" placeholder="days">
+				<input type="text" size="5" id="scaleHour" class="clear3" placeholder="hours">
+				<input type="text" size="5" id="scaleMinute" class="clear3" placeholder="minutes">
+				<input type="button" value="save" id="saveScale">
+				</form>
+			  </div>
     	  <canvas id="mainCanvas">
     	  </canvas>
     	</div>
