@@ -1,12 +1,12 @@
-var timeScale;
-var startDate=new Date();
 var currentDate=new Date();
+var currentDateX=0;
 function drawCurrentTime(){
 	currentDate=new Date();
-	if (currentDate.getTime()<startDate.getTime()){return}
+	if (currentDate.getTime()<manager.project.startDate){return}
 	else{
-		var timeGap=(currentDate.getTime()-startDate.getTime());
-		var pxGap=20*(timeGap/(convertTime(timeScale)));
+		var timeGap=(currentDate.getTime()-manager.project.startDate);
+		var pxGap=20*(timeGap/(convertTime(manager.project.timeScale)));
+		currentDateX=pxGap;
 		ctx.beginPath();
 		ctx.moveTo(pxGap,0);
 		ctx.lineTo(pxGap,canvas.width);
@@ -19,12 +19,15 @@ function display(a){
 function hide(a){
 	a.css("display","none");
 }
-function  addDeadlineToNode(node,x){
-	var timeGap=x*(convertTime(timeScale));
-	node.deadline=(new Date(startDate.getTime()+Math.floor(timeGap))).getTime();
-	console.log(node.deadline);
+function  getDeadline(x){
+	var timeGap=x*(convertTime(manager.project.timeScale));
+	return (new Date(manager.project.startDate+Math.floor(timeGap)));
 	}
-	
+var foo=true;
+function passDeadline(node){
+	//var deadLine=getDeadline(node.x);
+	return (node.x<currentDateX);
+	}	
 var timeFormat=function(year,month,day,hour,minute){
 	var time=[];
 	time.push([year,"years"]);
@@ -34,7 +37,6 @@ var timeFormat=function(year,month,day,hour,minute){
 	time.push([minute,"minutes"]);
 	return time;
 }
-timeScale=timeFormat("","","","1","");
 function saveScaleData(){
 	$("#saveScale").click(function(){
 		var year=$("#scaleYear").val();
@@ -43,7 +45,7 @@ function saveScaleData(){
 		var hour=$("#scaleHour").val();
 		var minute=$("#scaleMinute").val();
 		if (year||month||day||hour||minute){
-			timeScale=timeFormat(year,month,day,hour,minute);
+			manager.project.timeScale=timeFormat(year,month,day,hour,minute);
 			$(".clear3").val("");
 			hide($("#chooseScale"));
 		};})
@@ -58,7 +60,7 @@ function drawTimeScale(){
 	ctx.lineTo(x0+20,y0+5);
 	ctx.lineTo(x0+20,y0);
 	ctx.stroke();
-	var time=timeScale;
+	var time=manager.project.timeScale;
 	var index=0;
 	for(var i=0;i<time.length;i++){
 		if (time[i][0]!==""){index=i;break}

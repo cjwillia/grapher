@@ -1,3 +1,7 @@
+/*
+  TODO: Implement all the canvas code here.
+*/
+
 var NODE_STYLE = "blue";
 var NEW_NODE_STYLE = "turquoise";
 var NODE_RADIUS = 25;
@@ -49,7 +53,6 @@ function canvasMain() {
 	  display($("#chooseScale"));
 	  return;
 	}
-
         canvasData.onMouseDown(event);
         if(currentSelectedNode){
             if(hoveredNodeId.toString() == currentSelectedNode.id.toString()){
@@ -121,8 +124,6 @@ function canvasMain() {
         // canvasData.mouseX and Y will be 0 if never used
         if (canvasData.mouseX && canvasData.mouseY) {
 
-            if(movingNode){
-
                 // if you're dragging around a particular node, move it
 
                 var dx = canvasData.mouseX - event.offsetX;
@@ -146,9 +147,7 @@ function canvasMain() {
 
         // regardless, log the current location of the mouse
         canvasData.onMouseMove(event);
-
     }, false);
-
     canvas.setAttribute('tabindex','0');
     canvas.focus();
 
@@ -178,10 +177,10 @@ function drawConnection(x0, y0, x1, y1) {
 
 /* The function that does it all: draws every node you have */
 function drawNodes() {
-    drawCurrentTime();
-    drawTimeScale();
-    assert(manager.hasProject());
 
+    drawCurrentTime();
+    assert(manager.hasProject());
+    drawTimeScale();
     // first, draw every connection
     Object.keys(manager.project.nodes).forEach(function(nodeId) {
         var node = manager.project.nodes[nodeId];
@@ -206,10 +205,9 @@ function drawNodes() {
 
         ctx.fillStyle = NODE_STYLE;
 	if(passDeadline(node)){
-		console.log("change");
-		ctx.fillStyle="#ddd";
+		ctx.fillStyle="grey";
 	}
-        else if (overNode){
+        else(overNode){
             if(nodeId.toString() == hoveredNodeId.toString()){
                 if(manager.mode == DELETE_MODE){
                     ctx.fillStyle = "red";
@@ -289,22 +287,20 @@ function checkSave(){
     return false;
 }
 
-/* All drawings on the canvas should come from here. Nowhere else*/
+/* All drawings on the canvas should come from here. Nowhere else. */
 function redrawAll() {
 
     var canvasPanel = $("#canvasPanel");
     canvas.width = canvasPanel.width();
     canvas.height = canvasPanel.height();
-
     if (manager.hasProject()) {
         if(!manager.deleting){
             hackyStateChanger();
 
 
             ctx.fillStyle = "grey";
-            if(checkSave() || buttonSave){
+            if(checkSave()){
                 ctx.fillStyle = "white";
-                buttonSave = false;
             }
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 

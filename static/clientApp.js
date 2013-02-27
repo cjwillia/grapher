@@ -1,6 +1,6 @@
 //contains all server communication functions for committing data to the server from the client as well as providing APIs for
 //use in implementation of final model
-
+var buttonSave;
 var manager;
 
 /***************************************************
