@@ -5,7 +5,8 @@ function drawCurrentTime(){
 	if (currentDate.getTime()<manager.project.startDate){return}
 	else{
 		var timeGap=(currentDate.getTime()-manager.project.startDate);
-		var pxGap=20*(timeGap/(convertTime(manager.project.timeScale)));
+		var pxGap=(timeGap/(convertTime(manager.project.timeScale)))/20;
+		console.log(pxGap)
 		currentDateX=pxGap;
 		ctx.beginPath();
 		ctx.moveTo(pxGap,0);
