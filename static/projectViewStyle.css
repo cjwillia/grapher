@@ -132,6 +132,10 @@ h1 {
     text-shadow: 0px 2px 2px -1px #fff;
 }
 
+#saveProj {
+  background-color: #DDDD00;
+}
+
 /* to resize the canvas, resize this */
 #canvasPanel {
     display:block;

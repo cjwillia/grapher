@@ -295,8 +295,9 @@ function redrawAll() {
 
 
             ctx.fillStyle = "grey";
-            if(checkSave()){
+            if(checkSave() || buttonSave){
                 ctx.fillStyle = "white";
+                buttonSave = false;
             }
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 

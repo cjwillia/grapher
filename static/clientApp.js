@@ -3,6 +3,8 @@
 
 var manager;
 
+var buttonSave;
+
 /***************************************************
  * main
  ***************************************************/
@@ -192,6 +194,11 @@ $(document).ready(function(){
 	});
 
 	$("#selectNode").click(onSelectNode);
+
+	$("#saveProj").click(function(){
+		manager.updateProject();
+		buttonSave = true;
+	})
 
     $("#canvasPanel").css("display", "none");
     // and last but not least, run the main function
