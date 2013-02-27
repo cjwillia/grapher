@@ -1,5 +1,4 @@
 Phillis:
-- call them tasks, not nodes. Call them connectors, not edges.
 - display project name in title
 - make showDesc (a good-looking version of editDesc that will
   turn into a editDesc when you click on it)
@@ -10,11 +9,14 @@ Cory:
 
 
 Brian:
-- right after you make a node, select the node you just added
-- typing letters on editDesc will save them continuously
-- enter on editDesc should do nothing
 - (css) make canvas size reasonable
 - edges should be directed
+- remove edges
+- Save Project and Show Help should have the same color (via same class)
+- description should explain buttons
+- mouseover desc info should be pretty
+- tidy code
+
 
 done:
 - (bug) can't make new projects [Brian]
@@ -26,3 +28,7 @@ done:
 - have desc info show up on mouseover (automatically select node when you hover
   over a node in select mode) [Cory]
 - drag node immediately by clicking on it (fulfulled by last task) [Cory]
+- right after you make a node, select the node you just added [Cory]
+- typing letters on editDesc will save them continuously [Brian]
+- enter on editDesc should do nothing [Brian]
+- call them tasks, not nodes. Call them connectors, not edges. [Cory]
