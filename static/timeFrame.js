@@ -5,8 +5,8 @@ function drawCurrentTime(){
 	if (currentDate.getTime()<manager.project.startDate){return}
 	else{
 		var timeGap=(currentDate.getTime()-manager.project.startDate);
-		var pxGap=(timeGap/(convertTime(manager.project.timeScale)))/20;
-		console.log(pxGap)
+		var pxGap=(timeGap/(convertTime(manager.project.timeScale)))*20;
+		console.log(timeGap/1000/60)
 		currentDateX=pxGap;
 		ctx.beginPath();
 		ctx.moveTo(pxGap,0);
@@ -77,7 +77,7 @@ function drawTimeScale(){
 	ctx.fillText(text,x0-10,y0+25);	
 }
 function convertTime(time){	
-	return 1000*(time[4][0]*1+60*(time[3][0]*1+24*(time[2][0]*1+
+	return 1000*60*(time[4][0]*1+60*(time[3][0]*1+24*(time[2][0]*1+
 		30*(time[1][0]*1+12*time[0][0]))));
 }
 
