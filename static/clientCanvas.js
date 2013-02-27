@@ -82,8 +82,16 @@ function canvasMain() {
             movingNode = false;
         }
         if (manager.mode === CREATE_MODE) {
-            manager.project.addNode("",
-                                    event.offsetX, event.offsetY);
+            var addedNode = manager.project.addNode("", event.offsetX, event.offsetY)
+            if(addedNode){
+                manager.mode = NO_MODE;
+                currentSelectedNode = addedNode;
+                onEditNode();
+                $(".selected").removeClass("selected");
+                $("#selectNode").addClass("selected");
+
+            }
+
         }
         else if(manager.mode === DELETE_MODE) {
             manager.project.deleteNode(event.offsetX, event.offsetY);

@@ -76,8 +76,8 @@ ClientProject.prototype.addNode = function(name, x, y) {
         this.idCount++;
         var node = new ClientNode(id, name, x, y);
         this.nodes[id] = node;
+        return node;
     }
-
 };
 
 ClientProject.prototype.addConnector = function(startNodeId, endNodeId) {
