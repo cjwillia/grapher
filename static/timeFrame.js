@@ -8,7 +8,19 @@ function fillDeadLine(){
 	$("#endDate").val(date.getDate());
 	$("#endHour").val(date.getHours());
 	}
-	
+function saveDeadLineFromDesc(endY,endM,endD,endH){
+	var time=currentSelectedNode.x*convertTime(manager.project.timeScale)/20;
+	var date=new Date(time+manager.project.startDate);
+	console.log(endY,date.getFullYear(),endM,date.getMonth(),endD,date.getDate(),endH,date.getHours());
+	if ((1*endY!==date.getFullYear())||(1*endM!==date.getMonth())||
+	    (1*endD!==date.getDate())||(1*endH!==date.getHours())){
+		var newDate=new Date(endY,endM,endD,endH);
+		var timeGap=(newDate.getTime()-manager.project.startDate);
+		var pxGap=(timeGap/(convertTime(manager.project.timeScale)))*20;
+		if (pxGap<=0 || pxGap>=canvas.width){return}
+		else {currentSelectedNode.x=pxGap}
+	}
+}
 function drawCurrentTime(){
 	currentDate=new Date();
 	if (currentDate.getTime()<manager.project.startDate){return}
@@ -17,7 +29,7 @@ function drawCurrentTime(){
 		var pxGap=(timeGap/(convertTime(manager.project.timeScale)))*20;
 		currentDateX=pxGap;
 		ctx.beginPath();
-		ctx.strokeStyle="#015C65";
+		ctx.strokeStyle='rgba(50,50,50,0.4)';
 		ctx.moveTo(pxGap,0);
 		ctx.fillStyle = "#012932";
 		ctx.lineTo(pxGap,canvas.width);
@@ -76,6 +88,7 @@ function drawTimeScale(){
 	ctx.lineTo(x0+20,y0+5);
 	ctx.lineTo(x0+20,y0);
 	ctx.lineWidth=2;
+	ctx.strokeStyle="#015C65"
 	ctx.stroke();
 	var time=manager.project.timeScale;
 	var index=0;

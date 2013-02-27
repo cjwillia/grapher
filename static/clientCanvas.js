@@ -202,7 +202,6 @@ function drawConnection(x0, y0, x1, y1) {
 
 /* The function that does it all: draws every node you have */
 function drawNodes() {
-    drawCurrentTime();
     drawTimeScale();
     assert(manager.hasProject());
 
@@ -263,6 +262,8 @@ function drawNodes() {
         drawCircle(node.x, node.y, NODE_RADIUS);
         ctx.fillStyle = NODE_STYLE;
     });
+	
+    drawCurrentTime();
 }
 
 /* A temporary function to change the state based on keyboard input. */

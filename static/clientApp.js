@@ -113,6 +113,7 @@ function saveDesc() {
 	var endD=$("#endDate").val();
 	var endH=$("#endHour").val();
 	var holder=$("#ownership").val();
+	saveDeadLineFromDesc(endY,endM,endD,endH);
 
 	if (name !== undefined) {
         currentSelectedNode.name=name;
