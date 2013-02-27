@@ -102,6 +102,10 @@ function enterEditMode(){
 // save the description of the current node, assuming it's
 // stored in the form thingie on the right.
 function saveDesc() {
+    if (!currentSelectedNode || $("#editDesc").css("display") === "none") {
+        return;
+    }
+
 	var name=$("#nodeTitle").val();
 	var desc=$("#descText").val();
 	var startY=$("#startYear").val();
@@ -139,9 +143,8 @@ function saveDesc() {
     } if (endH) {
         currentSelectedNode.endH = endH;
     }
-
-    $(".clear").val("");
 }
+
 $(document).ready(function(){
 	verticalCenter($("#findForm"),$("#findProject"));
     // submits a search like "project foo" and loads the result
