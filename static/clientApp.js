@@ -146,9 +146,10 @@ $(document).ready(function(){
 		if ($("#textfield").val()!==""){
 			manager.findProject($("#textfield").val(), function() {
                 if (manager.hasProject()) {
+                    $(".selected").removeClass("selected");
+                    $("#selectNode").addClass("selected");
                     canvasMain();
                 }
-                // TODO: fix when not found
 			    enterEditMode();
             });
 		}

@@ -146,6 +146,7 @@ function canvasMain() {
         canvasData.onMouseMove(event);
 
     }, false);
+
     canvas.setAttribute('tabindex','0');
     canvas.focus();
 
