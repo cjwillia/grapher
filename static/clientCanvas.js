@@ -23,10 +23,6 @@ var movingNode;
 var lastMouseX;
 var lastMouseY;
 
-var arrow = new Image();
-arrow.src = "arrow.png";
-
-
 function resizeCanvas() {
     if (canvas) {
         var canvasPanel = $("#canvasPanel");
@@ -212,49 +208,16 @@ function drawCircle(cx, cy, radius) {
     ctx.fill();
 }
 
-
-function canvas_arrow(context, fromx, fromy, tox, toy){
-    ctx.fillStyle = "green";
-    ctx.beginPath();
-    var headlen = 20;   // length of head in pixels
-    var angle = Math.atan2(toy-fromy,tox-fromx);
-    context.moveTo(fromx, fromy);
-    context.lineTo(tox, toy);
-    context.lineTo(tox-headlen*Math.cos(angle-Math.PI/6),
-                   toy-headlen*Math.sin(angle-Math.PI/6));
-    context.moveTo(tox, toy);
-    context.lineTo(tox-headlen*Math.cos(angle+Math.PI/6),
-                   toy-headlen*Math.sin(angle+Math.PI/6));
-    ctx.lineTo(tox, toy);
-    ctx.fill();
-}
-
-
-function drawArrowhead(locx, locy, angle, sizex, sizey) {
-    var hx = sizex / 2;
-    var hy = sizey / 2;
-
-    ctx.save();
-    ctx.translate((locx ), (locy));
-    ctx.rotate(angle);
-    ctx.translate(-hx,-hy);
-
-    ctx.beginPath();
-    ctx.moveTo(0,0);
-    ctx.lineTo(0,1*sizey);
-    ctx.lineTo(1*sizex,1*hy);
-    ctx.closePath();
-    ctx.fill();
-    ctx.restore();
-}
-
-
+/* Draw an arrow from (x0, y0), to (x1, y1) */
 function drawArrow(x0, y0, x1, y1) {
 
+    ctx.fillStyle = "green";
+
+    var girth = 7; // radius of long part of arrow
+    var headLength = 20; // how long the head is
+    var headWidth = 10; // how far our the head goes on each side
+
     var theta = Math.atan2(y1 - y0, x1 - x0);
-    var girth = 20;
-    var headLength = 30;
-    var headWidth = 20;
     var dist = distance(x0, y0, x1, y1);
 
     ctx.save();
@@ -279,33 +242,14 @@ function drawArrow(x0, y0, x1, y1) {
  * fancier, this is the place to do it! */
 function drawConnection(x0, y0, x1, y1) {
 
-    ctx.fillStyle = "green";
 
     var theta = Math.atan2(y1 - y0, x1 - x0);
     var dist = distance(x0, y0, x1, y1);
     var offX = ((x1 - x0) / dist) * NODE_RADIUS;
     var offY = ((y1 - y0) / dist) * NODE_RADIUS;
 
-    drawArrow(x0 + offX, y0 + offY, x1 - offX, y1 - offY);
-    drawArrow(50, 50, 200, 200);
+    drawArrow(x0, y0, x1 - offX, y1 - offY);
 
-    // canvas_arrow(ctx, x0+offX, y0+offY, 20, 20);
-    // drawArrowhead(50, 50, Math.PI/4, 20, 200);
-
-    var theta = Math.atan2(y1 - y0, x1 - x0);
-    var cx = (x0 + x1) / 2;
-    var cy = (y0 + y1) / 2;
-    var arrowWidth = 20;
-    var arrowLength = distance(x0, y0, x1, y1) - NODE_RADIUS*2;
-
-    // drawRotated(arrow, cx, cy, arrowLength, arrowWidth, theta);
-
-    // ctx.strokeStyle = CONNECTION_STYLE;
-    // ctx.beginPath();
-    // ctx.moveTo(x0, y0);
-    // ctx.lineTo(x1, y1);
-    // ctx.closePath();
-    // ctx.stroke();
 
 }
 
