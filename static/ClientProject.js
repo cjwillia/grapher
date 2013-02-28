@@ -24,6 +24,7 @@ function ClientProject(obj) {
     this.idCount = obj.idCount;
     this.timeScale=obj.timeScale;
     this.startDate=obj.startDate;
+    this.offSetX=0;
 
 }
 

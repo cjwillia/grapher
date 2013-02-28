@@ -178,6 +178,8 @@ function canvasMain() {
                 for (var nodeId in manager.project.nodes) {
                     manager.project.nodes[nodeId].x -= dx;
                     manager.project.nodes[nodeId].y -= dy;
+		//also changing the start time point of the canvas
+		changeStartPoint(dx);
                 }
 
             }
