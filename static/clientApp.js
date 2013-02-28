@@ -48,7 +48,7 @@ function onDelNode(){
 function onEditNode(){
 	$("#editDesc").css("display","inline-block");
 	$("#helpText").css("display", "none");
-    $("#showDesc").css("display","none");
+        $("#showDesc").css("display","none");
 
     // fill the form with the currentSelectedNode's data
     // closures!
@@ -91,6 +91,7 @@ function onSelectNode(){
  ***************************************************/
 function enterEditMode(){
     $("ProjectControls").css("display", "none");
+    $("#bottomLine").css("display","none");
     $("#canvasPanel").css("display","block");
     $("#nodeDesc").css("display", "inline-block");
 }
@@ -227,16 +228,22 @@ function displayNode(curNode){
 	var holder=curNode.holder;
 	$("#curName").html(name);
 	if(holder){
-	    $("#curHolder").html("by "+holder+".");
+	    $("#curHolder").html(holder+" ");
     }
-	if(start && end){
-	    $("#curTime").html("From "+start+" to "+end+".");
+	else{
+	   $("#curHolder").html("public ");
     }
+	if(end){
+	    $("#curTime").html(end);
+    }
+	else{
+		$("#curTime").html("No deadline");
+	}
 	if (desc){
 	    $("#curDesc").html(desc);
     }
 	else{
-	    // $("#curDesc").html("No description yet");
+	    $("#curDesc").html("No description yet");
 	    $("#curDesc").html("");
     }
 }

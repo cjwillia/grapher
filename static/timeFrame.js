@@ -1,5 +1,7 @@
 var currentDate=new Date();
 var currentDateX=0;
+
+//Fill the deadline form in the decription according to the x coordinate of the currrent node
 function fillDeadLine(){
 	var time=currentSelectedNode.x*convertTime(manager.project.timeScale)/20;
 	var date=new Date(time+manager.project.startDate);
@@ -8,6 +10,8 @@ function fillDeadLine(){
 	$("#endDate").val(date.getDate());
 	$("#endHour").val(date.getHours());
 	}
+
+//change the x coordinate of the current node according to the deadline form in the description
 function saveDeadLineFromDesc(endY,endM,endD,endH){
 	endM=endM*1-1;
 	var time=currentSelectedNode.x*convertTime(manager.project.timeScale)/20;
@@ -22,6 +26,8 @@ function saveDeadLineFromDesc(endY,endM,endD,endH){
 		else {currentSelectedNode.x=pxGap}
 	}
 }
+
+//draw the current time point in the canvas
 function drawCurrentTime(){
 	currentDate=new Date();
 	if (currentDate.getTime()<manager.project.startDate){return}
@@ -41,21 +47,27 @@ function drawCurrentTime(){
 		ctx.fillText("Current Time",pxGap+5,15);	
 	}
 }
+//helper function to change the display mode for an jquery object
 function display(a){
 	a.css("display","block");
 }
 function hide(a){
 	a.css("display","none");
 }
+
+//get the date of the node according to the x coordinate
 function  getDeadline(x){
 	var timeGap=x*(convertTime(manager.project.timeScale));
 	return (new Date(manager.project.startDate+Math.floor(timeGap)));
 	}
-var foo=true;
+
+//check if one node's deadline pass according to it's x coordinate and the current date
 function passDeadline(node){
 	//var deadLine=getDeadline(node.x);
 	return (node.x<currentDateX);
 	}	
+
+//return a 2d list form of time based on the year, month,day,hour,minute given
 var timeFormat=function(year,month,day,hour,minute){
 	var time=[];
 	time.push([year,"years"]);
@@ -65,6 +77,8 @@ var timeFormat=function(year,month,day,hour,minute){
 	time.push([minute,"minutes"]);
 	return time;
 }
+
+//save the timeScale from the form when pressing the "save button"
 function saveScaleData(){
 	$("#saveScale").click(function(){
 		var year=$("#scaleYear").val();
@@ -79,7 +93,9 @@ function saveScaleData(){
 			console.log(manager.project.timeScale);
 		};})
 	}
-	
+
+
+//draw the timeScale icon in the canvas
 function drawTimeScale(){
 	var y0=canvas.height-40;
 	var x0=30;
@@ -107,6 +123,7 @@ function drawTimeScale(){
 	ctx.fillStyle = "#012932";
 	ctx.fillText(text,x0-10,y0+25);	
 }
+//convert the 2d list time format to be milliseconds
 function convertTime(time){	
 	return 1000*60*(time[4][0]*1+60*(time[3][0]*1+24*(time[2][0]*1+
 		30*(time[1][0]*1+12*time[0][0]))));

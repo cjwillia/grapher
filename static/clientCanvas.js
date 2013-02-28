@@ -223,6 +223,7 @@ function drawNodes() {
 
         // draw the node's name
         ctx.fillStyle = NODE_NAME_STYLE;
+	ctx.font="15px Arial"
         ctx.textAlign = "center";
         ctx.textBase = "bottom";
         ctx.fillText(node.name, node.x, node.y - NODE_RADIUS - 5);
