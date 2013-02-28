@@ -180,7 +180,9 @@ app.put("/projects", function(request, response){
         id: generateID(),
         name: name,
         nodes: {},
-        idCount: 1
+        idCount: 1,
+        timeScale: [["","years"],["","months"],["","days"],["1","hour"],
+	            ["","minutes"]]
     });
 
 
