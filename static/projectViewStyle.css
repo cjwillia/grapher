@@ -18,7 +18,7 @@ body {
 /* for some reason, specify the font in body doesn't always get to children
  * (e.g. buttons, etc.). Therefore, add them to the font class and they'll
  * get the right font. */
-input,textarea,body,#helpText {
+input,textarea,body,.description {
     font-family: "Trebuchet MS", Helvetica, sans-serif;
 /* font-family: Impact, Charcoal, sans-serif; */
 }
@@ -73,7 +73,20 @@ h1 {
 	float: left;
 }
 
-#helpText {
+#blurb {
+    margin-top: 20px;
+}
+
+#punchline {
+    margin: 20px;
+    font-size: 200%;
+}
+
+#preamble {
+    font-size: 150%;
+}
+
+.description {
     padding: 10px;
     display: inline-block;
 }

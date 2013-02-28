@@ -100,14 +100,16 @@ function canvasMain() {
             movingNode = false;
         }
         if (manager.mode === CREATE_MODE) {
-            var addedNode = manager.project.addNode("", event.offsetX, event.offsetY)
+            var addedNode = manager.project.addNode("", event.offsetX,
+                                                    event.offsetY)
             if(addedNode){
+
                 manager.mode = NO_MODE;
                 currentSelectedNode = addedNode;
                 onEditNode();
                 $(".selected").removeClass("selected");
                 $("#selectNode").addClass("selected");
-
+                $("#nodeTitle").select();
             }
 
         }
@@ -136,12 +138,14 @@ function canvasMain() {
         }
         else if(manager.mode === NO_MODE) {
             if(hoveredNodeId){
+                $("#nodeTitle").select();
             }
             else{
                 putDescAway();
             }
         }
     }, false);
+
     canvas.addEventListener('mousemove', function(event) {
 
         hoveredNodeId = manager.project.findNodeByPosition(

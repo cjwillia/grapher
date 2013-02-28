@@ -19,7 +19,7 @@ function verticalCenter(parent, child){
 function centerEverything() {
     // make the whole search thing centered.
 
-    $("#projectSelect").css("margin-top", $(window).height() * 0.3);
+    $("#projectSelect").css("margin-top", $(window).height() * 0.15);
 
     verticalCenter("#findForm", "#findProject");
 }
