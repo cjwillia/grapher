@@ -55,7 +55,7 @@ function onDelNode(){
 function onEditNode(){
 	$("#editDesc").css("display","inline-block");
 	$("#helpText").css("display", "none");
-        $("#showDesc").css("display","none");
+    $("#showDesc").css("display","none");
 
     // fill the form with the currentSelectedNode's data
     // closures!
