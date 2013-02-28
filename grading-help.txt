@@ -1,0 +1,38 @@
+Brian Malehorn, malehorn@andrew.cmu.edu
+Cory Williams, cjwillia@andrew.cmu.edu
+Yajing Tang, yajingt@andrew.cmu.edu
+
+1. Required Elements [40 pts; 5 pts each]
+
+   HTML
+
+Our main html file is in static/projectView.html. It uses tables, forms, all
+that jazz. Mostly though, it's just a shell to be manipulated by our javascript.
+
+   CSS
+
+Our main css file is static/projectView.css. We use lots of classes and ids to
+make things look nice. We also change elements' color via css.
+
+   Robust App
+
+As far as we know, you can't make our app do stupid things, and it never throws exceptions.
+
+    User Experience
+
+We put a lot thought into the different fonts and sizes of things. We tested
+our app on several people to account for (tons of) non-intuitive parts of our app.
+
+    Design Process, User Testing and Iterative Design
+
+We have most of our model-changing code is static/clientApp.js, and most of our
+visual code in static/clientCanvas.js.
+
+    Effort
+
+I've slept for 12 hours in the past 3 days.
+
+    Code Design / Style
+
+We have several objects for different purposes, like ProjectManager,
+ClientProject, ClientNode, etc.
