@@ -175,3 +175,20 @@ b {
     left:35%;
 	margin:0 auto
 }
+#curName{
+	font-size:200%;
+	color:#225E79
+}
+#curHolder,#curTime{
+	font-size:70%;
+	color:#333333
+}
+#bottomLine{
+	position:absolute;
+	bottom:20px;
+	width:95%
+}
+#bottomDesc{
+	color:#666666;
+	text-align:right;
+}
