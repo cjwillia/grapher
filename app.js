@@ -33,7 +33,12 @@ function ServerProject(obj) {
 
     // id of the next node to be created
     this.idCount = obj.idCount;
-    this.timeScale = obj.timeScale;
+
+    this.timeScale= obj.timeScale;
+
+        // [["","years"],["","months"],["","days"],["1","hour"],
+	    //         ["","minutes"]];
+
     this.startDate=(new Date()).getTime();
     this.offSetX=obj.offSetX;
 }

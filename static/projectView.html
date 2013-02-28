@@ -30,7 +30,7 @@
 			  <span class="button" id="addNode">Add Task</span>
 			  <span class="button" id="delNode">Remove Task</span>
 			  <span class="button" id="addEdge">Connect Tasks</span>
-			  <span class="button" id="selectNode">Select Task</span>
+			  <span class="button" id="selectNode">Edit Task</span>
 			  <span class="button actionButton" id="saveProj">Save Project</span>
 			  <span class="button actionButton" id="showHelp">Show Help</span>
 			</div>
@@ -38,13 +38,39 @@
           <!-- this is the div that contains all of the text-editting info -->
 		  <div id="nodeDesc">
 		  	<div id="helpText">
-	   	  		<p>Grapher is a tool for organizing projects visually. Use the buttons on the control panel above the project
-	   	  			to make edits to the project on the canvas</p>
-	   	  		<br />
-	   	  		<p><b>Keyboard shortcuts: [B] - 'Add Task' | [C] - 'Add Connection' | [D] - 'Delete Node' | [F] - Remove all Connectors from Node
+
+	   	  		<!-- <p> -->
+                <!--   Grapher is a tool for organizing projects visually. Use the -->
+	   	  		<!-- 	buttons on the control panel above the project to make -->
+	   	  		<!-- 	edits to the project on the canvas. You can create tasks to -->
+	   	  		<!-- 	do, as well as connect two tasks to show that one task -->
+	   	  		<!-- 	requires another to be completed. -->
+                <!-- </p>  <br /> -->
+
+                <p>
+                  "Add Task" lets you create a new task, "Remove Task" deletes
+                  a task, and "Connect Tasks" adds a connection between two
+                  tasks. "Edit Task" lets you change information about a
+                  particular task and drag it around. "Save Project" saves the
+                  project (so you can access it later), and "Show Help" makes
+                  this message display.
+                </p>
+                <br />
+                <p>
+                  Each project has a start date, which is the time that the
+                  project was created. When you put down a task, its offset
+                  from the left side of the screen determines its (default)
+                  deadline. For example, the middle of the screen might be due
+                  in 1 day, and a few inches to the right of the middle would
+                  be due in 1 day and 6 hours. You can the time/distance ratio
+                  by clicking on the "1 hour" at the bottom right of the
+                  screen.
+                </p>
+                <br />
+
+
+	   	  		<p><b>Keyboard shortcuts: [B] - 'Add Task' | [C] - 'Add Connection' | [D] - 'Delete Node' | [F] - Remove all Connections from Task
 	   	  		</b></p>
-	   	  		<br />
-	   	  		<p>Pressing the key of the mode you are currently in will return you to the default select mode.</p>
 	   	  	</div>
   			<div id="editDesc">
 			  <div id="titleAndDesc">
@@ -98,6 +124,6 @@
       </div>
 		<div id="bottomLine">
 			<hr size=2 align="center" noshade >
-			<div id="bottomDesc"> 2013 Grapher by Brian, Kori,Yajing</div> 
+			<div id="bottomDesc"> 2013 Grapher by Brian, Kori,Yajing</div>
   </body>
 </html>

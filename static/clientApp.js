@@ -173,7 +173,7 @@ $(document).ready(function(){
     // if they hit enter on findProject, continue
     // copied from http://stackoverflow.com/questions/4418819
     $("#textfield").keydown(function(event) {
-        if (event.keyCode == 13) {
+        if (event.keyCode === 13) {
             submitFindProject();
             // return false means don't register the key as being pressed
             return false;
@@ -181,6 +181,12 @@ $(document).ready(function(){
     }).focus(); // also, focus on textarea to begin with (a la google)
 
     $("#editDesc").keyup(saveDesc);
+    $("#nodeTitle").keydown(function(event) {
+        // they can't press enter to submit this
+        if (event.keyCode === 13) {
+            return false;
+        }
+    });
     $("#editDesc").keydown(saveDesc);
 
 	$("#selectProject").click(function(){
