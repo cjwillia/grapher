@@ -66,16 +66,15 @@ function onEditNode(){
             jQueryObj.val("");
         }
     }
+
 	fillIfTrue($("#nodeTitle"), currentSelectedNode.name);
 	fillIfTrue($("#descText"), currentSelectedNode.desc);
 	fillIfTrue($("#startYear"), currentSelectedNode.startY);
-        fillIfTrue($("#startMonth"), currentSelectedNode.startM);
+    fillIfTrue($("#startMonth"), currentSelectedNode.startM);
 	fillIfTrue($("#startdate"), currentSelectedNode.startD);
 	fillIfTrue($("#startHour"), currentSelectedNode.startH);
 	fillDeadLine()
 	fillIfTrue($("#ownership"), currentSelectedNode.holder);
-
-	console.log("onEditNode");
 }
 
 
