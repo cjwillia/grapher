@@ -26,6 +26,8 @@ function ClientProject(obj) {
     console.log(obj);
 
     this.timeScale=obj.timeScale;
+    this.startDate=obj.startDate;
+    this.offSetX=0;
 
     this.startDate=obj.startDate;
 }

@@ -40,6 +40,7 @@ function ServerProject(obj) {
 	    //         ["","minutes"]];
 
     this.startDate=(new Date()).getTime();
+    this.offSetX=obj.offSetX;
 }
 
 

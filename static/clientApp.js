@@ -38,6 +38,7 @@ function onCreateNode(){
     // and now make sure that the createNode button is selected
     $(".selected").removeClass("selected");
     $("#addNode").addClass("selected");
+    $("#showDesc").css("display","none");
     putDescAway();
 }
 
@@ -99,6 +100,7 @@ function enterEditMode(){
     $("ProjectControls").css("display", "none");
     $("#bottomLine").css("display","none");
     $("#canvasPanel").css("display","block");
+    $("#showDesc").css("display","none");
     $("#nodeDesc").css("display", "inline-block");
 }
 
@@ -198,6 +200,8 @@ $(document).ready(function(){
 		$("#idSelect").val("");
 	});
 	$("#addNode").click(function(){
+		
+    		$("#helpText").css("display","none");
 		onCreateNode();
 	});
 	$("#delNode").click(function(){

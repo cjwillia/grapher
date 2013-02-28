@@ -18,7 +18,7 @@ function getStartDate(node) {
 }
 
 function getEndDate(node) {
-    var time=node.x*convertTime(manager.project.timeScale)/20;
+    var time=(node.x-manager.project.offSetX)*convertTime(manager.project.timeScale)/20;
     var date=new Date(time+manager.project.startDate);
     var year=(date.getFullYear());
     var month=(date.getMonth()+1);

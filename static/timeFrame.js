@@ -3,7 +3,7 @@ var currentDateX=0;
 
 //Fill the deadline form in the decription according to the x coordinate of the currrent node
 function fillDeadLine(){
-	var time=currentSelectedNode.x*convertTime(manager.project.timeScale)/20;
+	var time=(currentSelectedNode.x-manager.project.offSetX)*convertTime(manager.project.timeScale)/20;
 	var date=new Date(time+manager.project.startDate);
 	$("#endYear").val(date.getFullYear());
 	$("#endMonth").val(date.getMonth()+1);
@@ -11,19 +11,22 @@ function fillDeadLine(){
 	$("#endHour").val(date.getHours());
 	}
 
+//when moving all nodes, change the start time point of the whole canvas
+function changeStartPoint(dx){
+	manager.project.offSetX-=dx;
+	}
 //change the x coordinate of the current node according to the deadline form in the description
 function saveDeadLineFromDesc(endY,endM,endD,endH){
 	endM=endM*1-1;
-	var time=currentSelectedNode.x*convertTime(manager.project.timeScale)/20;
+	var time=(currentSelectedNode.x-manager.project.offSetX)*convertTime(manager.project.timeScale)/20;
 	var date=new Date(time+manager.project.startDate);
-	console.log(endY,date.getFullYear(),endM,date.getMonth(),endD,date.getDate(),endH,date.getHours());
 	if ((1*endY!==date.getFullYear())||(1*endM!==date.getMonth())||
 	    (1*endD!==date.getDate())||(1*endH!==date.getHours())){
 		var newDate=new Date(endY,endM,endD,endH);
 		var timeGap=(newDate.getTime()-manager.project.startDate);
 		var pxGap=(timeGap/(convertTime(manager.project.timeScale)))*20;
 		if (pxGap<=0 || pxGap>=canvas.width){return}
-		else {currentSelectedNode.x=pxGap}
+		else {currentSelectedNode.x=pxGar+manager.project.offSetX}
 	}
 }
 
@@ -33,13 +36,13 @@ function drawCurrentTime(){
 	if (currentDate.getTime()<manager.project.startDate){return}
 	else{
 		var timeGap=(currentDate.getTime()-manager.project.startDate);
-		var pxGap=(timeGap/(convertTime(manager.project.timeScale)))*20;
+		var pxGap=(timeGap/(convertTime(manager.project.timeScale)))*20+manager.project.offSetX;
 		currentDateX=pxGap;
 		ctx.beginPath();
 		ctx.strokeStyle='rgba(50,50,50,0.4)';
 		ctx.moveTo(pxGap,0);
-		ctx.fillStyle = "#012932";
 		ctx.lineTo(pxGap,canvas.width);
+		ctx.fillStyle = "#012932";
 		ctx.lineWidth=3;
 		ctx.stroke();
 		ctx.font = "10px Arial";
@@ -57,7 +60,7 @@ function hide(a){
 
 //get the date of the node according to the x coordinate
 function  getDeadline(x){
-	var timeGap=x*(convertTime(manager.project.timeScale));
+	var timeGap=(x-manager.project.offSetX)*(convertTime(manager.project.timeScale));
 	return (new Date(manager.project.startDate+Math.floor(timeGap)));
 	}
 
@@ -106,6 +109,7 @@ function drawTimeScale(){
 	ctx.lineTo(x0+20,y0);
 	ctx.lineWidth=2;
 	ctx.strokeStyle="#015C65"
+	ctx.fillStyle = "#012932";
 	ctx.stroke();
 	var time=manager.project.timeScale;
 	var index=0;
