@@ -23,6 +23,24 @@ var movingNode;
 var lastMouseX;
 var lastMouseY;
 
+
+
+function resizeCanvas() {
+    if (canvas) {
+        var canvasPanel = $("#canvasPanel");
+        canvas.width = canvasPanel.width();
+        var marginAtBottomOfCanvas = 30;
+        var newHeight = $(window).height() - $(canvas).offset().top -
+            marginAtBottomOfCanvas
+        if (newHeight >= 0) {
+        canvas.height = newHeight;
+        }
+    }
+}
+
+$(window).resize(resizeCanvas);
+
+
 /* "main" function of the whole canvas. Sets everything up. */
 function canvasMain() {
 
@@ -176,6 +194,8 @@ function canvasMain() {
     canvas.setAttribute('tabindex','0');
     canvas.focus();
 
+    $(window).resize(resizeCanvas);
+
     setInterval(redrawAll, REDRAW_ALL_PERIOD);
 
 }
@@ -263,7 +283,7 @@ function drawNodes() {
         drawCircle(node.x, node.y, NODE_RADIUS);
         ctx.fillStyle = NODE_STYLE;
     });
-	
+
     drawCurrentTime();
 }
 
@@ -317,9 +337,7 @@ function checkSave(){
 /* All drawings on the canvas should come from here. Nowhere else*/
 function redrawAll() {
 
-    var canvasPanel = $("#canvasPanel");
-    canvas.width = canvasPanel.width();
-    canvas.height = canvasPanel.height();
+    resizeCanvas();
 
     if (manager.hasProject()) {
         if(!manager.deleting){

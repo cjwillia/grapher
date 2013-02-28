@@ -9,16 +9,23 @@ var buttonSave;
  * main
  ***************************************************/
 //css configuration
-function verticalCenter(parentDiv,childDiv){
-	var height1=parentDiv.height();
-	var height2=childDiv.height();
+function verticalCenter(parent, child){
+	var height1=$(parent).height();
+	var height2=$(child).height();
 	var height=(height1-height2)/2;
-	childDiv.css("top",height);
+	$(child).css("margin-top",height);
+}
+
+function centerEverything() {
+    // make the whole search thing centered.
+
+    $("#projectSelect").css("margin-top", $(window).height() * 0.3);
+
+    verticalCenter("#findForm", "#findProject");
 }
 /* Main function called when the page loads. */
 function initPage(){
     manager = new ProjectManager();
-
 }
 
 /***************************************************
@@ -142,7 +149,9 @@ function saveDesc() {
 }
 
 $(document).ready(function(){
-	verticalCenter($("#findForm"),$("#findProject"));
+
+    centerEverything();
+
     // submits a search like "project foo" and loads the result
     saveScaleData();
     var submitFindProject = function() {
@@ -215,6 +224,8 @@ $(document).ready(function(){
     // and last but not least, run the main function
     initPage();
 });
+
+$(window).resize(centerEverything);
 
 function displayNode(curNode){
 	$("#showDesc").css("display","inline-block");
