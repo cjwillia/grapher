@@ -254,19 +254,17 @@ function drawArrow(x0, y0, x1, y1) {
     var headLength = 30;
     var headWidth = 20;
     var dist = distance(x0, y0, x1, y1);
-    var dx = x1 - x0;
-    var dy = y1 - y0;
 
     ctx.save();
     ctx.translate(x0, y0);
     ctx.rotate(theta);
 
     ctx.moveTo(0,0);
-    ctx.lineTo(dx-headLength, 0);
-    ctx.lineTo(dx-headLength, headWidth);
-    ctx.lineTo(dx, 0 - girth/2);
-    ctx.lineTo(dx-headLength, -girth - headWidth);
-    ctx.lineTo(dx-headLength, -girth);
+    ctx.lineTo(dist-headLength, girth/2);
+    ctx.lineTo(dist-headLength, girth/2 + headWidth);
+    ctx.lineTo(dist, 0);
+    ctx.lineTo(dist-headLength, -girth/2 - headWidth);
+    ctx.lineTo(dist-headLength, -girth/2);
     ctx.lineTo(0, -girth);
     ctx.fill();
 
