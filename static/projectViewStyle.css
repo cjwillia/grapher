@@ -176,12 +176,24 @@ b {
 	margin:0 auto
 }
 #curName{
+	margin:10px 10px;
+	margin-left:20px;
+	display:block;
 	font-size:200%;
-	color:#225E79
+	color:#225E79;
+}
+#holderAndDate{
+	margin:10px 10px;
+	margin-left:100px;
 }
 #curHolder,#curTime{
-	font-size:70%;
+	font-size:100%;
 	color:#333333
+}
+#curDesc{
+	color:#225179;
+	margin-left:20px;
+	margin-top:10px;
 }
 #bottomLine{
 	position:absolute;

@@ -10,20 +10,26 @@ function clone(obj) {
 
 function getStartDate(node) {
     if (node.startY && node.startM && node.startD && node.startH) {
-        return node.startM + "-" + node.startD + "-" + node.startY + " " +
-            node.startH;
+        return node.startM + "-" + node.startD + "-" + node.startY + ", " +
+            hour;
     } else {
         return "";
     }
 }
 
 function getEndDate(node) {
-    if (node.endY && node.endM && node.endD && node.endH) {
-        return node.endM + "-" + node.endD + "-" + node.endY + " " +
-            node.endH;
-    } else {
-        return "";
-    }
+    var time=node.x*convertTime(manager.project.timeScale)/20;
+    var date=new Date(time+manager.project.startDate);
+    var year=(date.getFullYear());
+    var month=(date.getMonth()+1);
+    var day=(date.getDate());
+    var hour=(date.getHours());
+    if (hour<12){hour=hour+" am";}
+    else if (hour===12){hour="12 pm";}
+    else if (hour*1===24){hour="12 am";}
+    else {hour=hour%12+" pm";}
+    return month + "-" + day + "-" +year + ", " +
+            hour;
 }
 
 /* hides the interface that lets you fill in a description of a node away, and
