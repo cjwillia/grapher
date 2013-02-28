@@ -13,7 +13,7 @@ function fillDeadLine(){
 
 //when moving all nodes, change the start time point of the whole canvas
 function changeStartPoint(dx){
-	manager.project.offSetX+=dx;
+	manager.project.offSetX-=dx;
 	}
 //change the x coordinate of the current node according to the deadline form in the description
 function saveDeadLineFromDesc(endY,endM,endD,endH){
@@ -41,8 +41,8 @@ function drawCurrentTime(){
 		ctx.beginPath();
 		ctx.strokeStyle='rgba(50,50,50,0.4)';
 		ctx.moveTo(pxGap,0);
-		ctx.fillStyle = "#012932";
 		ctx.lineTo(pxGap,canvas.width);
+		ctx.fillStyle = "#012932";
 		ctx.lineWidth=3;
 		ctx.stroke();
 		ctx.font = "10px Arial";
@@ -109,6 +109,7 @@ function drawTimeScale(){
 	ctx.lineTo(x0+20,y0);
 	ctx.lineWidth=2;
 	ctx.strokeStyle="#015C65"
+	ctx.fillStyle = "#012932";
 	ctx.stroke();
 	var time=manager.project.timeScale;
 	var index=0;
