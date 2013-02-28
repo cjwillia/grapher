@@ -22,9 +22,12 @@ function ClientProject(obj) {
 
     // id of the next node to be created
     this.idCount = obj.idCount;
-    this.timeScale=obj.timeScale;
-    this.startDate=obj.startDate;
 
+    console.log(obj);
+
+    this.timeScale=obj.timeScale;
+
+    this.startDate=obj.startDate;
 }
 
 /* all functions are implemented further below. */
@@ -53,9 +56,6 @@ ClientProject.prototype.findNodeByPosition = function(x, y) {};
 // Delete a node, including any connections to or from it.
 ClientProject.prototype.deleteNode = function(x, y) {};
 
-
-// Make a simple object version of this.
-ClientProject.prototype.safeClone = function() {};
 
 /***************************************************
  * implementation
@@ -176,17 +176,4 @@ ClientProject.prototype.deleteNode = function(x, y) {
         delete(this.nodes[toDelete]);
     }
     this.deleting = false;
-};
-
-ClientProject.prototype.safeClone = function() {
-    var obj = {};
-    obj.id = this.id;
-    obj.name = this.name;
-    obj.nodes = {};
-    for (nodeId in this.nodes) {
-        obj.nodes[nodeId] = this.nodes[nodeId].safeClone();
-    }
-    assert(typeof obj.nodes === "object");
-    obj.idCount = this.idCount;
-    return obj;
 };
