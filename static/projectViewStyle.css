@@ -18,8 +18,9 @@ body {
 /* for some reason, specify the font in body doesn't always get to children
  * (e.g. buttons, etc.). Therefore, add them to the font class and they'll
  * get the right font. */
-input,textarea,body {
-    font-family: Impact, Charcoal, sans-serif;
+input,textarea,body,#helpText {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+/* font-family: Impact, Charcoal, sans-serif; */
 }
 
 #content {
@@ -28,21 +29,20 @@ input,textarea,body {
 }
 
 h1 {
-		color:#034769;
+	color:#034769;
     background-color: #63ADD0;
     font-size: 48px;
-		font-family:'Pirata One',cursive;
+	font-family:'Pirata One',cursive;
     text-align: center;
     margin: 0.4em;
     padding: 10px;
     box-shadow: 0px 5px 5px -5px #000;
     border-radius: 15px;
-    text-shadow: 0px 1px 1px -1px #fff;
+    text-shadow: 0px 1px 1px #fff;
 }
 
 #projectSelect {
-    text-align:center;
-    margin-top:20%;
+    text-align: center;
 }
 
 .line {
@@ -74,27 +74,26 @@ h1 {
 }
 
 #helpText {
-  padding: 10px;
-  font-family: Helvetica;
-  display: inline-block;
+    padding: 10px;
+    display: inline-block;
 }
 
 p {
-  display: block;
+    display: block;
 }
 
 b {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 #nodeDesc {
-  display: none;
-  width: 80%;
+    display: none;
+    width: 80%;
 }
 
 #editDesc {
-  padding: 10px;
-  display: none;
+    padding: 10px;
+    display: none;
 }
 
 #showDesc {
@@ -111,7 +110,7 @@ b {
 #dateAndHolder {
 	display:inline-block;
 	width:55%;
-  padding: 10px;
+    padding: 10px;
 }
 
 #nodeTitle {
@@ -122,13 +121,13 @@ b {
     border:none;
 }
 #descText{
-		height:100px;
+	height:100px;
 }
 #descText,#nodeTitle{
-		margin-bottom:5px;
-		margin-right:15px;
-		width:100%;
-		padding:5px;
+	margin-bottom:5px;
+	margin-right:15px;
+	width:100%;
+	padding:5px;
 }
 
 .button {
@@ -143,20 +142,21 @@ b {
     border-radius: .5em;
     text-decoration:none;
     box-shadow: 0px 3px 2px -2px #000;
-    text-shadow: 0px 2px 2px -1px #fff;
+    text-shadow: 0px 2px 2px #000;
 }
 
-#saveProj {
-  background-color: #DDDD00;
+.actionButton {
+    color: black;
+    background-color: yellow;
+    text-shadow: 0px 2px 2px #fff;
 }
 
 /* to resize the canvas, resize this */
 #canvasPanel {
-		position:relative;
+	position:relative;
     display:block;
     text-align:center;
-    height: 300px;
-		clear:both;
+	clear:both;
 }
 
 #mainCanvas {
@@ -172,6 +172,6 @@ b {
 	display:none;
 	position:absolute;
 	top:50%;
-  left:35%;
+    left:35%;
 	margin:0 auto
 }
